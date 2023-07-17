@@ -40,7 +40,7 @@ import SidenavCard from "examples/Sidenav/SidenavCard";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
-
+import logo from "assets/images/logo.png";
 // Soft UI Dashboard PRO React context
 import { useSoftUIController, setMiniSidenav } from "context";
 
@@ -81,8 +81,8 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         <Link
           key={key}
           href={href}
-          target="_blank"
-          rel="noreferrer"
+          target='_blank'
+          rel='noreferrer'
           sx={{ textDecoration: "none" }}
         >
           <SidenavItem name={name} nested />
@@ -123,8 +123,8 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           <Link
             href={href}
             key={key}
-            target="_blank"
-            rel="noreferrer"
+            target='_blank'
+            rel='noreferrer'
             sx={{ textDecoration: "none" }}
           >
             <SidenavItem name={name} active={key === itemName} />
@@ -149,8 +149,8 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <Link
               href={href}
               key={key}
-              target="_blank"
-              rel="noreferrer"
+              target='_blank'
+              rel='noreferrer'
               sx={{ textDecoration: "none" }}
             >
               <SidenavCollapse
@@ -182,7 +182,11 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
               icon={icon}
               active={key === collapseName}
               open={openCollapse === key}
-              onClick={() => (openCollapse === key ? setOpenCollapse(false) : setOpenCollapse(key))}
+              onClick={() =>
+                openCollapse === key
+                  ? setOpenCollapse(false)
+                  : setOpenCollapse(key)
+              }
             >
               {collapse ? renderCollapse(collapse) : null}
             </SidenavCollapse>
@@ -192,10 +196,10 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         returnValue = (
           <SoftTypography
             key={key}
-            display="block"
-            variant="caption"
-            fontWeight="bold"
-            textTransform="uppercase"
+            display='block'
+            variant='caption'
+            fontWeight='bold'
+            textTransform='uppercase'
             opacity={0.6}
             pl={3}
             mt={2}
@@ -214,31 +218,38 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   );
 
   return (
-    <SidenavRoot {...rest} variant="permanent" ownerState={{ transparentSidenav, miniSidenav }}>
-      <SoftBox pt={3} pb={1} px={4} textAlign="center">
+    <SidenavRoot
+      {...rest}
+      variant='permanent'
+      ownerState={{ transparentSidenav, miniSidenav }}
+    >
+      <SoftBox pt={3} pb={1} px={4} textAlign='center'>
         <SoftBox
           display={{ xs: "block", xl: "none" }}
-          position="absolute"
+          position='absolute'
           top={0}
           right={0}
           p={1.625}
           onClick={closeSidenav}
           sx={{ cursor: "pointer" }}
         >
-          <SoftTypography variant="h6" color="secondary">
+          <SoftTypography variant='h6' color='secondary'>
             <Icon sx={{ fontWeight: "bold" }}>close</Icon>
           </SoftTypography>
         </SoftBox>
-        <SoftBox component={NavLink} to="/" display="flex" alignItems="center">
-          {brand && <SoftBox component="img" src={brand} alt="Soft UI Logo" width="2rem" />}
+        <SoftBox component={NavLink} to='/' display='flex' alignItems='center'>
+          {logo && (
+            <SoftBox
+              component='img'
+              src={logo}
+              alt='Soft UI Logo'
+              width='100%'
+            />
+          )}
           <SoftBox
             width={!brandName && "100%"}
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
-          >
-            <SoftTypography component="h6" variant="button" fontWeight="medium">
-              {brandName}
-            </SoftTypography>
-          </SoftBox>
+          ></SoftBox>
         </SoftBox>
       </SoftBox>
       <Divider />
@@ -259,7 +270,15 @@ Sidenav.defaultProps = {
 
 // Typechecking props for the Sidenav
 Sidenav.propTypes = {
-  color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
+  color: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "info",
+    "success",
+    "warning",
+    "error",
+    "dark",
+  ]),
   brand: PropTypes.string,
   brandName: PropTypes.string.isRequired,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,

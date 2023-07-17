@@ -37,9 +37,9 @@ function PageLayout({ background, children }) {
 
   return (
     <SoftBox
-      width="100vw"
-      height="100%"
-      minHeight="100vh"
+      width='100vw'
+      height='100%'
+      minHeight='110vh'
       bgColor={background}
       sx={{ overflowX: "hidden" }}
     >
