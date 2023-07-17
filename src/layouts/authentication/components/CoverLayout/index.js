@@ -33,22 +33,22 @@ import Footer from "layouts/authentication/components/Footer";
 // Soft UI Dashboard PRO React page layout routes
 import pageRoutes from "page.routes";
 
-function CoverLayout({ color, header, title, description, image, top, children }) {
+function CoverLayout({
+  color,
+  header,
+  title,
+  description,
+  image,
+  top,
+  children,
+}) {
   return (
-    <PageLayout background="white">
-      <DefaultNavbar
-        routes={pageRoutes}
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/soft-ui-dashboard-pro-react",
-          label: "buy now",
-        }}
-      />
+    <PageLayout background='white'>
       <Grid
         container
-        justifyContent="center"
+        justifyContent='center'
         sx={{
-          minHeight: "75vh",
+          minHeight: "100vh",
           margin: 0,
         }}
       >
@@ -58,11 +58,20 @@ function CoverLayout({ color, header, title, description, image, top, children }
               {!header ? (
                 <>
                   <SoftBox mb={1}>
-                    <SoftTypography variant="h3" fontWeight="bold" color={color} textGradient>
+                    <SoftTypography
+                      variant='h3'
+                      fontWeight='bold'
+                      color={color}
+                      textGradient
+                    >
                       {title}
                     </SoftTypography>
                   </SoftBox>
-                  <SoftTypography variant="body2" fontWeight="regular" color="text">
+                  <SoftTypography
+                    variant='body2'
+                    fontWeight='regular'
+                    color='text'
+                  >
                     {description}
                   </SoftTypography>
                 </>
@@ -75,20 +84,21 @@ function CoverLayout({ color, header, title, description, image, top, children }
         </Grid>
         <Grid item xs={12} md={5}>
           <SoftBox
-            height="100%"
+            height='100%'
             display={{ xs: "none", md: "block" }}
-            position="relative"
+            position='relative'
             right={{ md: "-12rem", xl: "-16rem" }}
             mr={-16}
             sx={{
               transform: "skewX(-10deg)",
               overflow: "hidden",
-              borderBottomLeftRadius: ({ borders: { borderRadius } }) => borderRadius.lg,
+              borderBottomLeftRadius: ({ borders: { borderRadius } }) =>
+                borderRadius.lg,
             }}
           >
             <SoftBox
               ml={-8}
-              height="100%"
+              height='100%'
               sx={{
                 backgroundImage: `url(${image})`,
                 backgroundSize: "cover",
@@ -98,7 +108,6 @@ function CoverLayout({ color, header, title, description, image, top, children }
           </SoftBox>
         </Grid>
       </Grid>
-      <Footer />
     </PageLayout>
   );
 }

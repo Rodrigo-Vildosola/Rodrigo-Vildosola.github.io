@@ -34,8 +34,10 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import curved9 from "assets/images/curved-images/curved9.jpg";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Cover() {
+  const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(true);
 
   const [loading, setLoading] = useState(false);
@@ -50,6 +52,7 @@ function Cover() {
     if (signInResponse != null) {
       if (signInResponse.token) {
         storeLogin();
+        navigate("/clients/clients");
       } else {
         setLoading(false);
       }
@@ -77,8 +80,8 @@ function Cover() {
 
   return (
     <CoverLayout
-      title='Welcome back'
-      description='Enter your email and password to sign in'
+      title='Bienvenido'
+      description='Ingresa tu email y contraseña'
       image={curved9}
     >
       <form onSubmit={handleLogin}>
@@ -122,28 +125,13 @@ function Cover() {
             onClick={handleSetRememberMe}
             sx={{ cursor: "pointer", userSelect: "none" }}
           >
-            &nbsp;&nbsp;Remember me
+            &nbsp;&nbsp;Recuerdame
           </SoftTypography>
         </SoftBox>
         <SoftBox mt={4} mb={1}>
           <SoftButton variant='gradient' color='info' type='submit' fullWidth>
-            sign in
+            Entrar
           </SoftButton>
-        </SoftBox>
-        <SoftBox mt={3} textAlign='center'>
-          <SoftTypography variant='button' color='text' fontWeight='regular'>
-            Don&apos;t have an account?{" "}
-            <SoftTypography
-              component={Link}
-              to='/authentication/sign-up/cover'
-              variant='button'
-              color='info'
-              fontWeight='medium'
-              textGradient
-            >
-              Sign up
-            </SoftTypography>
-          </SoftTypography>
         </SoftBox>
       </form>
     </CoverLayout>
