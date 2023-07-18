@@ -91,6 +91,7 @@ import VerificationIllustration from "layouts/authentication/2-step-verification
 import Error404 from "layouts/authentication/error/404";
 import Error500 from "layouts/authentication/error/500";
 
+
 // Soft UI Dashboard PRO React icons
 import Shop from "examples/Icons/Shop";
 import Office from "examples/Icons/Office";
@@ -103,6 +104,7 @@ import CreditCard from "examples/Icons/CreditCard";
 
 import Clients from "layouts/pages/clients";
 import FormatsPage from "layouts/pages/formats";
+import Users from "layouts/pages/users";
 
 /*
 collapse: [
@@ -147,6 +149,15 @@ collapse: [
 */
 
 const routes = [
+  {
+    type: "collapse",
+    name: "Usarios",
+    route: "/users",
+    key: "users",
+    noCollapse: true,
+    component: <Users />,
+    icon: <Office size='12px' />,  
+  },
   {
     type: "collapse",
     name: "Clientes",

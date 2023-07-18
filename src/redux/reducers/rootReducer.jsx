@@ -3,6 +3,7 @@ import { languageReducer } from './index';
 import { exampleReducer } from './example';
 import { authReducer } from './auth';
 import { clientsReducer } from './clients';
+import { usersReducer } from './users';
 import { notificationsReducer } from './notifications';
 
 export const rootReducer = combineReducers({
@@ -10,5 +11,6 @@ export const rootReducer = combineReducers({
   example: exampleReducer,
   auth: authReducer,
   clients: clientsReducer,
+  users: usersReducer,
   notifications: notificationsReducer,
 });
