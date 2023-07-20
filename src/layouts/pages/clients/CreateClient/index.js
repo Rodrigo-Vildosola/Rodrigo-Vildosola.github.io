@@ -9,6 +9,7 @@ import { getPermission } from "utils";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
 import { Icon } from "@mui/material";
+
 const style = {
   position: "absolute",
   top: "50%",

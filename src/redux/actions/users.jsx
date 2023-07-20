@@ -4,7 +4,7 @@ import { setNotification } from "./notifications";
 
 
 export const getUsers = () => {
-  const url = `${API_URL}/api/users`;
+  const url = `${API_URL}/api/users/`;
 
   return (dispatch) => {
     let outputData = {};
@@ -27,7 +27,7 @@ export const setGetUsers = (data) => ({
 });
 
 export const updateUser = (params) => {
-  const url = `${API_URL}/api/users/update`;
+  const url = `${API_URL}/api/users/update/`;
 
   return (dispatch) => {
     let outputData = {};
@@ -69,12 +69,13 @@ export const setUpdateUser = (data) => ({
 });
 
 export const createUser = (params) => {
-  const url = `${API_URL}/api/users/create`;
+  const url = `${API_URL}/api/users/create/`;
 
   return (dispatch) => {
     let outputData = {};
     Axios.post(url, params)
       .then((data) => {
+        console.log(data);
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -98,9 +99,8 @@ export const createUser = (params) => {
           title: "Creation Error",
           time: new Date(),
         };
+        console.log(err);
         dispatch(setNotification(notification));
-        // Handle error
-        console.error(err);
       });
   };
 };
@@ -111,7 +111,7 @@ export const setCreateUser = (data) => ({
 });
 
 export const deleteUser = (params) => {
-  const url = `${API_URL}/api/users/delete`;
+  const url = `${API_URL}/api/users/delete/`;
 
   return (dispatch) => {
     let outputData = {};

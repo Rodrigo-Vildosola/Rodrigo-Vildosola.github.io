@@ -50,6 +50,7 @@ function Form(props) {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("logo", logo);
+    console.log("Form Data:", Object.fromEntries(formData.entries()));
     if (props.edit) {
       formData.append("uuid", props.client.uuid);
       dispatch(updateClient(formData));
