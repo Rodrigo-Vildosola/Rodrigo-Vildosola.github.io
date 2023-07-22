@@ -15,7 +15,6 @@ export const getUsers = () => {
         dispatch(setGetUsers(outputData));
       })
       .catch((err) => {
-        // Handle error
         console.error(err);
       });
   };
@@ -39,7 +38,7 @@ export const updateUser = (params) => {
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "User updated successfully!",
+          message: "Usuario actualizado correctamente!",
           title: "Update Successful",
           time: new Date(),
         };
@@ -48,11 +47,11 @@ export const updateUser = (params) => {
       })
       .catch((err) => {
         outputData["status"] = "danger";
-        outputData["message"] = "Error updating the user!";
+        outputData["message"] = "Error actualizando el usuario!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error updating the user!",
+          message: "Error actualizando el usuario!",
           title: "Update Error",
           time: new Date(),
         };
@@ -75,14 +74,13 @@ export const createUser = (params) => {
     let outputData = {};
     Axios.post(url, params)
       .then((data) => {
-        console.log(data);
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "User created successfully!",
+          message: "Usuario creado correctamente!",
           title: "Creation Successful",
           time: new Date(),
         };
@@ -91,11 +89,11 @@ export const createUser = (params) => {
       })
       .catch((err) => {
         outputData["status"] = "danger";
-        outputData["message"] = "Error creating the user!";
+        outputData["message"] = "Error creando usuario!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error creating the user!",
+          message: "Error creando usuario!",
           title: "Creation Error",
           time: new Date(),
         };
@@ -124,7 +122,7 @@ export const deleteUser = (params) => {
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "User deleted successfully!",
+          message: "Usuario eliminado correctamente!",
           title: "Deletion Successful",
           time: new Date(),
         };
@@ -133,16 +131,15 @@ export const deleteUser = (params) => {
       })
       .catch((err) => {
         outputData["status"] = "danger";
-        outputData["message"] = "Error deleting the user!";
+        outputData["message"] = "Error eliminando el usuario!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error deleting the user!",
+          message: "Error eliminando el usuario!",
           title: "Deletion Error",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        // Handle error
         console.error(err);
       });
   };
