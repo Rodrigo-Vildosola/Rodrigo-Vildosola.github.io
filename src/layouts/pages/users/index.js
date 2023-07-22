@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux actions
-import { getUsers } from "redux/actions/users";
+import { getUsers, deleteUser } from "redux/actions/users";
 
 // @mui material components
 import { Grid } from "@mui/material";
@@ -71,7 +71,9 @@ function UsersPage() {
     }
   }, [deleteUserResponse]);
 
-
+  const handleDeleteUser = (email) => {
+    dispatch(deleteUser({email: email}));
+  };
 
 
 
@@ -86,12 +88,12 @@ function UsersPage() {
         </SoftBox>
         {users.map((user, index) => (
           <SoftTypography key = {index} variant='h3' textAlign='center' fontWeight='bold'>
-            {console.log(users)}
+            {console.log(user)}
           </SoftTypography>
         ))}
 
 
-        <Table columns={columns} rows={users}/>
+        <Table columns={columns} rows={users} handleDeleteUser={handleDeleteUser} />
 
         
 

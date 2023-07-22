@@ -111,11 +111,12 @@ export const setCreateUser = (data) => ({
 });
 
 export const deleteUser = (params) => {
-  const url = `${API_URL}/api/users/delete/`;
+  const url = `${API_URL}/api/users/deactivate/`;
+  console.log(params);
 
   return (dispatch) => {
     let outputData = {};
-    Axios.delete(url, { params: params })
+    Axios.delete(url, { data: params })
       .then((data) => {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
