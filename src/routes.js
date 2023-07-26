@@ -105,6 +105,7 @@ import CreditCard from "examples/Icons/CreditCard";
 import Clients from "layouts/pages/clients";
 import FormatsPage from "layouts/pages/formats";
 import Users from "layouts/pages/users";
+import ProjectsPage from "layouts/pages/projects";
 
 /*
 collapse: [
@@ -171,6 +172,11 @@ const routes = [
     key: "client-formats",
     route: "/clients/:uuid/formats",
     component: <FormatsPage />,
+  },
+  {
+    key: "format-projects",
+    route: "/formats/:formatUuid/projects",
+    component: <ProjectsPage />,
   },
   {
     type: "collapse",

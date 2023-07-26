@@ -1,20 +1,5 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // react-router components
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -37,6 +22,8 @@ import { deleteFormat } from "redux/actions/clients";
 import CreateFormat from "layouts/pages/formats/CreateFormat";
 
 function ComplexTeamCard({ format, action }) {
+  console.log(format);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const template = (
     <Card style={{ overflow: "visible" }}>
@@ -80,17 +67,25 @@ function ComplexTeamCard({ format, action }) {
           </SoftBox>
         </SoftBox>
         <SoftBox
-          component='img'
-          height={100}
-          src={format.logo}
-          alt={format.name}
-          borderRadius='md'
-        />
-      </SoftBox>
-      <SoftBox py={2.5} px={4} mb={3} mx={3} textAlign='center'>
-        <SoftTypography variant='h4' textTransform='capitalize'>
-          {format.name}
-        </SoftTypography>
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            //const currentPath = window.location.pathname;
+            navigate(`/formats/${format.uuid}/projects`);
+          }}
+        >
+          <SoftBox
+            component='img'
+            height={100}
+            src={format.logo}
+            alt={format.name}
+            borderRadius='md'
+          />
+          <SoftBox py={2.5} px={4} mb={3} mx={3} textAlign='center'>
+            <SoftTypography variant='h4' textTransform='capitalize'>
+              {format.name}
+            </SoftTypography>
+          </SoftBox>
+        </SoftBox>
       </SoftBox>
     </Card>
   );

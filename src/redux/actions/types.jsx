@@ -19,6 +19,11 @@ export const types = {
   setUpdateFormat: "[Formats] Set Update Format",
   setDeleteFormat: "[Formats] Set Delete Format",
 
+  setGetProjects: "[Projects] Set Get Projects",
+  setCreateProject: "[Projects] Set Create Project",
+  setUpdateProject: "[Projects] Set Update Project",
+  setDeleteProject: "[Projects] Set Delete Project",
+
   setGetUsers: "[Users] Set Get Users",
   setCreateUser: "[Users] Set Create User",
   setUpdateUser: "[Users] Set Update User",
