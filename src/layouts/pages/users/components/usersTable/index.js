@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import { Table as MuiTable } from "@mui/material";
+import { Table as MuiTable, TableCell } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -22,16 +22,17 @@ function Table({ rows, handleDeleteUser }) {
   const { borderWidth } = borders;
 
   const columns = [
-    { name: "Name", align: "left" },
-    { name: "Email", align: "left" },
-    { name: "", align: "left" }, 
+    { name: "Nombre", align: "left" },
+    { name: "Correo", align: "left" },
+    { name: "Rol", align: "left" },
+    { name: "Acciones", align: "left" },
   ];
 
   const renderColumns = columns.map(({ name, align, width }) => {
     return (
       <SoftBox
         key={name}
-        component="th"
+        component='th'
         width={width || "auto"}
         pt={1.5}
         pb={1.25}
@@ -40,7 +41,7 @@ function Table({ rows, handleDeleteUser }) {
         textAlign={align}
         fontSize={size.xxs}
         fontWeight={fontWeightBold}
-        color="secondary"
+        color='secondary'
         opacity={0.7}
         borderBottom={`${borderWidth[1]} solid ${light.main}`}
       >
@@ -52,7 +53,7 @@ function Table({ rows, handleDeleteUser }) {
   const renderDeleteButton = (userId) => {
     return (
       <SoftBadge
-        color="error"
+        color='error'
         onClick={() => {
           Swal.fire({
             title: "¿Estás seguro que quieres eliminar este usuario?",
@@ -65,9 +66,17 @@ function Table({ rows, handleDeleteUser }) {
           }).then((result) => {
             if (result.isConfirmed) {
               handleDeleteUser(userId);
-              Swal.fire("Eliminado", "El usuario ha sido eliminado.", "success");
+              Swal.fire(
+                "Eliminado",
+                "El usuario ha sido eliminado.",
+                "success"
+              );
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-              Swal.fire("Cancelado", "El usuario no ha sido eliminado.", "error");
+              Swal.fire(
+                "Cancelado",
+                "El usuario no ha sido eliminado.",
+                "error"
+              );
             }
           });
         }}
@@ -75,76 +84,82 @@ function Table({ rows, handleDeleteUser }) {
       />
     );
   };
-  
 
   const renderRows = rows.map((row, key) => {
     const rowKey = `row-${key}`;
+    console.log(row);
 
     const nameCell = (
-      <SoftBox
-        key={uuidv4()}
-        component="td"
-        p={1}
-        textAlign="left"
-        borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-      >
-        <SoftTypography
-          variant="button"
-          fontWeight="regular"
-          color="secondary"
-          sx={{ display: "inline-block", width: "max-content" }}
+      <TableCell>
+        <SoftBox
+          key={uuidv4()}
+          component='td'
+          p={1}
+          textAlign='left'
+          borderBottom={
+            row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+          }
         >
-          {row.first_name}
-        </SoftTypography>
-      </SoftBox>
+          <SoftTypography
+            variant='button'
+            fontWeight='regular'
+            color='secondary'
+            sx={{ display: "inline-block", width: "max-content" }}
+          >
+            {row.first_name}
+          </SoftTypography>
+        </SoftBox>
+      </TableCell>
     );
 
     const emailCell = (
-      <SoftBox
-        key={uuidv4()}
-        component="td"
-        p={1}
-        textAlign="left"
-        borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-      >
+      <TableCell>
+        {" "}
+        <SoftBox
+          key={uuidv4()}
+          component='td'
+          p={1}
+          textAlign='left'
+          borderBottom={
+            row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null
+          }
+        >
+          <SoftTypography
+            variant='button'
+            fontWeight='regular'
+            color='secondary'
+            sx={{ display: "inline-block", width: "max-content" }}
+          >
+            {row.email}
+          </SoftTypography>
+        </SoftBox>
+      </TableCell>
+    );
+
+    const actionButtons = (
+      <TableCell textAlign='center'>
+        <CreateUser user={row} edit={true} />
+        {renderDeleteButton(row.email)}
+      </TableCell>
+    );
+
+    const roleCell = (
+      <TableCell textAlign='left'>
         <SoftTypography
-          variant="button"
-          fontWeight="regular"
-          color="secondary"
+          variant='button'
+          fontWeight='regular'
+          color='secondary'
           sx={{ display: "inline-block", width: "max-content" }}
         >
-          {row.email}
+          {row.groups[0] && row.groups[0].name}
         </SoftTypography>
-      </SoftBox>
+      </TableCell>
     );
 
-    const deleteButtonCell = (
-      <SoftBox
-        key={uuidv4()}
-        component="td"
-        p={1}
-        textAlign="left"
-        borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-      >
-        {renderDeleteButton(row.email)}
-      </SoftBox>
-    );
-
-    const editButtonCell = (
-      <SoftBox
-        key={uuidv4()}
-        component="td"
-        p={1}
-        textAlign="left"
-        borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
-      >
-        <CreateUser user={row} edit={true} />
-      </SoftBox>
-    );
-  
     return (
       <TableRow key={rowKey}>
-        {[nameCell, emailCell, deleteButtonCell, editButtonCell]} 
+        {nameCell} {emailCell} {roleCell}
+        {actionButtons}
       </TableRow>
     );
   });
@@ -153,7 +168,7 @@ function Table({ rows, handleDeleteUser }) {
     () => (
       <TableContainer>
         <MuiTable>
-          <SoftBox component="thead">
+          <SoftBox component='thead'>
             <TableRow>{renderColumns}</TableRow>
           </SoftBox>
           <TableBody>{renderRows}</TableBody>
