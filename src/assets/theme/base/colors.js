@@ -34,17 +34,17 @@ const colors = {
   },
 
   info: {
-    main: "#17c1e8",
+    main: "#1f5da6",
     focus: "#3acaeb",
   },
 
   success: {
-    main: "#82d616",
+    main: "#8cb63c",
     focus: "#95dc39",
   },
 
   warning: {
-    main: "#fbcf33",
+    main: "#d67c1b",
     focus: "#fcd652",
   },
 
@@ -87,17 +87,17 @@ const colors = {
     },
 
     info: {
-      main: "#1799f5",
+      main: "#1f5da6",
       state: "#21d4fd",
     },
 
     success: {
-      main: "#19a42b",
+      main: "#8cb63c",
       state: "#84dc14",
     },
 
     warning: {
-      main: "#f2b63d",
+      main: "#d67c1b",
       state: "#fac60b",
     },
 
@@ -193,19 +193,19 @@ const colors = {
     },
 
     info: {
-      main: "#1799f5",
+      main: "#1f5da6",
       state: "#02c6f3",
       border: "#b9ecf8",
     },
 
     success: {
-      main: "#19a42b",
+      main: "#8cb63c",
       state: "#84dc14",
       border: "#daf3b9",
     },
 
     warning: {
-      main: "#f2b63d",
+      main: "#d67c1b",
       state: "#fac60b",
       border: "#fef1c2",
     },
@@ -241,17 +241,17 @@ const colors = {
     },
 
     info: {
-      background: "#59b3f0",
+      background: "#1f5da6",
       text: "#08a1c4",
     },
 
     success: {
-      background: "#7ad53e",
+      background: "#8cb63c",
       text: "#67b108",
     },
 
     warning: {
-      background: "#ffc043",
+      background: "#d67c1b",
       text: "#fbc400",
     },
 
@@ -275,7 +275,7 @@ const colors = {
     borderColor: { main: "#d2d6da", focus: "#35d1f5" },
     boxShadow: "#81e3f9",
     error: "#fd5c70",
-    success: "#66d432",
+    success: "#8cb63c",
   },
 
   sliderColors: {

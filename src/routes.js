@@ -103,6 +103,7 @@ import CreditCard from "examples/Icons/CreditCard";
 
 import Clients from "layouts/pages/clients";
 import FormatsPage from "layouts/pages/formats";
+import Users from "layouts/pages/users";
 
 /*
 collapse: [
@@ -147,6 +148,15 @@ collapse: [
 */
 
 const routes = [
+  {
+    type: "collapse",
+    name: "Usuarios",
+    route: "/users",
+    key: "users",
+    noCollapse: true,
+    component: <Users />,
+    icon: <Office size='12px' />,
+  },
   {
     type: "collapse",
     name: "Clientes",

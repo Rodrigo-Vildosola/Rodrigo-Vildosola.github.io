@@ -62,7 +62,8 @@ import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useSoftUIController();
-  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } = controller;
+  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } =
+    controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
 
@@ -76,7 +77,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
     // A function that sets the transparent state of the navbar.
     function handleTransparentNavbar() {
-      setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
+      setTransparentNavbar(
+        dispatch,
+        (fixedNavbar && window.scrollY === 0) || !fixedNavbar
+      );
     }
 
     /** 
@@ -93,7 +97,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
   }, [dispatch, fixedNavbar]);
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const handleConfiguratorOpen = () =>
+    setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
@@ -111,26 +116,29 @@ function DashboardNavbar({ absolute, light, isMini }) {
       sx={{ mt: 2 }}
     >
       <NotificationItem
-        image={<img src={team2} alt="person" />}
+        image={<img src={team2} alt='person' />}
         title={["New message", "from Laur"]}
-        date="13 minutes ago"
+        date='13 minutes ago'
         onClick={handleCloseMenu}
       />
       <NotificationItem
-        image={<img src={logoSpotify} alt="person" />}
+        image={<img src={logoSpotify} alt='person' />}
         title={["New album", "by Travis Scott"]}
-        date="1 day"
+        date='1 day'
         onClick={handleCloseMenu}
       />
       <NotificationItem
-        color="secondary"
+        color='secondary'
         image={
-          <Icon fontSize="small" sx={{ color: ({ palette: { white } }) => white.main }}>
+          <Icon
+            fontSize='small'
+            sx={{ color: ({ palette: { white } }) => white.main }}
+          >
             payment
           </Icon>
         }
         title={["", "Payment successfully completed"]}
-        date="2 days"
+        date='2 days'
         onClick={handleCloseMenu}
       />
     </Menu>
@@ -139,27 +147,38 @@ function DashboardNavbar({ absolute, light, isMini }) {
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
-      color="inherit"
+      color='inherit'
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
-        <SoftBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-          <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
-          <Icon fontSize="medium" sx={navbarDesktopMenu} onClick={handleMiniSidenav}>
+        <SoftBox
+          color='inherit'
+          mb={{ xs: 1, md: 0 }}
+          sx={(theme) => navbarRow(theme, { isMini })}
+        >
+          <Icon
+            fontSize='medium'
+            sx={navbarDesktopMenu}
+            onClick={handleMiniSidenav}
+          >
             {miniSidenav ? "menu_open" : "menu"}
           </Icon>
+          <IconButton
+            size='small'
+            color='inherit'
+            sx={navbarMobileMenu}
+            onClick={handleMiniSidenav}
+          >
+            <Icon className={light ? "text-white" : "text-dark"}>
+              {miniSidenav ? "menu_open" : "menu"}
+            </Icon>
+          </IconButton>
         </SoftBox>
         {isMini ? null : (
           <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <SoftBox pr={1}>
-              <SoftInput
-                placeholder="Type here..."
-                icon={{ component: "search", direction: "left" }}
-              />
-            </SoftBox>
             <SoftBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
-                <IconButton sx={navbarIconButton} size="small">
+              <Link to='/authentication/sign-in/basic'>
+                <IconButton sx={navbarIconButton} size='small'>
                   <Icon
                     sx={({ palette: { dark, white } }) => ({
                       color: light ? white.main : dark.main,
@@ -168,44 +187,14 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     account_circle
                   </Icon>
                   <SoftTypography
-                    variant="button"
-                    fontWeight="medium"
+                    variant='button'
+                    fontWeight='medium'
                     color={light ? "white" : "dark"}
                   >
-                    Sign in
+                    Cerrar sesión
                   </SoftTypography>
                 </IconButton>
               </Link>
-              <IconButton
-                size="small"
-                color="inherit"
-                sx={navbarMobileMenu}
-                onClick={handleMiniSidenav}
-              >
-                <Icon className={light ? "text-white" : "text-dark"}>
-                  {miniSidenav ? "menu_open" : "menu"}
-                </Icon>
-              </IconButton>
-              <IconButton
-                size="small"
-                color="inherit"
-                sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
-              >
-                <Icon>settings</Icon>
-              </IconButton>
-              <IconButton
-                size="small"
-                color="inherit"
-                sx={navbarIconButton}
-                aria-controls="notification-menu"
-                aria-haspopup="true"
-                variant="contained"
-                onClick={handleOpenMenu}
-              >
-                <Icon className={light ? "text-white" : "text-dark"}>notifications</Icon>
-              </IconButton>
-              {renderMenu()}
             </SoftBox>
           </SoftBox>
         )}

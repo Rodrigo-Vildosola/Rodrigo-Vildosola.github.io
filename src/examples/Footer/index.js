@@ -68,9 +68,9 @@ function Footer({ company, links }) {
           </Icon>
         </SoftBox>
         by
-        <Link href={href} target='_blank'>
+        <Link href={"https://hbsolutions.cl"} target='_blank'>
           <SoftTypography variant='button' fontWeight='medium'>
-            &nbsp;{name}&nbsp;
+            &nbsp;Higher Bit Solutions.&nbsp;
           </SoftTypography>
         </Link>
         for a better web.
@@ -91,9 +91,7 @@ function Footer({ company, links }) {
             mt: 0,
           },
         })}
-      >
-        {renderLinks()}
-      </SoftBox>
+      ></SoftBox>
     </SoftBox>
   );
 }

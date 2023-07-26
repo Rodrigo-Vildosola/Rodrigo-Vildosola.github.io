@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Form from "./Form";
 import SoftButton from "components/SoftButton";
-import { getPermission } from "utils";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
 import { Icon } from "@mui/material";
 
 const style = {
   position: "absolute",
+  width: "50%",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -34,7 +34,7 @@ const styleMobile = {
   boxShadow: 24,
 };
 
-export default function CreateClient(props) {
+export default function CreateUser(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,11 +48,7 @@ export default function CreateClient(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
-        <Form
-          handleClose={handleClose}
-          client={props.client}
-          edit={props.edit}
-        />
+        <Form handleClose={handleClose} user={props.user} edit={props.edit} />
       </Box>
     </Modal>
   );
@@ -63,7 +59,7 @@ export default function CreateClient(props) {
         <SoftBadge
           color='info'
           badgeContent={<Icon>edit</Icon>}
-          onClick={() => handleOpen()}
+          onClick={handleOpen}
         ></SoftBadge>
       ) : (
         <SoftButton
@@ -72,7 +68,7 @@ export default function CreateClient(props) {
           size='small'
           onClick={handleOpen}
         >
-          Crear Cliente
+          Crear usuario
         </SoftButton>
       )}
       {renderModal()}

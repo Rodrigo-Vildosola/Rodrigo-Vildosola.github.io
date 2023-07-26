@@ -87,6 +87,7 @@ function ClientsPage() {
       <Grid container spacing={3}>
         {clients.map((client, i) => (
           <Grid key={i} item xs={12} sm={6} md={4}>
+            {console.log(client)}
             <Clients client={client} action={{}} />
           </Grid>
         ))}
