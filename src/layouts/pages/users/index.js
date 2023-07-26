@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,9 +22,9 @@ import SoftTypography from "components/SoftTypography";
 import CreateUser from "./CreateUser";
 
 const columns = [
-  { name: "Nombre", align: "left"},
-  { name: "Email", align: "left"},
-]
+  { name: "Nombre", align: "left" },
+  { name: "Email", align: "left" },
+];
 
 function UsersPage() {
   const dispatch = useDispatch();
@@ -72,35 +71,36 @@ function UsersPage() {
   }, [deleteUserResponse]);
 
   const handleDeleteUser = (email) => {
-    dispatch(deleteUser({email: email}));
+    dispatch(deleteUser({ email: email }));
   };
-
-
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-        <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
-            Usuarios{" "}
-        </SoftTypography>
-        <SoftBox display='flex' justifyContent='flex-end' pb={3}>
-          <CreateUser />
-        </SoftBox>
-        {users.map((user, index) => (
-          <SoftTypography key = {index} variant='h3' textAlign='center' fontWeight='bold'>
-            {console.log(user)}
-          </SoftTypography>
-        ))}
+      <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
+        Usuarios{" "}
+      </SoftTypography>
+      <SoftBox display='flex' justifyContent='flex-end' pb={3}>
+        <CreateUser />
+      </SoftBox>
+      {users.map((user, index) => (
+        <SoftTypography
+          key={index}
+          variant='h3'
+          textAlign='center'
+          fontWeight='bold'
+        ></SoftTypography>
+      ))}
 
+      <Table
+        columns={columns}
+        rows={users}
+        handleDeleteUser={handleDeleteUser}
+      />
 
-        <Table columns={columns} rows={users} handleDeleteUser={handleDeleteUser} />
-
-        
-
-      <Footer/>
+      <Footer />
     </DashboardLayout>
   );
 }
-
 
 export default UsersPage;

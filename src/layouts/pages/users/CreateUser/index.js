@@ -11,6 +11,7 @@ import { Icon } from "@mui/material";
 
 const style = {
   position: "absolute",
+  width: "50%",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -42,16 +43,12 @@ export default function CreateUser(props) {
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby='modal-modal-title'
+      aria-describedby='modal-modal-description'
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
-        <Form 
-          handleClose={handleClose} 
-          user={props.user} 
-          edit={props.edit} 
-        />
+        <Form handleClose={handleClose} user={props.user} edit={props.edit} />
       </Box>
     </Modal>
   );
@@ -60,18 +57,18 @@ export default function CreateUser(props) {
     <span>
       {props.edit ? (
         <SoftBadge
-          color="info"
+          color='info'
           badgeContent={<Icon>edit</Icon>}
           onClick={handleOpen}
         ></SoftBadge>
       ) : (
         <SoftButton
-          variant="gradient"
-          color="success"
-          size="small"
+          variant='gradient'
+          color='success'
+          size='small'
           onClick={handleOpen}
         >
-          Create User
+          Crear usuario
         </SoftButton>
       )}
       {renderModal()}
