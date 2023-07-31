@@ -45,13 +45,13 @@ function Form(props) {
     const formData = new FormData();
     formData.append("first_name", name);
     formData.append("email", email);
-    formData.append("password", password);
     formData.append("groups", [group]);
     console.log("Form Data:", Object.fromEntries(formData.entries()));
 
     if (props.edit) {
       dispatch(updateUser(formData));
     } else {
+      formData.append("password", "acceso2023");
       dispatch(createUser(formData));
     }
   };

@@ -157,6 +157,7 @@ const routes = [
     noCollapse: true,
     component: <Users />,
     icon: <Office size='12px' />,
+    permissions: ["administrador"],
   },
   {
     type: "collapse",
@@ -166,6 +167,17 @@ const routes = [
     noCollapse: true,
     component: <Clients />,
     icon: <Shop size='12px' />,
+    permissions: ["administrador", "tipo1", "tipo2"],
+  },
+  {
+    type: "collapse",
+    name: "Formatos",
+    noCollapse: true,
+    icon: <Shop size='12px' />,
+    key: "client-formats-tipo3",
+    route: "/formats/user",
+    component: <FormatsPage />,
+    permissions: ["tipo3"],
   },
   {
     key: "client-formats",
@@ -174,7 +186,7 @@ const routes = [
   },
   {
     key: "format-projects",
-    route: "/formats/:formatUuid/projects",
+    route: "/formats/:uuid/projects",
     component: <ProjectsPage />,
   },
   {

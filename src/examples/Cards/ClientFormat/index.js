@@ -22,7 +22,6 @@ import { deleteFormat } from "redux/actions/clients";
 import CreateFormat from "layouts/pages/formats/CreateFormat";
 
 function ComplexTeamCard({ format, action }) {
-  console.log(format);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const template = (

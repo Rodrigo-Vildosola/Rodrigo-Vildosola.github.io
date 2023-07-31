@@ -177,24 +177,31 @@ function DashboardNavbar({ absolute, light, isMini }) {
         {isMini ? null : (
           <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
             <SoftBox color={light ? "white" : "inherit"}>
-              <Link to='/authentication/sign-in/basic'>
-                <IconButton sx={navbarIconButton} size='small'>
-                  <Icon
-                    sx={({ palette: { dark, white } }) => ({
-                      color: light ? white.main : dark.main,
-                    })}
-                  >
-                    account_circle
-                  </Icon>
-                  <SoftTypography
-                    variant='button'
-                    fontWeight='medium'
-                    color={light ? "white" : "dark"}
-                  >
-                    Cerrar sesión
-                  </SoftTypography>
-                </IconButton>
-              </Link>
+              <IconButton
+                sx={navbarIconButton}
+                size='small'
+                onClick={() => {
+                  localStorage.removeItem("access-token");
+                  localStorage.removeItem("refresh-token");
+                  localStorage.removeItem("profile");
+                  window.location.href = "/";
+                }}
+              >
+                <Icon
+                  sx={({ palette: { dark, white } }) => ({
+                    color: light ? white.main : dark.main,
+                  })}
+                >
+                  account_circle
+                </Icon>
+                <SoftTypography
+                  variant='button'
+                  fontWeight='medium'
+                  color={light ? "white" : "dark"}
+                >
+                  Cerrar sesión
+                </SoftTypography>
+              </IconButton>
             </SoftBox>
           </SoftBox>
         )}

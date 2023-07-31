@@ -24,6 +24,7 @@ export const authReducer = (
                     token: action.payload.token,
                     status: action.payload.status,
                     message: action.payload.message,
+                    profile: action.payload.profile,
                 },
                 token: action.payload.token,
             };

@@ -7,7 +7,7 @@ import Form from "./Form";
 import SoftButton from "components/SoftButton";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
-import { Icon } from "@mui/material";
+import { Icon, Tooltip } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -56,11 +56,13 @@ export default function CreateUser(props) {
   return (
     <span>
       {props.edit ? (
-        <SoftBadge
-          color='info'
-          badgeContent={<Icon>edit</Icon>}
-          onClick={handleOpen}
-        ></SoftBadge>
+        <Tooltip title='Editar usuario' placement='top'>
+          <SoftBadge
+            color='warning'
+            badgeContent={<Icon>edit</Icon>}
+            onClick={handleOpen}
+          ></SoftBadge>
+        </Tooltip>
       ) : (
         <SoftButton
           variant='gradient'

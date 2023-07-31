@@ -42,7 +42,6 @@ function Form(props) {
   const [name, setName] = useState(props.edit ? props.client.name : "");
 
   const handleChangeFile = (e) => {
-    console.log(e.target.files[0]);
     setLogo(e.target.files[0]);
   };
 

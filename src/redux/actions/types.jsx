@@ -29,6 +29,10 @@ export const types = {
   setUpdateUser: "[Users] Set Update User",
   setDeleteUser: "[Users] Set Delete User",
 
+  setToggleClientUser: "[Users] Set Toggle Client User",
+  setToggleFormatUser: "[Users] Set Toggle Format User",
+
+
 };
 
 export const API_URL = process.env.REACT_APP_ENV_API_URL;

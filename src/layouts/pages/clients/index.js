@@ -42,12 +42,25 @@ function ClientsPage() {
   );
 
   useEffect(() => {
-    dispatch(getClients());
+    let profile = JSON.parse(localStorage.getItem("profile"));
+    if (profile) {
+      if (profile.groups[0].name === "tipo2") {
+        let clientsAssigned = profile.assigned_clients;
+        setClients(clientsAssigned);
+      } else {
+        dispatch(getClients());
+      }
+    }
   }, []);
 
   useEffect(() => {
     if (getClientsResponse.data) {
-      setClients(getClientsResponse.data);
+      let profile = JSON.parse(localStorage.getItem("profile"));
+      if (profile) {
+        if (profile.groups[0].name !== "tipo2") {
+          setClients(getClientsResponse.data);
+        }
+      }
     }
   }, [getClientsResponse]);
 
@@ -87,7 +100,6 @@ function ClientsPage() {
       <Grid container spacing={3}>
         {clients.map((client, i) => (
           <Grid key={i} item xs={12} sm={6} md={4}>
-            {console.log(client)}
             <Clients client={client} action={{}} />
           </Grid>
         ))}

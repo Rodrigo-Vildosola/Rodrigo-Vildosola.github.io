@@ -206,7 +206,19 @@ export default function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route path='*' element={<Navigate to='/clients/clients' />} />
+          <Route
+            path='*'
+            element={
+              <Navigate
+                to={
+                  JSON.parse(localStorage.getItem("profile")).groups[0].name ==
+                  "tipo3"
+                    ? "/formats/user"
+                    : "/clients/clients"
+                }
+              />
+            }
+          />
           {getRoutes(routes)}
         </Routes>
       )}

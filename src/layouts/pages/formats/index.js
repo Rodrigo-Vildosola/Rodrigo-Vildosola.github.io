@@ -48,7 +48,13 @@ function FormatsPage() {
   );
 
   useEffect(() => {
-    dispatch(getFormatsByClient(uuid));
+    let profile = JSON.parse(localStorage.getItem("profile"));
+    if (profile.groups[0].name === "tipo3") {
+      let assignedFormats = profile.assigned_formats;
+      setFormats(assignedFormats);
+    } else {
+      dispatch(getFormatsByClient(uuid));
+    }
   }, []);
 
   useEffect(() => {

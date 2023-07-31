@@ -3,18 +3,18 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import ProjectForm from "./Form";
+import Form from "./Form";
 import SoftButton from "components/SoftButton";
-import { getPermission } from "utils";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
-import { Icon } from "@mui/material";
+import { Icon, Tooltip } from "@mui/material";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 
 const style = {
   position: "absolute",
-  top: "30%",
-  left: "50%",
   width: "50%",
+  top: "20%",
+  left: "50%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: "10px",
@@ -35,7 +35,7 @@ const styleMobile = {
   boxShadow: 24,
 };
 
-export default function CreateProject(props) {
+export default function User(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,34 +49,20 @@ export default function CreateProject(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
-        <ProjectForm
-          onClose={handleClose}
-          project={props.project}
-          edit={props.edit}
-          formatUuid={props.formatUuid}
-        />
+        <Form handleClose={handleClose} user={props.user} />
       </Box>
     </Modal>
   );
 
   return (
     <span>
-      {props.edit ? (
+      <Tooltip title='Asignar clientes y formatos' placement='top'>
         <SoftBadge
           color='info'
-          badgeContent={<Icon>edit</Icon>}
-          onClick={() => handleOpen()}
-        ></SoftBadge>
-      ) : (
-        <SoftButton
-          variant='gradient'
-          color='success'
-          size='small'
+          badgeContent={<AssignmentIndIcon />}
           onClick={handleOpen}
-        >
-          Crear Proyecto
-        </SoftButton>
-      )}
+        ></SoftBadge>
+      </Tooltip>
       {renderModal()}
     </span>
   );
