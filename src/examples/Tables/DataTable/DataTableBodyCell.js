@@ -23,11 +23,33 @@ import SoftBox from "components/SoftBox";
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
+import SoftBadge from "components/SoftBadge";
 
-function DataTableBodyCell({ noBorder, align, children }) {
+function DataTableBodyCell({ noBorder, align, children, url, badge }) {
   const { light } = colors;
   const { size } = typography;
   const { borderWidth } = borders;
+
+  const renderCellContent = (content) => {
+    if (url) {
+      return (
+        <a href={content} target="_blank" rel="noopener noreferrer">
+          {content}
+        </a>
+      );
+    }
+
+    if (badge) {
+      return (
+        <SoftBadge 
+          color={badge.color} 
+          badgeContent={content}
+        >
+        </SoftBadge>
+      );
+    }
+    return content;
+  };
 
   return (
     <SoftBox
@@ -44,7 +66,7 @@ function DataTableBodyCell({ noBorder, align, children }) {
         color="text"
         sx={{ verticalAlign: "middle" }}
       >
-        {children}
+        {renderCellContent(children)}
       </SoftBox>
     </SoftBox>
   );

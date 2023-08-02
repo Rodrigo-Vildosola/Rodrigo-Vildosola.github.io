@@ -154,13 +154,13 @@ function Table({ rows, handleDeleteUser }) {
       <TableCell textAlign='left'>
         <SoftBadge
           color={
-            row.groups[0] && row.groups[0].name == "administrador"
+            row.groups[0] && row.groups[0].name === "administrador"
               ? "primary"
-              : row.groups[0] && row.groups[0].name == "tipo1"
+              : row.groups[0] && row.groups[0].name === "tipo1"
               ? "secondary"
-              : row.groups[0] && row.groups[0].name == "tipo2"
+              : row.groups[0] && row.groups[0].name === "tipo2"
               ? "dark"
-              : row.groups[0] && row.groups[0].name == "tipo3"
+              : row.groups[0] && row.groups[0].name === "tipo3"
               ? "warning"
               : "error"
           }

@@ -10,27 +10,25 @@ import { createProject, updateProject } from "redux/actions/projects";
 
 function ProjectForm(props) {
   const { uuid } = useParams();
-
   const dispatch = useDispatch();
 
   const [name, setName] = useState(props.edit ? props.project.name : "");
-  const [state, setState] = useState(props.edit ? props.project.state : "");
+  const [itemizado, setItemizado] = useState(null); // State for the document
 
   const handleSubmit = () => {
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("state", state);
-    formData.append("format_uuid", uuid);
-
+    formData.append("itemizado", itemizado); // Append the document to the form data
+    formData.append("format_uuid", uuid); // Append the format UUID to the form data
+    console.log("formData", Object.fromEntries(formData.entries()));
     if (props.edit) {
       formData.append("uuid", props.project.uuid);
       dispatch(updateProject(formData));
     } else {
-      
       dispatch(createProject(formData));
     }
 
-    props.onClose(); 
+    props.onClose();
   };
 
   return (
@@ -50,12 +48,11 @@ function ProjectForm(props) {
         />
       </SoftBox>
       <SoftBox px={3}>
-        <SoftTypography variant="h6">Estado</SoftTypography>
+        <SoftTypography variant="h6">Itemizado (Documento)</SoftTypography>
         <SoftInput
           fullWidth
-          placeholder="Estado"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
+          type="file" // Use type="file" to handle document uploads
+          onChange={(e) => setItemizado(e.target.files[0])} // Update itemizado state with the selected file
         />
       </SoftBox>
       <SoftBox p={3} pt={0}>

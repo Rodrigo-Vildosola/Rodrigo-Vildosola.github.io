@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-
+import DataTable from "examples/Tables/DataTable";
 
 import SoftButton from "components/SoftButton";
 import SoftBox from "components/SoftBox";
@@ -16,12 +16,11 @@ import SoftTypography from "components/SoftTypography";
 // MUI components
 import { Grid, Icon, Table, TableRow } from "@mui/material";
 
-// import ProjectCard from "examples/Cards/ProjectCard";
 import CreateProject from "./CreateProject";
 
 
 function ProjectsPage() {
-  const {formatUuid } = useParams();
+  const { uuid } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
@@ -38,18 +37,19 @@ function ProjectsPage() {
   );
 
   useEffect(() => {
-    dispatch(getProjects()); // Assuming you have an action to get projects
+    dispatch(getProjects()); 
   }, []);
 
   useEffect(() => {
     if (getProjectsResponse.data) {
+      console.log("getProjectsResponse", getProjectsResponse.data);
       // Filter projects by the formatUuid since the request returns all instances of projects
       const filteredProjects = getProjectsResponse.data.filter(
-        (project) => project.format === formatUuid
+        (project) => project.format.uuid === uuid
       );
       setProjects(filteredProjects);
     }
-  }, [getProjectsResponse, formatUuid]);
+  }, [getProjectsResponse, uuid]);
 
   useEffect(() => {
     if (createProjectResponse.data) {
@@ -75,6 +75,8 @@ function ProjectsPage() {
     }
   }, [deleteProjectResponse]);
 
+
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -84,25 +86,25 @@ function ProjectsPage() {
             window.history.back();
           }}
           variant='text'
-          color='black'
+          color='dark'
         >
           <Icon>arrow_back</Icon> Volver
         </SoftButton>
       </SoftBox>
       <SoftBox display='flex' justifyContent='flex-end' pb={3}>
-        <CreateProject formatUuid={formatUuid} />
+        <CreateProject formatUuid={uuid} />
       </SoftBox>
       <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
         Proyectos
       </SoftTypography>
-      <Grid container spacing={3}>
-        {projects.map((project, i) => (
-          <Grid key={i} item xs={12} sm={6} md={4}>
-            {console.log(project)}
-            {/* <ProjectCard project={project} action={{}} /> */}
-          </Grid>
-        ))}
-      </Grid>
+      <DataTable table={{
+          columns: [
+            { Header: "Nombre", accessor: "name" },
+            { Header: "Estado", accessor: "state", width: "10%", badge: true },
+            { Header: "Itemizado", accessor: "itemizado", url: true },
+          ],
+          rows: projects
+          }}/>
 
       <Footer />
     </DashboardLayout>
