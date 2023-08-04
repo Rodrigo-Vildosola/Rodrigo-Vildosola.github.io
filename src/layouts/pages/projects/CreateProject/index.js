@@ -1,11 +1,8 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import ProjectForm from "./Form";
 import SoftButton from "components/SoftButton";
-import { getPermission } from "utils";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
 import { Icon } from "@mui/material";

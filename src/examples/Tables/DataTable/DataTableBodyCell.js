@@ -15,6 +15,8 @@ Coded by www.creative-tim.com
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { deleteProject } from "redux/actions/projects";
 
 // Soft UI Dashboard PRO React components
 import SoftBox from "components/SoftBox";
@@ -24,17 +26,63 @@ import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 import SoftBadge from "components/SoftBadge";
+import CreateProject from "layouts/pages/projects/CreateProject";
+import Swal from "sweetalert2";
+import { Tooltip } from "@mui/material";
+import Icon from "@mui/material/Icon";
 
-function DataTableBodyCell({ noBorder, align, children, url, badge }) {
+function DataTableBodyCell({ noBorder, align, children, url, badge, edit }) {
   const { light } = colors;
   const { size } = typography;
   const { borderWidth } = borders;
+  const dispatch = useDispatch();
+
 
   const renderCellContent = (content) => {
+
+    if (edit) {
+      return (
+        <SoftBox display="flex" justifyContent="space-between">
+          <CreateProject edit={true} project={content.props.cell.value} />
+          <Tooltip title='Eliminar proyecto'>
+            <SoftBadge
+              color='error'
+              onClick={() => {
+                Swal.fire({
+                  title: "¿Estás seguro que quieres eliminar este proyecto?",
+                  text: "No podrás revertir esta acción",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: "Si, eliminar",
+                  cancelButtonText: "No, cancelar",
+                  reverseButtons: true,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(deleteProject({ uuid: content.props.cell.value}));
+                    Swal.fire(
+                      "Eliminado",
+                      "El projecto ha sido eliminado.",
+                      "success"
+                    );
+                  } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                      "Cancelado",
+                      "El proyecto no ha sido eliminado.",
+                      "error"
+                    );
+                  }
+                });
+              }}
+              badgeContent={<Icon>delete</Icon>}
+            />
+          </Tooltip>
+        </SoftBox>
+      );
+    }
     if (url) {
       return (
-        <a href={content} target="_blank" rel="noopener noreferrer">
-          {content}
+        <a href={content.props.cell.value} target="_blank" rel="noopener noreferrer" download>          
+          Documento
         </a>
       );
     }

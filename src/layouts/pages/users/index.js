@@ -106,14 +106,6 @@ function UsersPage() {
       <SoftBox display='flex' justifyContent='flex-end' pb={3}>
         <CreateUser />
       </SoftBox>
-      {users.map((user, index) => (
-        <SoftTypography
-          key={index}
-          variant='h3'
-          textAlign='center'
-          fontWeight='bold'
-        ></SoftTypography>
-      ))}
 
       <Table
         columns={columns}

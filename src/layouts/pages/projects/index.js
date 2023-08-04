@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjects } from "redux/actions/projects"; // Assuming you have an action for getting projects
@@ -14,7 +15,7 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
 // MUI components
-import { Grid, Icon, Table, TableRow } from "@mui/material";
+import { Icon } from "@mui/material";
 
 import CreateProject from "./CreateProject";
 
@@ -22,7 +23,6 @@ import CreateProject from "./CreateProject";
 function ProjectsPage() {
   const { uuid } = useParams();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
 
   const getProjectsResponse = useSelector((state) => state.projects.getProjects);
@@ -42,8 +42,6 @@ function ProjectsPage() {
 
   useEffect(() => {
     if (getProjectsResponse.data) {
-      console.log("getProjectsResponse", getProjectsResponse.data);
-      // Filter projects by the formatUuid since the request returns all instances of projects
       const filteredProjects = getProjectsResponse.data.filter(
         (project) => project.format.uuid === uuid
       );
@@ -77,6 +75,16 @@ function ProjectsPage() {
 
 
 
+  const extractedDataArray = projects.map((projectData) => ({
+    name: projectData.name,
+    itemizado: projectData.itemizado,
+    state: projectData.state,
+    uuid: projectData,
+    formatName: projectData.format.name,
+    clientName: projectData.format.client.name,
+  }));
+
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -100,10 +108,13 @@ function ProjectsPage() {
       <DataTable table={{
           columns: [
             { Header: "Nombre", accessor: "name" },
-            { Header: "Estado", accessor: "state", width: "10%", badge: true },
+            { Header: "Estado", accessor: "state", badge: true },
+            { Header: "Formato", accessor: "formatName" },
+            { Header: "Cliente", accessor: "clientName" },
             { Header: "Itemizado", accessor: "itemizado", url: true },
+            { Header: "", accessor: "uuid", width: "10%", edit: true},
           ],
-          rows: projects
+          rows: extractedDataArray
           }}/>
 
       <Footer />

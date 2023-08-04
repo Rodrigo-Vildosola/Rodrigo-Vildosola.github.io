@@ -3,6 +3,8 @@ import Card from "@mui/material/Card";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import SoftButton from "components/SoftButton";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -13,21 +15,22 @@ function ProjectForm(props) {
   const dispatch = useDispatch();
 
   const [name, setName] = useState(props.edit ? props.project.name : "");
-  const [itemizado, setItemizado] = useState(null); // State for the document
+  const [itemizado, setItemizado] = useState(null);
+  const [state, setState] = useState(props.edit ? props.project.state : "Pendiente"); 
 
   const handleSubmit = () => {
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("itemizado", itemizado); // Append the document to the form data
-    formData.append("format_uuid", uuid); // Append the format UUID to the form data
-    console.log("formData", Object.fromEntries(formData.entries()));
+    formData.append("state", state); 
+    formData.append("itemizado", itemizado);
+    
     if (props.edit) {
       formData.append("uuid", props.project.uuid);
       dispatch(updateProject(formData));
     } else {
+      formData.append("format_uuid", uuid);
       dispatch(createProject(formData));
     }
-
     props.onClose();
   };
 
@@ -51,9 +54,22 @@ function ProjectForm(props) {
         <SoftTypography variant="h6">Itemizado (Documento)</SoftTypography>
         <SoftInput
           fullWidth
-          type="file" // Use type="file" to handle document uploads
-          onChange={(e) => setItemizado(e.target.files[0])} // Update itemizado state with the selected file
+          type="file"
+          onChange={(e) => setItemizado(e.target.files[0])}
         />
+      </SoftBox>
+      <SoftBox px={3}>
+        <SoftTypography variant="h6">Estado del Proyecto</SoftTypography>
+        {/* Use MenuItem components for selectable values */}
+        <Select
+          fullWidth
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+        >
+          <MenuItem value="Pendiente">Pendiente</MenuItem>
+          <MenuItem value="Adjudicado">Adjudicado</MenuItem>
+          <MenuItem value="Rechazado">Rechazado</MenuItem>
+        </Select>
       </SoftBox>
       <SoftBox p={3} pt={0}>
         <SoftButton

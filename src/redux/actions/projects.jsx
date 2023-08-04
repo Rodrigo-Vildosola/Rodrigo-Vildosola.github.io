@@ -106,6 +106,7 @@ export const setUpdateProject = (data) => ({
 
 export const deleteProject = (params) => {
   const url = `${API_URL}/api/clients/formats/projects/delete/`;
+  console.log(params);
 
   return (dispatch) => {
     let outputData = {};

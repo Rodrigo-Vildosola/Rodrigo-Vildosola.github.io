@@ -212,6 +212,7 @@ function DataTable({
                     align={cell.column.align ? cell.column.align : "left"}
                     url={cell.column.url}
                     badge={cell.column.badge ? { color: stateMap[cell.value], textColor: "white" } : null}
+                    edit={cell.column.edit}
                     {...cell.getCellProps()}
                   >
                     {cell.render("Cell")}
