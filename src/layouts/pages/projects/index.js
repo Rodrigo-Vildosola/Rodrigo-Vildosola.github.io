@@ -79,7 +79,7 @@ function ProjectsPage() {
     name: projectData.name,
     itemizado: projectData.itemizado,
     state: projectData.state,
-    uuid: projectData,
+    project: projectData,
     formatName: projectData.format.name,
     clientName: projectData.format.client.name,
   }));
@@ -99,12 +99,13 @@ function ProjectsPage() {
           <Icon>arrow_back</Icon> Volver
         </SoftButton>
       </SoftBox>
-      <SoftBox display='flex' justifyContent='flex-end' pb={3}>
-        <CreateProject formatUuid={uuid} />
-      </SoftBox>
       <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
         Proyectos
       </SoftTypography>
+      <SoftBox display='flex' justifyContent='flex-end' pb={3}>
+        <CreateProject formatUuid={uuid} />
+      </SoftBox>
+
       <DataTable table={{
           columns: [
             { Header: "Nombre", accessor: "name" },
@@ -112,7 +113,7 @@ function ProjectsPage() {
             { Header: "Formato", accessor: "formatName" },
             { Header: "Cliente", accessor: "clientName" },
             { Header: "Itemizado", accessor: "itemizado", url: true },
-            { Header: "", accessor: "uuid", width: "10%", edit: true},
+            { Header: "", accessor: "project", width: "10%", edit: true},
           ],
           rows: extractedDataArray
           }}/>
