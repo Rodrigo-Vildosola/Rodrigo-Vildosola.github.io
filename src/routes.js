@@ -185,8 +185,17 @@ const routes = [
     component: <FormatsPage />,
   },
   {
-    key: "format-projects",
-    route: "/formats/:uuid/projects",
+    key: "client-format-projects",
+    route: "/clients/formats/:uuid/projects",
+    component: <ProjectsPage />,
+  },
+  {
+    name: "Proyectos",
+    key: "projects",
+    route: "/projects",
+    type: "collapse",
+    noCollapse: true,
+    icon: <Document size='12px' />,
     component: <ProjectsPage />,
   },
   {

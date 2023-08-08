@@ -50,7 +50,6 @@ export default function CreateProject(props) {
           onClose={handleClose}
           project={props.project}
           edit={props.edit}
-          formatUuid={props.formatUuid}
         />
       </Box>
     </Modal>

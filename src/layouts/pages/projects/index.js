@@ -41,12 +41,16 @@ function ProjectsPage() {
   }, []);
 
   useEffect(() => {
-    if (getProjectsResponse.data) {
+    if (getProjectsResponse.data && uuid) {
       const filteredProjects = getProjectsResponse.data.filter(
         (project) => project.format.uuid === uuid
       );
       setProjects(filteredProjects);
     }
+    else if (getProjectsResponse.data) {
+      setProjects(getProjectsResponse.data);
+    }
+    console.log(projects);
   }, [getProjectsResponse, uuid]);
 
   useEffect(() => {
@@ -88,30 +92,32 @@ function ProjectsPage() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SoftBox>
-        <SoftButton
-          onClick={() => {
-            window.history.back();
-          }}
-          variant='text'
-          color='dark'
-        >
-          <Icon>arrow_back</Icon> Volver
-        </SoftButton>
-      </SoftBox>
+      {uuid && (
+        <SoftBox>
+          <SoftButton
+            onClick={() => {
+              window.history.back();
+            }}
+            variant='text'
+            color='dark'
+          >
+            <Icon>arrow_back</Icon> Volver
+          </SoftButton>
+        </SoftBox>
+      )}
       <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
         Proyectos
       </SoftTypography>
       <SoftBox display='flex' justifyContent='flex-end' pb={3}>
-        <CreateProject formatUuid={uuid} />
+        <CreateProject/>
       </SoftBox>
 
       <DataTable table={{
           columns: [
             { Header: "Nombre", accessor: "name" },
             { Header: "Estado", accessor: "state", badge: true },
-            { Header: "Formato", accessor: "formatName" },
             { Header: "Cliente", accessor: "clientName" },
+            { Header: "Formato", accessor: "formatName" },
             { Header: "Itemizado", accessor: "itemizado", url: true },
             { Header: "", accessor: "project", width: "10%", edit: true},
           ],

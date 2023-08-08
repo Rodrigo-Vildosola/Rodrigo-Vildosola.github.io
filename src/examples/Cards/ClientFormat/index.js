@@ -69,7 +69,7 @@ function ComplexTeamCard({ format, action }) {
           style={{ cursor: "pointer" }}
           onClick={() => {
             //const currentPath = window.location.pathname;
-            navigate(`/formats/${format.uuid}/projects`);
+            navigate(`/clients/formats/${format.uuid}/projects`);
           }}
         >
           <SoftBox

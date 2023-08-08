@@ -40,6 +40,7 @@ function DataTableBodyCell({ noBorder, align, children, url, badge, edit }) {
 
   const renderCellContent = (content) => {
 
+
     if (edit) {
       return (
         <SoftBox display="flex" justifyContent="space-between">
@@ -58,7 +59,7 @@ function DataTableBodyCell({ noBorder, align, children, url, badge, edit }) {
                   reverseButtons: true,
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    dispatch(deleteProject({ uuid: content.props.cell.value}));
+                    dispatch(deleteProject({ uuid: content.props.cell.value.uuid}));
                     Swal.fire(
                       "Eliminado",
                       "El projecto ha sido eliminado.",

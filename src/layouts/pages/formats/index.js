@@ -110,6 +110,7 @@ function FormatsPage() {
       <Grid container spacing={3}>
         {formats.map((format, i) => (
           <Grid key={i} item xs={12} sm={6} md={4}>
+            {console.log(format)}
             <ClientFormat format={format} action={{}} />
           </Grid>
         ))}
