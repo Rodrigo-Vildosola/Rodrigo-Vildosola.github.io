@@ -29,7 +29,7 @@ function ProjectForm(props) {
   const [formats, setFormats] = useState([]);
   const [name, setName] = useState(props.edit ? props.project.name : "");
   const [itemizado, setItemizado] = useState(null);
-  const [state, setState] = useState(props.edit ? props.project.state : "Pendiente"); 
+  const [state, setState] = useState(props.edit ? { label: props.project.state, value: props.project.state } : "Pendiente"); 
   
   useEffect(() => {
     if (!uuid) {
@@ -110,6 +110,7 @@ function ProjectForm(props) {
           value={state}
           onChange={(selectedOption) => setState(selectedOption)}
         />
+        {console.log(state)}
       </SoftBox>
 
       {!uuid && !props.edit && (
