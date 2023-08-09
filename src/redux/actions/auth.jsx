@@ -31,10 +31,13 @@ export const signIn = (params) =>
                 }
                 localStorage.setItem("access-token", data["access"]);
                 localStorage.setItem("refresh-token", data["refresh"]);
+                localStorage.setItem("profile", JSON.stringify(data["profile"]))
                 //localStorage.setItem("role", data["role"]);
                 outputData["token"] = data["access"];
                 outputData["status"] = data.status;
                 outputData["message"] = data.message;
+                outputData["profile"] = data.profile;
+
                 dispatch(setSignIn(outputData));
             })
             .catch((err) =>

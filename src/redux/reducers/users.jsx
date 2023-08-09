@@ -6,10 +6,14 @@ export const usersReducer = (
     createUser: {},
     updateUser: {},
     deleteUser: {},
+    toggleFormatUser: {},
+    toggleClientUser: {},
   },
   action
-) => {
-  switch (action.type) {
+) =>
+{
+  switch (action.type)
+  {
     case types.setGetUsers:
       return {
         ...state,
@@ -44,6 +48,26 @@ export const usersReducer = (
       return {
         ...state,
         deleteUser: {
+          status: action.payload.status,
+          data: action.payload.data,
+          title: action.payload.title,
+          time: new Date(),
+        },
+      };
+    case types.setToggleClientUser:
+      return {
+        ...state,
+        toggleClientUser: {
+          status: action.payload.status,
+          data: action.payload.data,
+          title: action.payload.title,
+          time: new Date(),
+        },
+      };
+    case types.setToggleFormatUser:
+      return {
+        ...state,
+        toggleFormatUser: {
           status: action.payload.status,
           data: action.payload.data,
           title: action.payload.title,

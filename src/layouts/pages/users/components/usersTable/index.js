@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import { Table as MuiTable, TableCell } from "@mui/material";
+import { Table as MuiTable, TableCell, Tooltip } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 
 import CreateUser from "layouts/pages/users/CreateUser";
 import Icon from "@mui/material/Icon";
+import User from "../../User";
 
 function Table({ rows, handleDeleteUser }) {
   const { light } = colors;
@@ -52,42 +53,43 @@ function Table({ rows, handleDeleteUser }) {
 
   const renderDeleteButton = (userId) => {
     return (
-      <SoftBadge
-        color='error'
-        onClick={() => {
-          Swal.fire({
-            title: "¿Estás seguro que quieres eliminar este usuario?",
-            text: "No podrás revertir esta acción",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Si, eliminar",
-            cancelButtonText: "No, cancelar",
-            reverseButtons: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              handleDeleteUser(userId);
-              Swal.fire(
-                "Eliminado",
-                "El usuario ha sido eliminado.",
-                "success"
-              );
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              Swal.fire(
-                "Cancelado",
-                "El usuario no ha sido eliminado.",
-                "error"
-              );
-            }
-          });
-        }}
-        badgeContent={<Icon>delete</Icon>}
-      />
+      <Tooltip placement='top' title='Eliminar usuario'>
+        <SoftBadge
+          color='error'
+          onClick={() => {
+            Swal.fire({
+              title: "¿Estás seguro que quieres eliminar este usuario?",
+              text: "No podrás revertir esta acción",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonText: "Si, eliminar",
+              cancelButtonText: "No, cancelar",
+              reverseButtons: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                handleDeleteUser(userId);
+                Swal.fire(
+                  "Eliminado",
+                  "El usuario ha sido eliminado.",
+                  "success"
+                );
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                  "Cancelado",
+                  "El usuario no ha sido eliminado.",
+                  "error"
+                );
+              }
+            });
+          }}
+          badgeContent={<Icon>delete</Icon>}
+        />
+      </Tooltip>
     );
   };
 
   const renderRows = rows.map((row, key) => {
     const rowKey = `row-${key}`;
-    console.log(row);
 
     const nameCell = (
       <TableCell>
@@ -138,21 +140,32 @@ function Table({ rows, handleDeleteUser }) {
 
     const actionButtons = (
       <TableCell textAlign='center'>
-        <CreateUser user={row} edit={true} />
+        {(row.groups[0].name === "tipo3" || row.groups[0].name === "tipo2") && (
+          <User user={row} />
+        )}
+        <Tooltip placement='top' title='Editar usuario'>
+          <CreateUser user={row} edit={true} />
+        </Tooltip>
         {renderDeleteButton(row.email)}
       </TableCell>
     );
 
     const roleCell = (
       <TableCell textAlign='left'>
-        <SoftTypography
-          variant='button'
-          fontWeight='regular'
-          color='secondary'
-          sx={{ display: "inline-block", width: "max-content" }}
-        >
-          {row.groups[0] && row.groups[0].name}
-        </SoftTypography>
+        <SoftBadge
+          color={
+            row.groups[0] && row.groups[0].name === "administrador"
+              ? "primary"
+              : row.groups[0] && row.groups[0].name === "tipo1"
+              ? "secondary"
+              : row.groups[0] && row.groups[0].name === "tipo2"
+              ? "dark"
+              : row.groups[0] && row.groups[0].name === "tipo3"
+              ? "warning"
+              : "error"
+          }
+          badgeContent={row.groups[0] && row.groups[0].name}
+        />
       </TableCell>
     );
 

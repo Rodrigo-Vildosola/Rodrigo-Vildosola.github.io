@@ -8,11 +8,12 @@ import SoftButton from "components/SoftButton";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
 import { Icon, Tooltip } from "@mui/material";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 
 const style = {
   position: "absolute",
   width: "50%",
-  top: "50%",
+  top: "20%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
@@ -34,7 +35,7 @@ const styleMobile = {
   boxShadow: 24,
 };
 
-export default function CreateUser(props) {
+export default function User(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,31 +49,20 @@ export default function CreateUser(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
-        <Form handleClose={handleClose} user={props.user} edit={props.edit} />
+        <Form handleClose={handleClose} user={props.user} />
       </Box>
     </Modal>
   );
 
   return (
     <span>
-      {props.edit ? (
-        <Tooltip title='Editar usuario' placement='top'>
-          <SoftBadge
-            color='warning'
-            badgeContent={<Icon>edit</Icon>}
-            onClick={handleOpen}
-          ></SoftBadge>
-        </Tooltip>
-      ) : (
-        <SoftButton
-          variant='gradient'
-          color='success'
-          size='small'
+      <Tooltip title='Asignar clientes y formatos' placement='top'>
+        <SoftBadge
+          color='info'
+          badgeContent={<AssignmentIndIcon />}
           onClick={handleOpen}
-        >
-          Crear usuario
-        </SoftButton>
-      )}
+        ></SoftBadge>
+      </Tooltip>
       {renderModal()}
     </span>
   );

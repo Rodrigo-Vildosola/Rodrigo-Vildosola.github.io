@@ -3,18 +3,22 @@ import Axios from "axios";
 import { setNotification } from "./notifications";
 
 
-export const getUsers = () => {
+export const getUsers = () =>
+{
   const url = `${API_URL}/api/users/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.get(url)
-      .then(({ data }) => {
+      .then(({ data }) =>
+      {
         outputData["data"] = data;
         outputData["status"] = 200;
         dispatch(setGetUsers(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         console.error(err);
       });
   };
@@ -25,13 +29,16 @@ export const setGetUsers = (data) => ({
   payload: data,
 });
 
-export const updateUser = (params) => {
+export const updateUser = (params) =>
+{
   const url = `${API_URL}/api/users/update/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.put(url, params)
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -45,7 +52,8 @@ export const updateUser = (params) => {
         dispatch(setNotification(notification));
         dispatch(setUpdateUser(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error actualizando el usuario!";
         outputData["time"] = new Date();
@@ -67,13 +75,16 @@ export const setUpdateUser = (data) => ({
   payload: data,
 });
 
-export const createUser = (params) => {
+export const createUser = (params) =>
+{
   const url = `${API_URL}/api/users/create/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.post(url, params)
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -87,7 +98,8 @@ export const createUser = (params) => {
         dispatch(setNotification(notification));
         dispatch(setCreateUser(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error creando usuario!";
         outputData["time"] = new Date();
@@ -108,14 +120,17 @@ export const setCreateUser = (data) => ({
   payload: data,
 });
 
-export const deleteUser = (params) => {
+export const deleteUser = (params) =>
+{
   const url = `${API_URL}/api/users/deactivate/`;
   console.log(params);
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.delete(url, { data: params })
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -129,7 +144,8 @@ export const deleteUser = (params) => {
         dispatch(setNotification(notification));
         dispatch(setDeleteUser(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error eliminando el usuario!";
         outputData["time"] = new Date();
@@ -147,5 +163,101 @@ export const deleteUser = (params) => {
 
 export const setDeleteUser = (data) => ({
   type: types.setDeleteUser,
+  payload: data,
+});
+
+
+export const toggleClientUser = (params) =>
+{
+  const url = `${API_URL}/api/users/toggle/client/`;
+
+  return (dispatch) =>
+  {
+    let outputData = {};
+    Axios.post(url, params)
+      .then((data) =>
+      {
+        outputData["status"] = data.status;
+        outputData["message"] = data.message;
+        outputData["data"] = data.data;
+        outputData["time"] = new Date();
+        let notification = {
+          status: "success",
+          message: "Usuario actualizado correctamente!",
+          title: "Update Successful",
+          time: new Date(),
+        };
+        dispatch(setNotification(notification));
+        dispatch(setToggleClientUser(outputData));
+      })
+      .catch((err) =>
+      {
+        outputData["status"] = "danger";
+        outputData["message"] = "Error actualizando el usuario!";
+        outputData["time"] = new Date();
+        let notification = {
+          status: "error",
+          message: "Error actualizando el usuario!",
+          title: "Update Error",
+          time: new Date(),
+        };
+        dispatch(setNotification(notification));
+        // Handle error
+        console.error(err);
+      });
+  };
+
+}
+
+
+export const setToggleClientUser = (data) => ({
+  type: types.setToggleClientUser,
+  payload: data,
+});
+
+export const toggleFormatUser = (params) =>
+{
+  const url = `${API_URL}/api/users/toggle/format/`;
+
+  return (dispatch) =>
+  {
+    let outputData = {};
+    Axios.post(url, params)
+      .then((data) =>
+      {
+        outputData["status"] = data.status;
+        outputData["message"] = data.message;
+        outputData["data"] = data.data;
+        outputData["time"] = new Date();
+        let notification = {
+          status: "success",
+          message: "Usuario actualizado correctamente!",
+          title: "Update Successful",
+          time: new Date(),
+        };
+        dispatch(setNotification(notification));
+        dispatch(setToggleFormatUser(outputData));
+      })
+      .catch((err) =>
+      {
+        outputData["status"] = "danger";
+        outputData["message"] = "Error actualizando el usuario!";
+        outputData["time"] = new Date();
+        let notification = {
+          status: "error",
+          message: "Error actualizando el usuario!",
+          title: "Update Error",
+          time: new Date(),
+        };
+        dispatch(setNotification(notification));
+        // Handle error
+        console.error(err);
+      });
+  };
+
+}
+
+export const setToggleFormatUser = (data) => ({
+  type: types.setToggleFormatUser,
   payload: data,
 });

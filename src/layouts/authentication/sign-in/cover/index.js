@@ -48,11 +48,15 @@ function Cover() {
   const signInResponse = useSelector((state) => state.auth.signIn);
 
   useEffect(() => {
-    console.log(signInResponse);
     if (signInResponse != null) {
       if (signInResponse.token) {
+        let profile = signInResponse.profile;
         storeLogin();
-        navigate("/clients/clients");
+        if (profile.groups[0].name === "tipo3") {
+          let formats = profile.assigned_formats;
+          let clientUuid = formats[0].client.uuid;
+          navigate(`/formats/user`);
+        } else navigate("/clients/clients");
       } else {
         setLoading(false);
       }
@@ -69,7 +73,6 @@ function Cover() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("login");
     setLoading(true);
     let form = {
       email: e.target.elements[0].value,

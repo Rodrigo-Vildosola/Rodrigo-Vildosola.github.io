@@ -12,7 +12,6 @@ Axios.interceptors.request.use(function (config)
 Axios.interceptors.response.use(undefined, (err) =>
 {
     const error = err.response;
-    return
     // if error is 401
     if (error)
     {

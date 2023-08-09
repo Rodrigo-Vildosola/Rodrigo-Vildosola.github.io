@@ -48,6 +48,14 @@ function DataTable({
   isSorted,
   noEndBorder,
 }) {
+
+  const stateMap = {
+    "Adjudicado": "primary",
+    "Pendiente": "warning",
+    "Rechazado": "error",
+  };
+
+
   const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
   const entries = entriesPerPage.entries ? entriesPerPage.entries : [5, 10, 15, 20, 25];
   const columns = useMemo(() => table.columns, [table]);
@@ -202,6 +210,9 @@ function DataTable({
                     key={key}
                     noBorder={noEndBorder && rows.length - 1 === key}
                     align={cell.column.align ? cell.column.align : "left"}
+                    url={cell.column.url}
+                    badge={cell.column.badge ? { color: stateMap[cell.value], textColor: "white" } : null}
+                    edit={cell.column.edit}
                     {...cell.getCellProps()}
                   >
                     {cell.render("Cell")}

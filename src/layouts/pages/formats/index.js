@@ -48,7 +48,13 @@ function FormatsPage() {
   );
 
   useEffect(() => {
-    dispatch(getFormatsByClient(uuid));
+    let profile = JSON.parse(localStorage.getItem("profile"));
+    if (profile.groups[0].name === "tipo3") {
+      let assignedFormats = profile.assigned_formats;
+      setFormats(assignedFormats);
+    } else {
+      dispatch(getFormatsByClient(uuid));
+    }
   }, []);
 
   useEffect(() => {
@@ -104,6 +110,7 @@ function FormatsPage() {
       <Grid container spacing={3}>
         {formats.map((format, i) => (
           <Grid key={i} item xs={12} sm={6} md={4}>
+            {console.log(format)}
             <ClientFormat format={format} action={{}} />
           </Grid>
         ))}
