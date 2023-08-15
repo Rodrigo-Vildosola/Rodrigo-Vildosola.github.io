@@ -40,24 +40,24 @@ function ProjectsPage() {
   }, []);
 
   useEffect(() => {
+    console.log(getProjectsResponse.data);
     if (getProjectsResponse.data && uuid) {
-      const filteredProjects = getProjectsResponse.data.results.filter(
-        (project) => project.format.uuid === uuid
+      const filteredProjects = getProjectsResponse.data.filter(
+        (project) => project.format?.uuid === uuid
       );
       setProjects(filteredProjects);
     } else if (getProjectsResponse.data) {
-      setProjects(getProjectsResponse.data.results);
+      setProjects(getProjectsResponse.data);
     }
-    console.log(projects);
-  }, [getProjectsResponse, projects, uuid]);
-
+  }, [getProjectsResponse]);
+  
   useEffect(() => {
     if (createProjectResponse.data) {
       if (new Date() - createProjectResponse.time < 2000) {
         dispatch(getProjects());
       }
     }
-  }, [createProjectResponse, dispatch]);
+  }, [createProjectResponse]);
 
   useEffect(() => {
     if (updateProjectResponse.data) {
@@ -65,7 +65,7 @@ function ProjectsPage() {
         dispatch(getProjects());
       }
     }
-  }, [updateProjectResponse, dispatch]);
+  }, [updateProjectResponse]);
 
   useEffect(() => {
     if (deleteProjectResponse.data) {
@@ -73,7 +73,7 @@ function ProjectsPage() {
         dispatch(getProjects());
       }
     }
-  }, [deleteProjectResponse, dispatch]);
+  }, [deleteProjectResponse]);
 
   const extractedDataArray = projects.map((projectData) => ({
     name: projectData.name,
