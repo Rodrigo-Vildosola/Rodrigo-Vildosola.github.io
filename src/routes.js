@@ -105,6 +105,7 @@ import Clients from "layouts/pages/clients";
 import FormatsPage from "layouts/pages/formats";
 import Users from "layouts/pages/users";
 import ProjectsPage from "layouts/pages/projects";
+import RecordsPage from "layouts/pages/records";
 
 /*
 collapse: [
@@ -197,6 +198,15 @@ const routes = [
     noCollapse: true,
     icon: <Document size='12px' />,
     component: <ProjectsPage />,
+  },
+  {
+    name: "Fichas",
+    key: "records",
+    route: "/records",
+    type: "collapse",
+    noCollapse: true,
+    icon: <Basket size="12px"  />,
+    component: <RecordsPage />,
   },
   {
     type: "collapse",

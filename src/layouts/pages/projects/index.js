@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "redux/actions/projects"; // Assuming you have an action for getting projects
+import { getProjects } from "redux/actions/projects"; 
 import { useParams } from "react-router-dom";
 
 
@@ -38,7 +37,7 @@ function ProjectsPage() {
 
   useEffect(() => {
     dispatch(getProjects()); 
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (getProjectsResponse.data && uuid) {
@@ -51,7 +50,7 @@ function ProjectsPage() {
       setProjects(getProjectsResponse.data);
     }
     console.log(projects);
-  }, [getProjectsResponse, uuid]);
+  }, [getProjectsResponse, projects, uuid]);
 
   useEffect(() => {
     if (createProjectResponse.data) {
@@ -59,7 +58,7 @@ function ProjectsPage() {
         dispatch(getProjects());
       }
     }
-  }, [createProjectResponse]);
+  }, [createProjectResponse, dispatch]);
 
   useEffect(() => {
     if (updateProjectResponse.data) {
@@ -67,7 +66,7 @@ function ProjectsPage() {
         dispatch(getProjects());
       }
     }
-  }, [updateProjectResponse]);
+  }, [updateProjectResponse, dispatch]);
 
   useEffect(() => {
     if (deleteProjectResponse.data) {
@@ -75,7 +74,7 @@ function ProjectsPage() {
         dispatch(getProjects());
       }
     }
-  }, [deleteProjectResponse]);
+  }, [deleteProjectResponse, dispatch]);
 
 
 
@@ -119,7 +118,7 @@ function ProjectsPage() {
             { Header: "Cliente", accessor: "clientName" },
             { Header: "Formato", accessor: "formatName" },
             { Header: "Itemizado", accessor: "itemizado", url: true },
-            { Header: "", accessor: "project", width: "10%", edit: true},
+            { Header: "", accessor: "project", width: "10%", projectAction: true},
           ],
           rows: extractedDataArray
           }}/>
