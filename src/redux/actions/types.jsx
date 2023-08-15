@@ -33,6 +33,7 @@ export const types = {
   setToggleFormatUser: "[Users] Set Toggle Format User",
 
   setGetElements: "[Elements] Set Get Elements",
+  setCreateElements: "[Elements] Set Create Elements",
 
 
 };
