@@ -51,6 +51,7 @@ import Clients from "layouts/pages/clients";
 import FormatsPage from "layouts/pages/formats";
 import Users from "layouts/pages/users";
 import ProjectsPage from "layouts/pages/projects";
+import RecordsPage from "layouts/pages/records";
 import ElementsPage from "layouts/pages/elements";
 
 import { AiOutlineProject } from "react-icons/ai";
@@ -147,6 +148,15 @@ const routes = [
     noCollapse: true,
     icon: <AiOutlineProject size='12px' />,
     component: <ProjectsPage />,
+  },
+  {
+    name: "Fichas",
+    key: "records",
+    route: "/records",
+    type: "collapse",
+    noCollapse: true,
+    icon: <Basket size="12px"  />,
+    component: <RecordsPage />,
   },
   {
     name: "Elementos",

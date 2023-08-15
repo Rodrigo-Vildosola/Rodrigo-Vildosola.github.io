@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "redux/actions/projects"; // Assuming you have an action for getting projects
+import { getProjects } from "redux/actions/projects";
 import { useParams } from "react-router-dom";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -98,8 +97,8 @@ function ProjectsPage() {
 
   useEffect(() => {
     if (getProjectsResponse.data && uuid) {
-      const filteredProjects = getProjectsResponse.data.results.filter(
-        (project) => project.format.uuid === uuid
+      const filteredProjects = getProjectsResponse.data.filter(
+        (project) => project.format?.uuid === uuid
       );
       setProjects(filteredProjects);
     } else if (getProjectsResponse.data) {
@@ -228,10 +227,13 @@ function ProjectsPage() {
       </SoftBox>
 
       <Card sx={{ p: 3, overflow: "visible" }}>
+        <SoftTypography variant='h5' textAlign='center' fontWeight='bold'>
+          Filtros
+        </SoftTypography>
         <Grid container>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Estado
               </SoftTypography>
               <SoftSelect
@@ -250,7 +252,7 @@ function ProjectsPage() {
           </Grid>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Nombre
               </SoftTypography>
               <SoftInput
@@ -263,7 +265,7 @@ function ProjectsPage() {
           </Grid>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Cliente
               </SoftTypography>
               <SoftSelect
@@ -283,7 +285,7 @@ function ProjectsPage() {
           </Grid>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Formato
               </SoftTypography>
               <SoftSelect

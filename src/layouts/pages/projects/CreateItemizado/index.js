@@ -5,13 +5,13 @@ import ProjectForm from "./Form";
 import SoftButton from "components/SoftButton";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
-import { Icon } from "@mui/material";
+import { Icon, Tooltip } from "@mui/material";
 
 const style = {
   position: "absolute",
   top: "30%",
   left: "50%",
-  width: "50%",
+  width: "30vw",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: "10px",
@@ -56,13 +56,15 @@ export default function CreateItemizado(props) {
   );
 
   return (
-    <span>
-      <SoftBadge
-        color='primary'
-        badgeContent={<Icon>upload</Icon>}
-        onClick={() => handleOpen()}
-      ></SoftBadge>
-      {renderModal()}
-    </span>
+    <Tooltip title='Subir itemizado' placement='top'>
+      <span>
+        <SoftBadge
+          color='dark'
+          badgeContent={<Icon>upload</Icon>}
+          onClick={() => handleOpen()}
+        />
+        {renderModal()}
+      </span>
+    </Tooltip>
   );
 }

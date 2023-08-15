@@ -17,6 +17,7 @@ Coded by www.creative-tim.com
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { deleteProject } from "redux/actions/projects";
+import { deleteRecord } from "redux/actions/records";
 
 // Soft UI Dashboard PRO React components
 import SoftBox from "components/SoftBox";
@@ -27,11 +28,12 @@ import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 import SoftBadge from "components/SoftBadge";
 import CreateProject from "layouts/pages/projects/CreateProject";
+import CreateRecord from "layouts/pages/records/CreateRecord";
 import Swal from "sweetalert2";
 import { Tooltip } from "@mui/material";
 import Icon from "@mui/material/Icon";
 
-function DataTableBodyCell({ noBorder, align, children, url, badge, edit }) {
+function DataTableBodyCell({ noBorder, align, children, url, badge, projectAction, recordAction }) {
   const { light } = colors;
   const { size } = typography;
   const { borderWidth } = borders;
@@ -41,7 +43,7 @@ function DataTableBodyCell({ noBorder, align, children, url, badge, edit }) {
   const renderCellContent = (content) => {
 
 
-    if (edit) {
+    if (projectAction) {
       return (
         <SoftBox display="flex" justifyContent="space-between">
           <CreateProject edit={true} project={content.props.cell.value} />
@@ -80,6 +82,48 @@ function DataTableBodyCell({ noBorder, align, children, url, badge, edit }) {
         </SoftBox>
       );
     }
+
+    if (recordAction) {
+      return (
+        <SoftBox display="flex" justifyContent="space-between">
+          <CreateRecord edit={true} record={content.props.cell.value} />
+          <Tooltip title='Eliminar ficha'>
+            <SoftBadge
+              color='error'
+
+              onClick={() => {
+                Swal.fire({
+                  title: "¿Estás seguro que quieres eliminar esta ficha?",
+                  text: "No podrás revertir esta acción",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: "Si, eliminar",
+                  cancelButtonText: "No, cancelar",
+                  reverseButtons: true,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(deleteRecord({ uuid: content.props.cell.value.uuid}));
+                    Swal.fire(
+                      "Eliminado",
+                      "La ficha ha sido eliminada.",
+                      "success"
+                    );
+                  } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                      "Cancelado",
+                      "La ficha no ha sido eliminada.",
+                      "error"
+                    );
+                  }
+                });
+              }}
+              badgeContent={<Icon>delete</Icon>}
+            />
+          </Tooltip>
+        </SoftBox>
+      );
+    }
+
     if (url) {
       return (
         <a href={content.props.cell.value} target="_blank" rel="noopener noreferrer" download>          

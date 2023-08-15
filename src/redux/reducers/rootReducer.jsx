@@ -6,6 +6,7 @@ import { clientsReducer } from './clients';
 import { usersReducer } from './users';
 import { notificationsReducer } from './notifications';
 import { projectsReducer } from './projects';
+import { recordsReducer } from './records';
 
 export const rootReducer = combineReducers({
   lang: languageReducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   users: usersReducer,
   projects: projectsReducer,
   notifications: notificationsReducer,
+  records: recordsReducer,
 });

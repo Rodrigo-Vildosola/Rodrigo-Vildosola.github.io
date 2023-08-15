@@ -48,6 +48,18 @@ export default function CreateUser(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            paddingTop: 6,
+            paddingRight: 6,
+          }}
+        >
+          <Icon onClick={handleClose} style={{ cursor: "pointer" }}>
+            close
+          </Icon>
+        </div>
         <Form handleClose={handleClose} user={props.user} edit={props.edit} />
       </Box>
     </Modal>

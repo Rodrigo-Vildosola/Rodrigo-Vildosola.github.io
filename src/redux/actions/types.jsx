@@ -2,12 +2,11 @@ export const types = {
   changeLanguage: '[Lang] Change',
   setExampleActionAxios: "[Example] Set Request Axios",
   setExampleAction: "[Example] Set Request",
-
+  
   setNotification: "[Notification] Set",
 
   setSignIn: "[Auth] Set SignIn",
   setSignOut: "[Auth] Set SignOut",
-
 
   setGetClients: "[Clients] Set Get Clients",
   setCreateClient: "[Clients] Set Create Client",
@@ -32,6 +31,10 @@ export const types = {
   setToggleClientUser: "[Users] Set Toggle Client User",
   setToggleFormatUser: "[Users] Set Toggle Format User",
 
+  setGetRecords: "[Records] Set Get Records",
+  setCreateRecord: "[Records] Set Create Record",
+  setUpdateRecord: "[Records] Set Update Record",
+  setDeleteRecord: "[Records] Set Delete Record",
   setGetElements: "[Elements] Set Get Elements",
   setCreateElements: "[Elements] Set Create Elements",
 

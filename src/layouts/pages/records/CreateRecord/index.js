@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -35,7 +35,7 @@ const styleMobile = {
   boxShadow: 24,
 };
 
-export default function CreateClient(props) {
+export default function CreateRecord(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -63,7 +63,7 @@ export default function CreateClient(props) {
         </div>
         <Form
           handleClose={handleClose}
-          client={props.client}
+          record={props.record}
           edit={props.edit}
         />
       </Box>
@@ -85,7 +85,7 @@ export default function CreateClient(props) {
           size='small'
           onClick={handleOpen}
         >
-          Crear Cliente
+          Crear Ficha
         </SoftButton>
       )}
       {renderModal()}

@@ -61,7 +61,7 @@ function Form(props) {
   return (
     <Card id='user-form' sx={{ overflow: "visible" }}>
       <SoftBox py={2}>
-        <SoftBox p={3}>
+        <SoftBox px={3} pb={1} pt={0}>
           <SoftTypography variant='h5'>
             {props.edit ? "Editar" : "Crear"} Usuario
           </SoftTypography>
