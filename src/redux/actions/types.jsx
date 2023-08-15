@@ -35,6 +35,9 @@ export const types = {
   setCreateRecord: "[Records] Set Create Record",
   setUpdateRecord: "[Records] Set Update Record",
   setDeleteRecord: "[Records] Set Delete Record",
+  setGetElements: "[Elements] Set Get Elements",
+
+
 };
 
 export const API_URL = process.env.REACT_APP_ENV_API_URL;

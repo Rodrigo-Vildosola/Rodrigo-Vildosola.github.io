@@ -1,0 +1,8 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+ td {
+    word-break: break-all; /* This allows words to break inside cells */
+  }

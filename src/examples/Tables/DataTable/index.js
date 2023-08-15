@@ -19,7 +19,13 @@ import { useMemo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // react-table components
-import { useTable, usePagination, useGlobalFilter, useAsyncDebounce, useSortBy } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useGlobalFilter,
+  useAsyncDebounce,
+  useSortBy,
+} from "react-table";
 
 // @mui material components
 import Table from "@mui/material/Table";
@@ -48,16 +54,18 @@ function DataTable({
   isSorted,
   noEndBorder,
 }) {
-
   const stateMap = {
-    "Adjudicado": "primary",
-    "Pendiente": "warning",
-    "Rechazado": "error",
+    Adjudicado: "success",
+    Pendiente: "warning",
+    Rechazado: "error",
   };
 
-
-  const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
-  const entries = entriesPerPage.entries ? entriesPerPage.entries : [5, 10, 15, 20, 25];
+  const defaultValue = entriesPerPage.defaultValue
+    ? entriesPerPage.defaultValue
+    : 10;
+  const entries = entriesPerPage.entries
+    ? entriesPerPage.entries
+    : [5, 10, 15, 20, 25];
   const columns = useMemo(() => table.columns, [table]);
   const data = useMemo(() => table.rows, [table]);
 
@@ -106,13 +114,16 @@ function DataTable({
 
   // Handler for the input to set the pagination index
   const handleInputPagination = ({ target: { value } }) =>
-    value > pageOptions.length || value < 0 ? gotoPage(0) : gotoPage(Number(value));
+    value > pageOptions.length || value < 0
+      ? gotoPage(0)
+      : gotoPage(Number(value));
 
   // Customized page options starting from 1
   const customizedPageOptions = pageOptions.map((option) => option + 1);
 
   // Setting value for the pagination input
-  const handleInputPaginationValue = ({ target: value }) => gotoPage(Number(value.value - 1));
+  const handleInputPaginationValue = ({ target: value }) =>
+    gotoPage(Number(value.value - 1));
 
   // Search input value state
   const [search, setSearch] = useState(globalFilter);
@@ -138,7 +149,8 @@ function DataTable({
   };
 
   // Setting the entries starting point
-  const entriesStart = pageIndex === 0 ? pageIndex + 1 : pageIndex * pageSize + 1;
+  const entriesStart =
+    pageIndex === 0 ? pageIndex + 1 : pageIndex * pageSize + 1;
 
   // Setting the entries ending point
   let entriesEnd;
@@ -154,24 +166,32 @@ function DataTable({
   return (
     <TableContainer sx={{ boxShadow: "none" }}>
       {entriesPerPage || canSearch ? (
-        <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+        <SoftBox
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
+          p={3}
+        >
           {entriesPerPage && (
-            <SoftBox display="flex" alignItems="center">
+            <SoftBox display='flex' alignItems='center'>
               <SoftSelect
                 defaultValue={{ value: defaultValue, label: defaultValue }}
-                options={entries.map((entry) => ({ value: entry, label: entry }))}
+                options={entries.map((entry) => ({
+                  value: entry,
+                  label: entry,
+                }))}
                 onChange={setEntriesPerPage}
-                size="small"
+                size='small'
               />
-              <SoftTypography variant="caption" color="secondary">
+              <SoftTypography variant='caption' color='secondary'>
                 &nbsp;&nbsp;entries per page
               </SoftTypography>
             </SoftBox>
           )}
           {canSearch && (
-            <SoftBox width="12rem" ml="auto">
+            <SoftBox width='12rem' ml='auto'>
               <SoftInput
-                placeholder="Search..."
+                placeholder='Search...'
                 value={search}
                 onChange={({ currentTarget }) => {
                   setSearch(search);
@@ -183,13 +203,15 @@ function DataTable({
         </SoftBox>
       ) : null}
       <Table {...getTableProps()}>
-        <SoftBox component="thead">
+        <SoftBox component='thead'>
           {headerGroups.map((headerGroup, key) => (
             <TableRow key={key} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column, key) => (
                 <DataTableHeadCell
                   key={key}
-                  {...column.getHeaderProps(isSorted && column.getSortByToggleProps())}
+                  {...column.getHeaderProps(
+                    isSorted && column.getSortByToggleProps()
+                  )}
                   width={column.width ? column.width : "auto"}
                   align={column.align ? column.align : "left"}
                   sorted={setSortedValue(column)}
@@ -211,7 +233,11 @@ function DataTable({
                     noBorder={noEndBorder && rows.length - 1 === key}
                     align={cell.column.align ? cell.column.align : "left"}
                     url={cell.column.url}
-                    badge={cell.column.badge ? { color: stateMap[cell.value], textColor: "white" } : null}
+                    badge={
+                      cell.column.badge 
+                        ? { color: stateMap[cell.value], textColor: "white" } 
+                        : null
+                    }
                     projectAction={cell.column.projectAction}
                     recordAction={cell.column.recordAction}
                     {...cell.getCellProps()}
@@ -226,15 +252,19 @@ function DataTable({
       </Table>
 
       <SoftBox
-        display="flex"
+        display='flex'
         flexDirection={{ xs: "column", sm: "row" }}
-        justifyContent="space-between"
+        justifyContent='space-between'
         alignItems={{ xs: "flex-start", sm: "center" }}
         p={!showTotalEntries && pageOptions.length === 1 ? 0 : 3}
       >
         {showTotalEntries && (
           <SoftBox mb={{ xs: 3, sm: 0 }}>
-            <SoftTypography variant="button" color="secondary" fontWeight="regular">
+            <SoftTypography
+              variant='button'
+              color='secondary'
+              fontWeight='regular'
+            >
               Showing {entriesStart} to {entriesEnd} of {rows.length} entries
             </SoftTypography>
           </SoftBox>
@@ -250,9 +280,13 @@ function DataTable({
               </SoftPagination>
             )}
             {renderPagination.length > 6 ? (
-              <SoftBox width="5rem" mx={1}>
+              <SoftBox width='5rem' mx={1}>
                 <SoftInput
-                  inputProps={{ type: "number", min: 1, max: customizedPageOptions.length }}
+                  inputProps={{
+                    type: "number",
+                    min: 1,
+                    max: customizedPageOptions.length,
+                  }}
                   value={customizedPageOptions[pageIndex]}
                   onChange={(handleInputPagination, handleInputPaginationValue)}
                 />
