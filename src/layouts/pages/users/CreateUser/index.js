@@ -11,8 +11,8 @@ import { Icon, Tooltip } from "@mui/material";
 
 const style = {
   position: "absolute",
-  width: "50%",
-  top: "50%",
+  width: "30vw",
+  top: "30%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",

@@ -26,7 +26,8 @@ import boxShadow from "assets/theme/functions/boxShadow";
 import { keyframes } from "@emotion/react";
 
 export default (selectSize, selectError, selectSuccess) => {
-  const { dark, white, text, light, inputColors, gradients, transparent } = colors;
+  const { dark, white, text, light, inputColors, gradients, transparent } =
+    colors;
   const { size, fontWeightRegular } = typography;
   const { borderWidth, borderRadius } = borders;
   const { inputBoxShadow, lg } = boxShadows;
@@ -79,6 +80,7 @@ export default (selectSize, selectError, selectSuccess) => {
     control: (provided, state) => ({
       display: "flex",
       alignItems: "center",
+
       width: "100%",
       height: selectSizeValue,
       padding: 0,
@@ -141,7 +143,9 @@ export default (selectSize, selectError, selectSuccess) => {
         height: pxToRem(14),
         strokeWidth: 1,
         stroke: text.main,
-        transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0)",
+        transform: state.selectProps.menuIsOpen
+          ? "rotate(180deg)"
+          : "rotate(0)",
         transition: "transform 250ms ease",
       },
     }),
@@ -151,6 +155,7 @@ export default (selectSize, selectError, selectSuccess) => {
       minWidth: pxToRem(160),
       boxShadow: lg,
       padding: `${pxToRem(16)} ${pxToRem(8)}`,
+      zIndex: 1000,
       fontSize: size.sm,
       color: text.main,
       textAlign: "left",

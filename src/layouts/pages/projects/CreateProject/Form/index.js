@@ -29,8 +29,12 @@ function ProjectForm(props) {
   const [formats, setFormats] = useState([]);
   const [name, setName] = useState(props.edit ? props.project.name : "");
   const [itemizado, setItemizado] = useState(null);
-  const [state, setState] = useState(props.edit ? { label: props.project.state, value: props.project.state } : "Pendiente"); 
-  
+  const [state, setState] = useState(
+    props.edit
+      ? { label: props.project.state, value: props.project.state }
+      : "Pendiente"
+  );
+
   useEffect(() => {
     if (!uuid) {
       dispatch(getClients());
@@ -52,9 +56,9 @@ function ProjectForm(props) {
   const handleSubmit = () => {
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("state", state.value); 
+    formData.append("state", state.value);
     formData.append("itemizado", itemizado);
-    
+
     if (props.edit) {
       formData.append("uuid", props.project.uuid);
       dispatch(updateProject(formData));
@@ -72,36 +76,36 @@ function ProjectForm(props) {
 
   const handleFormatChange = (event) => {
     setSelectedFormat(event);
-  }
+  };
 
   return (
-    <Card id="project-form" sx={{ overflow: "visible" }}>
-      <SoftBox p={3}>
-        <SoftTypography variant="h5">
+    <Card id='project-form' sx={{ overflow: "visible" }}>
+      <SoftBox px={3} pt={0} pb={1}>
+        <SoftTypography variant='h5'>
           {props.edit ? "Editar" : "Crear"} Proyecto
         </SoftTypography>
       </SoftBox>
-      <SoftBox px={3}>
-        <SoftTypography variant="h6">Nombre del Proyecto</SoftTypography>
+      <SoftBox px={3} py={1}>
+        <SoftTypography variant='h6'>Nombre del Proyecto</SoftTypography>
         <SoftInput
           fullWidth
-          placeholder="Nombre"
+          placeholder='Nombre'
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
       </SoftBox>
-      <SoftBox px={3}>
-        <SoftTypography variant="h6">Itemizado (Documento)</SoftTypography>
+      <SoftBox px={3} py={1}>
+        <SoftTypography variant='h6'>Itemizado (Documento)</SoftTypography>
         <SoftInput
           fullWidth
-          type="file"
+          type='file'
           onChange={(e) => setItemizado(e.target.files[0])}
         />
       </SoftBox>
-      <SoftBox px={3}>
-        <SoftTypography variant="h6">Estado del Proyecto</SoftTypography>
+      <SoftBox px={3} py={1}>
+        <SoftTypography variant='h6'>Estado del Proyecto</SoftTypography>
         <SoftSelect
-          placeholder="Seleccione el Estado del Proyecto"
+          placeholder='Seleccione el Estado del Proyecto'
           options={[
             { value: "Pendiente", label: "Pendiente" },
             { value: "Adjudicado", label: "Adjudicado" },
@@ -114,10 +118,10 @@ function ProjectForm(props) {
       </SoftBox>
 
       {!uuid && !props.edit && (
-        <SoftBox px={3}>
-          <SoftTypography variant="h6">Seleccione un Cliente</SoftTypography>
+        <SoftBox px={3} py={1}>
+          <SoftTypography variant='h6'>Seleccione un Cliente</SoftTypography>
           <SoftSelect
-            placeholder="Seleccione un Cliente"
+            placeholder='Seleccione un Cliente'
             options={clients.map((client) => ({
               value: client.uuid,
               label: client.name,
@@ -128,10 +132,10 @@ function ProjectForm(props) {
         </SoftBox>
       )}
       {formats.length > 0 && selectedClient && !props.edit && (
-        <SoftBox px={3}>
-          <SoftTypography variant="h6">Seleccione un Formato</SoftTypography>
+        <SoftBox px={3} py={1}>
+          <SoftTypography variant='h6'>Seleccione un Formato</SoftTypography>
           <SoftSelect
-            placeholder="Seleccione un Formato"
+            placeholder='Seleccione un Formato'
             options={formats.map((format) => ({
               value: format.uuid,
               label: format.name,
@@ -144,7 +148,7 @@ function ProjectForm(props) {
 
       <SoftBox p={3} pt={0}>
         <SoftButton
-          variant="contained"
+          variant='gradient'
           color={props.edit ? "warning" : "success"}
           fullWidth
           onClick={handleSubmit}

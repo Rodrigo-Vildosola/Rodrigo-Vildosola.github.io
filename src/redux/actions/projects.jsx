@@ -2,14 +2,14 @@ import { types, API_URL } from "./types";
 import Axios from "axios";
 import { setNotification } from "./notifications";
 
-export const getProjects = () =>
+export const getProjects = (d) =>
 {
   const url = `${API_URL}/api/clients/formats/projects/`;
 
   return (dispatch) =>
   {
     let outputData = {};
-    Axios.get(url).then(({ data }) =>
+    Axios.get(url, { params: d }).then(({ data }) =>
     {
       outputData["data"] = data;
       outputData["status"] = 200;
@@ -181,5 +181,49 @@ export const getElements = (data) =>
 
 export const setGetElements = (data) => ({
   type: types.setGetElements,
+  payload: data,
+});
+
+export const createElements = (params) =>
+{
+  ///api/clients/formats/projects/elements/create
+  const url = `${API_URL}/api/clients/formats/projects/elements/create/`;
+  return (dispatch) =>
+  {
+    let outputData = {};
+    Axios.post(url, params)
+      .then((data) =>
+      {
+        outputData["status"] = data.status;
+        outputData["message"] = data.message;
+        outputData["data"] = data.data;
+        outputData["time"] = new Date();
+        let notification = {
+          status: "success",
+          message: "Elementos creado correctamente!",
+          title: "Creación exitosa",
+          time: new Date(),
+        };
+        dispatch(setNotification(notification));
+        dispatch(setCreateElements(outputData));
+      })
+      .catch((err) =>
+      {
+        outputData["status"] = "danger";
+        outputData["message"] = "Error al crear el elemento!";
+        outputData["time"] = new Date();
+        let notification = {
+          status: "error",
+          message: "Error al crear el elemento!",
+          title: "Error de creación",
+          time: new Date(),
+        };
+        dispatch(setNotification(notification));
+      });
+  }
+}
+
+export const setCreateElements = (data) => ({
+  type: types.setCreateElements,
   payload: data,
 });

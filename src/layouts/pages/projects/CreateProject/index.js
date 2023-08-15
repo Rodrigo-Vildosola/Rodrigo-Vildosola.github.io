@@ -6,12 +6,12 @@ import SoftButton from "components/SoftButton";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
 import { Icon } from "@mui/material";
-
+import CloseIcon from "@mui/icons-material/Close";
 const style = {
   position: "absolute",
   top: "30%",
   left: "50%",
-  width: "50%",
+  width: "30vw",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: "10px",
@@ -31,7 +31,6 @@ const styleMobile = {
   borderRadius: "10px",
   boxShadow: 24,
 };
-
 export default function CreateProject(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -46,6 +45,21 @@ export default function CreateProject(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
+        {/* Agrega el botón de cierre (X) */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            paddingTop: 6,
+            paddingRight: 6,
+          }}
+        >
+          <Icon
+            component={CloseIcon}
+            onClick={handleClose}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
         <ProjectForm
           onClose={handleClose}
           project={props.project}

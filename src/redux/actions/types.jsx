@@ -36,6 +36,7 @@ export const types = {
   setUpdateRecord: "[Records] Set Update Record",
   setDeleteRecord: "[Records] Set Delete Record",
   setGetElements: "[Elements] Set Get Elements",
+  setCreateElements: "[Elements] Set Create Elements",
 
 
 };

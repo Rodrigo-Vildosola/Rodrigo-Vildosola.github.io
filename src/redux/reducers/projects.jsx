@@ -7,6 +7,7 @@ export const projectsReducer = (
     updateProject: {},
     deleteProject: {},
     getElements: {},
+    createElements: {},
   },
   action
 ) =>
@@ -65,7 +66,16 @@ export const projectsReducer = (
         },
       };
 
-
+    case types.setCreateElements:
+      return {
+        ...state,
+        createElements: {
+          status: action.payload.status,
+          data: action.payload.data,
+          title: action.payload.title,
+          time: new Date(),
+        },
+      };
     default:
       return state;
   }
