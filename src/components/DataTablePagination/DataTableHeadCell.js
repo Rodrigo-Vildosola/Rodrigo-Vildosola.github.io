@@ -1,10 +1,10 @@
 /**
 =========================================================
-* Soft UI Dashboard PRO React - v4.0.1
+* Soft UI Dashboard PRO React - v3.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
 
 Coded by www.creative-tim.com
 
@@ -26,7 +26,15 @@ import SoftBox from "components/SoftBox";
 import colors from "assets/theme/base/colors";
 import borders from "assets/theme/base/borders";
 
-function DataTableHeadCell({ width, children, sorted, align, ...rest }) {
+function DataTableHeadCell({
+  width,
+  children,
+  sorted,
+  align,
+  render,
+  position,
+  ...rest
+}) {
   const { light } = colors;
   const { borderWidth } = borders;
 
@@ -35,6 +43,10 @@ function DataTableHeadCell({ width, children, sorted, align, ...rest }) {
       component='th'
       width={width}
       borderBottom={`${borderWidth[1]} solid ${light.main}`}
+      position={position}
+      style={{ background: position === "sticky" ? "#3dc7fd" : "transparent" }}
+      left={position == "sticky" ? 0 : "auto"}
+      zIndex={position === "sticky" ? 99 : "auto"}
       py={1.5}
       px={3}
     >
@@ -42,7 +54,7 @@ function DataTableHeadCell({ width, children, sorted, align, ...rest }) {
         {...rest}
         position='relative'
         textAlign={align}
-        color='secondary'
+        color='white'
         opacity={0.7}
         sx={({ typography: { size, fontWeightBold } }) => ({
           fontSize: size.xxs,
@@ -53,31 +65,6 @@ function DataTableHeadCell({ width, children, sorted, align, ...rest }) {
         })}
       >
         {children}
-        {sorted && (
-          <SoftBox
-            top={0}
-            right={align !== "right" ? "16px" : 0}
-            left={align === "right" ? "-5px" : "unset"}
-            sx={({ typography: { size } }) => ({
-              fontSize: size.lg,
-            })}
-          >
-            <SoftBox
-              top={-6}
-              color={sorted === "asce" ? "text" : "secondary"}
-              opacity={sorted === "asce" ? 1 : 0.5}
-            >
-              <Icon>arrow_drop_up</Icon>
-            </SoftBox>
-            <SoftBox
-              top={0}
-              color={sorted === "desc" ? "text" : "secondary"}
-              opacity={sorted === "desc" ? 1 : 0.5}
-            >
-              <Icon>arrow_drop_down</Icon>
-            </SoftBox>
-          </SoftBox>
-        )}
       </SoftBox>
     </SoftBox>
   );
@@ -93,7 +80,7 @@ DataTableHeadCell.defaultProps = {
 // Typechecking props for the DataTableHeadCell
 DataTableHeadCell.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   sorted: PropTypes.oneOf([false, "none", "asce", "desc"]),
   align: PropTypes.oneOf(["left", "right", "center"]),
 };
