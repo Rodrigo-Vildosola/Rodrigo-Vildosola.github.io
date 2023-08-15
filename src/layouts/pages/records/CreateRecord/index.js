@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import Form from "./Form"; 
+import Form from "./Form";
 import SoftButton from "components/SoftButton";
 import { getPermission } from "utils";
 import { mobileMaxWidth } from "utils";
@@ -12,8 +12,9 @@ import { Icon } from "@mui/material";
 
 const style = {
   position: "absolute",
-  top: "50%",
+  top: "30%",
   left: "50%",
+  width: "30vw",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: "10px",
@@ -48,6 +49,18 @@ export default function CreateRecord(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            paddingTop: 6,
+            paddingRight: 6,
+          }}
+        >
+          <Icon onClick={handleClose} style={{ cursor: "pointer" }}>
+            close
+          </Icon>
+        </div>
         <Form
           handleClose={handleClose}
           record={props.record}

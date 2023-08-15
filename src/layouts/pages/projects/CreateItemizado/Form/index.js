@@ -46,7 +46,7 @@ function ItemizadoForm(props) {
         />
       </SoftBox>
 
-      <SoftBox p={3} pt={0}>
+      <SoftBox p={3} pt={2}>
         <SoftButton
           variant='contained'
           color={props.edit ? "warning" : "success"}

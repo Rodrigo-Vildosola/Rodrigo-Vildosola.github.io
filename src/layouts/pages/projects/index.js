@@ -227,10 +227,13 @@ function ProjectsPage() {
       </SoftBox>
 
       <Card sx={{ p: 3, overflow: "visible" }}>
+        <SoftTypography variant='h5' textAlign='center' fontWeight='bold'>
+          Filtros
+        </SoftTypography>
         <Grid container>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Estado
               </SoftTypography>
               <SoftSelect
@@ -249,7 +252,7 @@ function ProjectsPage() {
           </Grid>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Nombre
               </SoftTypography>
               <SoftInput
@@ -262,7 +265,7 @@ function ProjectsPage() {
           </Grid>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Cliente
               </SoftTypography>
               <SoftSelect
@@ -282,7 +285,7 @@ function ProjectsPage() {
           </Grid>
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
-              <SoftTypography variant='label' fontWeight='bold'>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Formato
               </SoftTypography>
               <SoftSelect

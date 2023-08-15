@@ -13,6 +13,7 @@ const style = {
   position: "absolute",
   top: "30%",
   left: "50%",
+  width: "30vw",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: "10px",
@@ -47,6 +48,18 @@ export default function CreateFormat(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            paddingTop: 6,
+            paddingRight: 6,
+          }}
+        >
+          <Icon onClick={handleClose} style={{ cursor: "pointer" }}>
+            close
+          </Icon>
+        </div>
         <Form
           handleClose={handleClose}
           format={props.format}

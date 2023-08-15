@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from "react";
 
 // @mui core components
@@ -10,7 +8,7 @@ import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftButton from "components/SoftButton";
 import { useDispatch } from "react-redux";
-import { createRecord, updateRecord } from "redux/actions/records"; 
+import { createRecord, updateRecord } from "redux/actions/records";
 
 function RecordsForm(props) {
   const dispatch = useDispatch();
@@ -29,7 +27,7 @@ function RecordsForm(props) {
     formData.append("code", code);
     formData.append("documento", document);
     console.log("Form Data:", Object.fromEntries(formData.entries()));
-    
+
     if (props.edit) {
       formData.append("uuid", props.record.uuid);
       dispatch(updateRecord(formData));
@@ -44,14 +42,14 @@ function RecordsForm(props) {
 
   return (
     <Card id='record-info' sx={{ overflow: "visible" }}>
-      <SoftBox p={3}>
+      <SoftBox px={3} pt={0} pb={1}>
         <SoftTypography variant='h5'>
-          {props.edit ? "Edit" : "Create"} Record
+          {props.edit ? "Editar" : "Crear"} Ficha
         </SoftTypography>
       </SoftBox>
-      
-      <SoftBox px={3}>
-        <SoftTypography variant='h6'>Name</SoftTypography>
+
+      <SoftBox px={3} py={1}>
+        <SoftTypography variant='h6'>Nombre</SoftTypography>
         <SoftInput
           fullWidth
           placeholder='Name'
@@ -60,8 +58,8 @@ function RecordsForm(props) {
         />
       </SoftBox>
 
-      <SoftBox px={3}>
-        <SoftTypography variant='h6'>Code</SoftTypography>
+      <SoftBox px={3} py={1}>
+        <SoftTypography variant='h6'>Código</SoftTypography>
         <SoftInput
           fullWidth
           placeholder='Code'
@@ -70,16 +68,12 @@ function RecordsForm(props) {
         />
       </SoftBox>
 
-      <SoftBox p={3}>
-        <SoftTypography variant='h6'>Document</SoftTypography>
-        <SoftInput
-          fullWidth
-          type='file'
-          onChange={handleChangeFile}
-        />
+      <SoftBox px={3} py={1}>
+        <SoftTypography variant='h6'>Documento</SoftTypography>
+        <SoftInput fullWidth type='file' onChange={handleChangeFile} />
       </SoftBox>
 
-      <SoftBox p={3} pt={0}>
+      <SoftBox p={3} py={2}>
         <SoftButton
           variant='contained'
           component='label'
@@ -87,7 +81,7 @@ function RecordsForm(props) {
           fullWidth
           onClick={handleSubmit}
         >
-          {props.edit ? "Edit" : "Create"}
+          {props.edit ? "Editar" : "Crear"}
         </SoftButton>
       </SoftBox>
     </Card>

@@ -3,12 +3,15 @@ import Axios from "axios";
 import { setNotification } from "./notifications";
 
 // Get Records
-export const getRecords = () => {
+export const getRecords = (params) =>
+{
   const url = `${API_URL}/api/records/`;
-  
-  return (dispatch) => {
+
+  return (dispatch) =>
+  {
     let outputData = {};
-    Axios.get(url).then(({ data }) => {
+    Axios.get(url, { params }).then(({ data }) =>
+    {
       outputData["data"] = data;
       outputData["status"] = 200;
       dispatch(setGetRecords(outputData));
@@ -23,13 +26,16 @@ export const setGetRecords = (data) => ({
 
 
 // Create Record
-export const createRecord = (params) => {
+export const createRecord = (params) =>
+{
   const url = `${API_URL}/api/records/create/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.post(url, params)
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -44,11 +50,12 @@ export const createRecord = (params) => {
         dispatch(setNotification(notification));
         dispatch(setCreateRecord(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error al crear el registro!";
         outputData["time"] = new Date();
-        
+
         let notification = {
           status: "error",
           message: "Error al crear el registro!",
@@ -67,13 +74,16 @@ export const setCreateRecord = (data) => ({
 
 
 // Update Record
-export const updateRecord = (params) => {
+export const updateRecord = (params) =>
+{
   const url = `${API_URL}/api/records/update/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.put(url, params)
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -88,11 +98,12 @@ export const updateRecord = (params) => {
         dispatch(setNotification(notification));
         dispatch(setUpdateRecord(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error al actualizar el registro!";
         outputData["time"] = new Date();
-        
+
         let notification = {
           status: "error",
           message: "Error al actualizar el registro!",
@@ -111,13 +122,16 @@ export const setUpdateRecord = (data) => ({
 
 
 // Delete Record
-export const deleteRecord = (params) => {
+export const deleteRecord = (params) =>
+{
   const url = `${API_URL}/api/records/delete/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.delete(url, { params: params })
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -132,11 +146,12 @@ export const deleteRecord = (params) => {
         dispatch(setNotification(notification));
         dispatch(setDeleteRecord(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error al eliminar el registro!";
         outputData["time"] = new Date();
-        
+
         let notification = {
           status: "error",
           message: "Error al eliminar el registro!",

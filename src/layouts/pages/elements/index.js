@@ -179,21 +179,17 @@ function ElementsPage() {
           </SoftButton>
         </SoftBox>
       )}
-      <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
+      <SoftTypography variant='h3' textAlign='center' fontWeight='bold' mb={3}>
         Elementos
       </SoftTypography>
-      <SoftBox display='flex' justifyContent='flex-end' pb={3}>
-        <CreateElements />
-      </SoftBox>
 
       <Card sx={{ padding: 3 }}>
+        <SoftTypography variant='h5' textAlign='center' fontWeight='bold'>
+          Filtros
+        </SoftTypography>
         <Grid container>
           <Grid item sm={4} xs={12}>
-            <SoftTypography
-              variant='label'
-              textAlign='center'
-              fontWeight='bold'
-            >
+            <SoftTypography variant='body2' fontWeight='bold'>
               Nombre
             </SoftTypography>
             <SoftInput

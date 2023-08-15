@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import ProjectForm from "./Form";
+import Form from "./Form";
 import SoftButton from "components/SoftButton";
 import { mobileMaxWidth } from "utils";
 import SoftBadge from "components/SoftBadge";
@@ -11,7 +11,7 @@ const style = {
   position: "absolute",
   top: "30%",
   left: "50%",
-  width: "50%",
+  width: "30vw",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: "10px",
@@ -46,11 +46,7 @@ export default function CreateProject(props) {
       width={""}
     >
       <Box sx={window.innerWidth <= mobileMaxWidth ? styleMobile : style}>
-        <ProjectForm
-          onClose={handleClose}
-          project={props.project}
-          edit={props.edit}
-        />
+        <Form onClose={handleClose} project={props.project} edit={props.edit} />
       </Box>
     </Modal>
   );
@@ -59,7 +55,7 @@ export default function CreateProject(props) {
     <span>
       {props.edit ? (
         <SoftBadge
-          color='info'
+          color='dark'
           badgeContent={<Icon>edit</Icon>}
           onClick={() => handleOpen()}
         ></SoftBadge>
@@ -70,7 +66,7 @@ export default function CreateProject(props) {
           size='small'
           onClick={handleOpen}
         >
-          Crear Proyecto
+          Subir Itemizado
         </SoftButton>
       )}
       {renderModal()}
