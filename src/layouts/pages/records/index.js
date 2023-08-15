@@ -7,7 +7,6 @@ import DataTable from "examples/Tables/DataTable";
 import CreateRecord from "./CreateRecord";     
 import { useDispatch, useSelector } from "react-redux";
 import { getRecords } from "redux/actions/records"; 
-import { Grid } from "@mui/material";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 

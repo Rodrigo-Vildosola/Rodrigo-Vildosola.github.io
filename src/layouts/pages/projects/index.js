@@ -36,13 +36,8 @@ function ProjectsPage() {
   );
 
   useEffect(() => {
-<<<<<<< HEAD
-    dispatch(getProjects()); 
-  }, [dispatch]);
-=======
     dispatch(getProjects());
   }, []);
->>>>>>> master
 
   useEffect(() => {
     if (getProjectsResponse.data && uuid) {

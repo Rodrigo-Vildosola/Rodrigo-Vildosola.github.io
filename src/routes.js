@@ -51,14 +51,11 @@ import Clients from "layouts/pages/clients";
 import FormatsPage from "layouts/pages/formats";
 import Users from "layouts/pages/users";
 import ProjectsPage from "layouts/pages/projects";
-<<<<<<< HEAD
 import RecordsPage from "layouts/pages/records";
-=======
 import ElementsPage from "layouts/pages/elements";
 
 import { AiOutlineProject } from "react-icons/ai";
 import { LiaElementor } from "react-icons/lia";
->>>>>>> master
 
 /*
 collapse: [
