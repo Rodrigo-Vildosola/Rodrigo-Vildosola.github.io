@@ -6,10 +6,13 @@ export const projectsReducer = (
     createProject: {},
     updateProject: {},
     deleteProject: {},
+    getElements: {},
   },
   action
-) => {
-  switch (action.type) {
+) =>
+{
+  switch (action.type)
+  {
     case types.setGetProjects:
       return {
         ...state,
@@ -50,6 +53,18 @@ export const projectsReducer = (
           time: new Date(),
         },
       };
+
+    case types.setGetElements:
+      return {
+        ...state,
+        getElements: {
+          status: action.payload.status,
+          data: action.payload.data,
+          title: action.payload.title,
+          time: new Date(),
+        },
+      };
+
 
     default:
       return state;

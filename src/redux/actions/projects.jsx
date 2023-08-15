@@ -2,12 +2,15 @@ import { types, API_URL } from "./types";
 import Axios from "axios";
 import { setNotification } from "./notifications";
 
-export const getProjects = () => {
+export const getProjects = () =>
+{
   const url = `${API_URL}/api/clients/formats/projects/`;
-  
-  return (dispatch) => {
+
+  return (dispatch) =>
+  {
     let outputData = {};
-    Axios.get(url).then(({ data }) => {
+    Axios.get(url).then(({ data }) =>
+    {
       outputData["data"] = data;
       outputData["status"] = 200;
       dispatch(setGetProjects(outputData));
@@ -21,13 +24,16 @@ export const setGetProjects = (data) => ({
 });
 
 
-export const createProject = (params) => {
+export const createProject = (params) =>
+{
   const url = `${API_URL}/api/clients/formats/projects/create/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.post(url, params)
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -42,7 +48,8 @@ export const createProject = (params) => {
         dispatch(setNotification(notification));
         dispatch(setCreateProject(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error al crear el proyecto!";
         outputData["time"] = new Date();
@@ -63,13 +70,16 @@ export const setCreateProject = (data) => ({
 });
 
 
-export const updateProject = (params) => {
+export const updateProject = (params) =>
+{
   const url = `${API_URL}/api/clients/formats/projects/update/`;
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.put(url, params)
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -83,7 +93,8 @@ export const updateProject = (params) => {
         dispatch(setNotification(notification));
         dispatch(setUpdateProject(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error al actualizar el proyecto!";
         outputData["time"] = new Date();
@@ -104,14 +115,17 @@ export const setUpdateProject = (data) => ({
 });
 
 
-export const deleteProject = (params) => {
+export const deleteProject = (params) =>
+{
   const url = `${API_URL}/api/clients/formats/projects/delete/`;
   console.log(params);
 
-  return (dispatch) => {
+  return (dispatch) =>
+  {
     let outputData = {};
     Axios.delete(url, { params: params })
-      .then((data) => {
+      .then((data) =>
+      {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
@@ -126,7 +140,8 @@ export const deleteProject = (params) => {
         dispatch(setNotification(notification));
         dispatch(setDeleteProject(outputData));
       })
-      .catch((err) => {
+      .catch((err) =>
+      {
         outputData["status"] = "danger";
         outputData["message"] = "Error al eliminar el proyecto!";
         outputData["time"] = new Date();
@@ -143,5 +158,28 @@ export const deleteProject = (params) => {
 
 export const setDeleteProject = (data) => ({
   type: types.setDeleteProject,
+  payload: data,
+});
+
+
+
+export const getElements = (data) =>
+{
+  const url = `${API_URL}/api/clients/formats/projects/elements/`;
+  return (dispatch) =>
+  {
+    let outputData = {};
+    Axios.get(url, { params: data }).then(({ data }) =>
+    {
+      outputData["data"] = data;
+      outputData["status"] = 200;
+      dispatch(setGetElements(outputData));
+    });
+  };
+}
+
+
+export const setGetElements = (data) => ({
+  type: types.setGetElements,
   payload: data,
 });
