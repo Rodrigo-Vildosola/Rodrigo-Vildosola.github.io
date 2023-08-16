@@ -42,26 +42,11 @@ function ClientsPage() {
   );
 
   useEffect(() => {
-    let profile = JSON.parse(localStorage.getItem("profile"));
-    if (profile) {
-      if (profile.groups[0].name === "tipo2") {
-        let clientsAssigned = profile.assigned_clients;
-        setClients(clientsAssigned);
-      } else {
-        dispatch(getClients());
-      }
-    }
+    dispatch(getClients());
   }, []);
 
   useEffect(() => {
-    if (getClientsResponse.data) {
-      let profile = JSON.parse(localStorage.getItem("profile"));
-      if (profile) {
-        if (profile.groups[0].name !== "tipo2") {
-          setClients(getClientsResponse.data);
-        }
-      }
-    }
+    if (getClientsResponse.data) setClients(getClientsResponse.data);
   }, [getClientsResponse]);
 
   useEffect(() => {

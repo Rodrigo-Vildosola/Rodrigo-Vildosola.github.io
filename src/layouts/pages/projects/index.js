@@ -24,6 +24,7 @@ import { deleteProject } from "redux/actions/projects";
 import SoftBadge from "components/SoftBadge";
 import CreateItemizado from "./CreateItemizado";
 import SoftInput from "components/SoftInput";
+import { getPermission } from "utils";
 
 function ProjectsPage() {
   const { uuid } = useParams();
@@ -62,7 +63,7 @@ function ProjectsPage() {
     let filters = {
       state: stateFilter,
       client: clientsFilter,
-      formats: formatsFilter,
+      formats: uuid ? uuid : formatsFilter,
       name: nameFilter,
       page: page,
       page_size: pageSize,
@@ -85,8 +86,13 @@ function ProjectsPage() {
   }, [getFormatsResponse]);
 
   useEffect(() => {
-    getClients()(dispatch);
     doRequest();
+    if (getPermission(["administrador", "tipo1", "tipo2"]))
+      dispatch(getClients());
+    else {
+      let profile = JSON.parse(localStorage.getItem("profile"));
+      dispatch(getFormatsByClient(profile.assigned_formats[0].uuid));
+    }
   }, []);
 
   useEffect(() => {
@@ -96,12 +102,7 @@ function ProjectsPage() {
   }, [getClientsResponse]);
 
   useEffect(() => {
-    if (getProjectsResponse.data && uuid) {
-      const filteredProjects = getProjectsResponse.data.filter(
-        (project) => project.format?.uuid === uuid
-      );
-      setProjects(filteredProjects);
-    } else if (getProjectsResponse.data) {
+    if (getProjectsResponse.data) {
       setProjects(getProjectsResponse.data.results);
       setTable(parseTable(getProjectsResponse.data.results));
       setCanNext(getProjectsResponse.data.next);
@@ -234,6 +235,19 @@ function ProjectsPage() {
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
               <SoftTypography variant='body2' fontWeight='bold'>
+                Nombre
+              </SoftTypography>
+              <SoftInput
+                value={nameFilter}
+                onChange={(e) => {
+                  setNameFilter(e.target.value);
+                }}
+              />
+            </SoftBox>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <SoftBox p={2}>
+              <SoftTypography variant='body2' fontWeight='bold'>
                 Estado
               </SoftTypography>
               <SoftSelect
@@ -250,39 +264,28 @@ function ProjectsPage() {
               />
             </SoftBox>
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <SoftBox p={2}>
-              <SoftTypography variant='body2' fontWeight='bold'>
-                Nombre
-              </SoftTypography>
-              <SoftInput
-                value={nameFilter}
-                onChange={(e) => {
-                  setNameFilter(e.target.value);
-                }}
-              />
-            </SoftBox>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <SoftBox p={2}>
-              <SoftTypography variant='body2' fontWeight='bold'>
-                Cliente
-              </SoftTypography>
-              <SoftSelect
-                option={clientsFilter}
-                onChange={(e) => {
-                  setClientsFilter(e.value);
-                }}
-                options={[
-                  { label: "Todos", value: null },
-                  ...clients.map((client) => ({
-                    label: client.name,
-                    value: client.uuid,
-                  })),
-                ]}
-              />
-            </SoftBox>
-          </Grid>
+          {getPermission(["administrador", "tipo1", "tipo2"]) && (
+            <Grid item xs={12} sm={3}>
+              <SoftBox p={2}>
+                <SoftTypography variant='body2' fontWeight='bold'>
+                  Cliente
+                </SoftTypography>
+                <SoftSelect
+                  option={clientsFilter}
+                  onChange={(e) => {
+                    setClientsFilter(e.value);
+                  }}
+                  options={[
+                    { label: "Todos", value: null },
+                    ...clients.map((client) => ({
+                      label: client.name,
+                      value: client.uuid,
+                    })),
+                  ]}
+                />
+              </SoftBox>
+            </Grid>
+          )}
           <Grid item xs={12} sm={3}>
             <SoftBox p={2}>
               <SoftTypography variant='body2' fontWeight='bold'>
