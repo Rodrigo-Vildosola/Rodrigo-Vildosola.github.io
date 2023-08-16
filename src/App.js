@@ -172,8 +172,6 @@ export default function App() {
           onMouseEnter={handleOnMouseEnter}
           onMouseLeave={handleOnMouseLeave}
         />
-        <Configurator />
-        {configsButton}
         <Routes>
           {getRoutes(routes)}
           <Route path='*' element={<Navigate to='/dashboards/default' />} />
@@ -194,11 +192,8 @@ export default function App() {
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
-          <Configurator />
-          {configsButton}
         </>
       )}
-      {layout === "vr" && <Configurator />}
       {!mapStateToProps().isAuthenticated ? (
         <Routes>
           {" "}
