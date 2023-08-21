@@ -66,7 +66,7 @@ function UsersPage() {
       setCanNext(getUsersResponse.data.next);
       setTotalEntries(getUsersResponse.data.count);
       setCanPrev(getUsersResponse.data.previous);
-      console.log(getUsersResponse.data.results);
+      console.log(getUsersResponse.data);
     }
   }, [getUsersResponse]);
 
