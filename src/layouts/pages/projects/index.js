@@ -97,10 +97,12 @@ function ProjectsPage() {
 
   useEffect(() => {
     if (getProjectsResponse.data && uuid) {
-      const filteredProjects = getProjectsResponse.data.filter(
+      const filteredProjects = getProjectsResponse.data.results.filter(
         (project) => project.format?.uuid === uuid
       );
       setProjects(filteredProjects);
+      setTable(parseTable(filteredProjects));
+      setTotalEntries(filteredProjects.length);
     } else if (getProjectsResponse.data) {
       setProjects(getProjectsResponse.data.results);
       setTable(parseTable(getProjectsResponse.data.results));
