@@ -107,6 +107,7 @@ function ProjectsPage() {
       setCanNext(getProjectsResponse.data.next);
       setTotalEntries(getProjectsResponse.data.count);
       setCanPrev(getProjectsResponse.data.previous);
+      console.log(getProjectsResponse.data);
     }
   }, [getProjectsResponse, uuid]);
 
