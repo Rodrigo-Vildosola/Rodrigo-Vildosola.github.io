@@ -3,14 +3,14 @@ import Axios from "axios";
 import { setNotification } from "./notifications";
 
 
-export const getUsers = () =>
+export const getUsers = (data) =>
 {
   const url = `${API_URL}/api/users/`;
 
   return (dispatch) =>
   {
     let outputData = {};
-    Axios.get(url)
+    Axios.get(url, { params: data })
       .then(({ data }) =>
       {
         outputData["data"] = data;

@@ -15,7 +15,12 @@ function Form(props) {
 
   const [name, setName] = useState(props.edit ? props.user.first_name : "");
   const [email, setEmail] = useState(props.edit ? props.user.email : "");
-  const [group, setGroup] = useState(props.edit ? props.user.groups[0] : null);
+  const [group, setGroup] = useState(
+    props.edit 
+    ? props.user.groups[0].name
+    : null
+  );
+  console.log(group);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -28,19 +33,6 @@ function Form(props) {
   ];
 
   const handleSubmit = () => {
-    /*
-    if (password.length < 8) {
-      setPasswordError("Password must be at least 8 characters long");
-      return;
-    } else if (password !== confirmPassword) {
-      setPasswordError("Passwords do not match");
-      return;
-    }
-
-    if (!validadorEmail(email)) {
-      setEmailError("Invalid email address");
-      return;
-    } */
 
     const formData = new FormData();
     formData.append("first_name", name);
