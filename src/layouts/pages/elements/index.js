@@ -122,6 +122,7 @@ function ElementsPage() {
 
   useEffect(() => {
     if (getElementsResponse.data) {
+      console.log(getElementsResponse.data)
       setElements(getElementsResponse.data.results);
     }
   }, [getElementsResponse]);
