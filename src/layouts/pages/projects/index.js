@@ -80,7 +80,7 @@ function ProjectsPage() {
 
   useEffect(() => {
     if (getFormatsResponse.data) {
-      setFormats(getFormatsResponse.data);
+      setFormats(getFormatsResponse.data.results);
     }
   }, [getFormatsResponse]);
 
