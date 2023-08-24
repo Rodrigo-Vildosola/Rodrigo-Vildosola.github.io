@@ -54,6 +54,7 @@ function ClientsPage() {
       setCanPrev(getClientsResponse.data.previous);
     }
     console.log(getClientsResponse.data);
+
   }, [getClientsResponse]);
 
   useEffect(() => {

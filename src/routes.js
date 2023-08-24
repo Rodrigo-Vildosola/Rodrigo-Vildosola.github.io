@@ -150,15 +150,6 @@ const routes = [
     component: <ProjectsPage />,
   },
   {
-    name: "Fichas",
-    key: "records",
-    route: "/records",
-    type: "collapse",
-    noCollapse: true,
-    icon: <Basket size="12px"  />,
-    component: <RecordsPage />,
-  },
-  {
     name: "Elementos",
     key: "elements",
     route: "/elements",
@@ -166,6 +157,15 @@ const routes = [
     noCollapse: true,
     icon: <LiaElementor size='12px' />,
     component: <ElementsPage />,
+  },
+  {
+    name: "Fichas",
+    key: "records",
+    route: "/records",
+    type: "collapse",
+    noCollapse: true,
+    icon: <Basket size='12px' />,
+    component: <RecordsPage />,
   },
 
   {
