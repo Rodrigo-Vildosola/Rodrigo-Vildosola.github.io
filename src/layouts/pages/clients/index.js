@@ -129,7 +129,7 @@ function ClientsPage() {
                   reverseButtons: true,
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    dispatch(deleteClient({ id: client.id }));
+                    dispatch(deleteClient({ client_uuid: client.uuid }));
                     Swal.fire(
                       "Eliminado",
                       "El cliente ha sido eliminado.",
