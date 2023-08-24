@@ -97,7 +97,7 @@ function ProjectsPage() {
 
   useEffect(() => {
     if (getClientsResponse.data) {
-      setClients(getClientsResponse.data);
+      setClients(getClientsResponse.data.results);
     }
   }, [getClientsResponse]);
 

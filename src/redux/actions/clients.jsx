@@ -2,19 +2,20 @@ import { types, API_URL } from "./types";
 import Axios from "axios";
 import { setNotification } from "./notifications";
 
-export const getClients = () =>
+export const getClients = (data) =>
 {
     const url = `${API_URL}/api/clients/`;
 
     return (dispatch) =>
     {
         let outputData = {};
-        Axios.get(url).then(({ data }) =>
-        {
-            outputData["data"] = data;
-            outputData["status"] = 200;
-            dispatch(setGetClients(outputData));
-        })
+        Axios.get(url, { params: data})
+            .then(({ data }) =>
+            {
+                outputData["data"] = data;
+                outputData["status"] = 200;
+                dispatch(setGetClients(outputData));
+            })
     }
 }
 
