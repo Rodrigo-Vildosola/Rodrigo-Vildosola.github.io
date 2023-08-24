@@ -1,124 +1,190 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ClientFormat from "examples/Cards/ClientFormat";
-import CreateFormat from "./CreateFormat";
+import DataTable from "components/DataTablePagination";
 import { useDispatch, useSelector } from "react-redux";
-import { getClients } from "redux/actions/clients";
-import { Grid, Icon, Table, TableRow } from "@mui/material";
+import { getFormatsByClient, deleteFormat } from "redux/actions/clients";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import { getFormatsByClient } from "redux/actions/clients";
-import { useParams } from "react-router-dom";
+import { Card, Grid, Icon, Tooltip } from "@mui/material";
+import SoftInput from "components/SoftInput";
+import CreateFormat from "./CreateFormat";
 import SoftButton from "components/SoftButton";
+import SoftBadge from "components/SoftBadge";
+import Swal from "sweetalert2";
 
 function FormatsPage() {
-  const { uuid } = useParams();
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const [formats, setFormats] = useState([]);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { uuid } = useParams();
 
-  const getFormatsByClientResponse = useSelector(
-    (state) => state.clients.getFormatsByClient
-  );
-  const createFormatResponse = useSelector(
-    (state) => state.clients.createFormat
-  );
-  const updateFormatResponse = useSelector(
-    (state) => state.clients.updateFormat
-  );
-  const deleteFormatResponse = useSelector(
-    (state) => state.clients.deleteFormat
-  );
+    const [formats, setFormats] = useState([]);
+    const [nameFilter, setNameFilter] = useState("");
 
-  useEffect(() => {
-    let profile = JSON.parse(localStorage.getItem("profile"));
-    if (profile.groups[0].name === "tipo3") {
-      let assignedFormats = profile.assigned_formats;
-      setFormats(assignedFormats);
-    } else {
-      dispatch(getFormatsByClient(uuid));
-    }
-  }, []);
+    const [canNext, setCanNext] = useState(false);
+    const [canPrev, setCanPrev] = useState(false);
+    const [totalEntries, setTotalEntries] = useState(0);
+    const [pageSize, setPageSize] = useState(20);
+    const [page, setPage] = useState(1);
+    const [table, setTable] = useState({ columns: [], rows: [] });
 
-  useEffect(() => {
-    if (getFormatsByClientResponse.data) {
-      setFormats(getFormatsByClientResponse.data);
-    }
-  }, [getFormatsByClientResponse]);
+    const getFormatsByClientResponse = useSelector((state) => state.clients.getFormatsByClient);
+    const createFormatResponse = useSelector((state) => state.clients.createFormat);
+    const deleteFormatResponse = useSelector((state) => state.clients.deleteFormat);
 
-  useEffect(() => {
-    if (createFormatResponse.data) {
-      if (new Date() - createFormatResponse.time < 2000) {
-        dispatch(getFormatsByClient(uuid));
-      }
-    }
-  }, [createFormatResponse]);
+    const doRequest = () => {
+        let filters = {
+            name: nameFilter,
+            page: page,
+            page_size: pageSize,
+            uuid: uuid,
+        };
+        dispatch(getFormatsByClient(filters));
+    };
 
-  useEffect(() => {
-    if (updateFormatResponse.data) {
-      if (new Date() - updateFormatResponse.time < 2000) {
-        dispatch(getFormatsByClient(uuid));
-      }
-    }
-  }, [updateFormatResponse]);
+    useEffect(() => {
+        doRequest();
+    }, [nameFilter, pageSize, page]);
 
-  useEffect(() => {
-    if (deleteFormatResponse.data) {
-      if (new Date() - deleteFormatResponse.time < 2000) {
-        dispatch(getFormatsByClient(uuid));
-      }
-    }
-  }, [deleteFormatResponse]);
+    useEffect(() => {
+        if (getFormatsByClientResponse.data) {
+            setFormats(getFormatsByClientResponse.data.results);
+            setTable(parseTable(getFormatsByClientResponse.data.results));
+            setCanNext(getFormatsByClientResponse.data.next);
+            setTotalEntries(getFormatsByClientResponse.data.count);
+            setCanPrev(getFormatsByClientResponse.data.previous);
+        }
+    }, [getFormatsByClientResponse]);
 
-  return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      <SoftBox>
-        <SoftButton
-          onClick={() => {
-            window.history.back();
-          }}
-          variant='text'
-          color='black'
-        >
-          <Icon>arrow_back</Icon> Volver
-        </SoftButton>
-      </SoftBox>
-      <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
-        Formatos{" "}
-      </SoftTypography>
-      <SoftBox display='flex' justifyContent='flex-end' pb={3}>
-        <CreateFormat />
-      </SoftBox>
-      <Grid container spacing={3}>
-        {formats.map((format, i) => (
-          <Grid key={i} item xs={12} sm={6} md={4}>
-            {console.log(format)}
-            <ClientFormat format={format} action={{}} />
-          </Grid>
-        ))}
-      </Grid>
+    useEffect(() => {
+        if (createFormatResponse.data) {
+            if (new Date() - createFormatResponse.time < 2000) {
+                dispatch(getFormatsByClient(uuid));
+            }
+        }
+    }, [createFormatResponse]);
 
-      <Footer />
-    </DashboardLayout>
-  );
+    useEffect(() => {
+        if (deleteFormatResponse.data) {
+            if (new Date() - deleteFormatResponse.time < 2000) {
+                dispatch(getFormatsByClient(uuid));
+            }
+        }
+    }, [deleteFormatResponse]);
+
+    const parseTable = (formats) => {
+        const columns = [
+            { Header: "Logo", accessor: "logo", width: "20%" },
+            { Header: "Nombre", accessor: "name" },
+            { Header: "Actions", accessor: "actions", width: "10%" },
+        ];
+
+        const rows = formats.map((format) => ({
+            logo: format.logo ? (
+                <SoftBox component='img' height={100} src={format.logo} alt={format.name} borderRadius='md' />
+            ) : null,
+            name: format.name,
+            actions: (
+                <SoftBox display='flex' justifyContent='space-between'>
+                    <CreateFormat edit={true} format={format} />
+                    <Tooltip title='Eliminar formato'>
+                        <SoftBadge
+                            color='error'
+                            onClick={() => {
+                                Swal.fire({
+                                    title: "¿Estás seguro que quieres eliminar este formato?",
+                                    text: "No podrás revertir esta acción",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Si, eliminar",
+                                    cancelButtonText: "No, cancelar",
+                                    reverseButtons: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        dispatch(deleteFormat({ uuid: format.uuid }));
+                                        Swal.fire(
+                                            "Eliminado",
+                                            "El formato ha sido eliminado.",
+                                            "success"
+                                        );
+                                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                        Swal.fire(
+                                            "Cancelado",
+                                            "El formato no ha sido eliminado.",
+                                            "error"
+                                        );
+                                    }
+                                });
+                            }}
+                            badgeContent={<Icon>delete</Icon>}
+                        />
+                    </Tooltip>
+                </SoftBox>
+            ),
+        }));
+
+        return { columns, rows };
+    };
+
+    return (
+        <DashboardLayout>
+            <DashboardNavbar />
+            {uuid && (
+              <SoftBox>
+                <SoftButton
+                  onClick={() => {
+                    window.history.back();
+                  }}
+                  variant='text'
+                  color='dark'
+                >
+                  <Icon>arrow_back</Icon> Volver
+                </SoftButton>
+              </SoftBox>
+            )}
+            <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
+                Formatos
+            </SoftTypography>
+            <SoftBox display='flex' justifyContent='flex-end' pb={3}>
+                <CreateFormat />
+            </SoftBox>
+            <Card sx={{ pt: 3, overflow: "visible", px: 1 }}>
+                <SoftTypography variant='h5' textAlign='center' fontWeight='bold'>
+                    Filtros
+                </SoftTypography>
+                <Grid container>
+                    <Grid item xs={12} sm={6}>
+                        <SoftBox p={2}>
+                            <SoftTypography variant='body2' fontWeight='bold'>
+                                Nombre
+                            </SoftTypography>
+                            <SoftInput
+                                size='small'
+                                value={nameFilter}
+                                onChange={(e) => setNameFilter(e.target.value)}
+                            />
+                        </SoftBox>
+                    </Grid>
+                </Grid>
+            </Card>
+            <Card sx={{ px: 3, overflow: "visible" }}>
+                <DataTable
+                    totalEntries={totalEntries}
+                    canSearch={false}
+                    table={table}
+                    canPrev={canPrev}
+                    canNext={canNext}
+                    setPageSize={setPageSize}
+                    pageSize={pageSize}
+                    page={page}
+                    setPage={setPage}
+                />
+            </Card>
+            <Footer />
+        </DashboardLayout>
+    );
 }
 
 export default FormatsPage;

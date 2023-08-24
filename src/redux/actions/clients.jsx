@@ -139,14 +139,14 @@ export const setDeleteClient = (data) => ({
 });
 
 
-export const getFormatsByClient = (uuid) =>
+export const getFormatsByClient = (data) =>
 {
-    const url = `${API_URL}/api/clients/${uuid}/formats/`;
+    const url = `${API_URL}/api/clients/${data.uuid}/formats/`;
 
     return (dispatch) =>
     {
         let outputData = {};
-        Axios.get(url).then(({ data }) =>
+        Axios.get(url, { params: data }).then(({ data }) =>
         {
             outputData["data"] = data;
             outputData["status"] = 200;
