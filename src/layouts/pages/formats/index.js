@@ -82,9 +82,23 @@ function FormatsPage() {
         ];
 
         const rows = formats.map((format) => ({
-            logo: format.logo ? (
-                <SoftBox component='img' height={100} src={format.logo} alt={format.name} borderRadius='md' />
-            ) : null,
+            logo: (
+              <SoftBox
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate(`/clients/formats/${format.uuid}/projects`);
+                }}
+              >
+                {" "}
+                <SoftBox
+                  component='img'
+                  height={100}
+                  src={format.logo}
+                  alt={format.name}
+                  borderRadius='md'
+                />
+              </SoftBox>
+            ),
             name: format.name,
             actions: (
                 <SoftBox display='flex' justifyContent='space-between'>
