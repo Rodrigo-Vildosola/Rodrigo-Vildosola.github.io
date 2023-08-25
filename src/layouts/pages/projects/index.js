@@ -69,6 +69,7 @@ function ProjectsPage() {
       page_size: pageSize,
     };
     dispatch(getProjects(filters));
+    console.log(filters);
   };
 
   useEffect(() => {
@@ -102,6 +103,7 @@ function ProjectsPage() {
   }, [getClientsResponse]);
 
   useEffect(() => {
+    console.log(getProjectsResponse.data);
     if (getProjectsResponse.data && uuid) {
       const filteredProjects = getProjectsResponse.data.results.filter(
         (project) => project.format?.uuid === uuid
@@ -115,7 +117,6 @@ function ProjectsPage() {
       setCanNext(getProjectsResponse.data.next);
       setTotalEntries(getProjectsResponse.data.count);
       setCanPrev(getProjectsResponse.data.previous);
-      console.log(getProjectsResponse.data);
     }
   }, [getProjectsResponse, uuid]);
 

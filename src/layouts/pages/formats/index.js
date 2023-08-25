@@ -78,6 +78,7 @@ function FormatsPage() {
         const columns = [
             { Header: "Logo", accessor: "logo", width: "20%" },
             { Header: "Nombre", accessor: "name" },
+            { Header: "Proyectos", accessor: "projects", width: "10%"},
             { Header: "Actions", accessor: "actions", width: "10%" },
         ];
 
@@ -100,6 +101,19 @@ function FormatsPage() {
               </SoftBox>
             ),
             name: format.name,
+            projects: (
+                <SoftBox
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    navigate(`/clients/formats/${format.uuid}/projects`);
+                  }}
+                >
+                  <SoftBadge
+                    color='secondary'
+                    badgeContent={<Icon>visibility_icon</Icon>}
+                  />
+                </SoftBox>
+            ),
             actions: (
                 <SoftBox display='flex' justifyContent='space-between'>
                     <CreateFormat edit={true} format={format} />
