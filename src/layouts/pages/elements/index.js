@@ -177,6 +177,7 @@ function ElementsPage() {
 
   useEffect(() => {
     if (getElementsResponse.data) {
+
       setTotalEntries(getElementsResponse.data.count);
       setCanNext(getElementsResponse.data.next ? true : false);
       setCanPrev(getElementsResponse.data.previous ? true : false);

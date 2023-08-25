@@ -103,7 +103,6 @@ function ProjectsPage() {
   }, [getClientsResponse]);
 
   useEffect(() => {
-    console.log(getProjectsResponse.data);
     if (getProjectsResponse.data && uuid) {
       const filteredProjects = getProjectsResponse.data.results.filter(
         (project) => project.format?.uuid === uuid
@@ -111,12 +110,14 @@ function ProjectsPage() {
       setProjects(filteredProjects);
       setTable(parseTable(filteredProjects));
       setTotalEntries(filteredProjects.length);
+      
     } else if (getProjectsResponse.data) {
       setProjects(getProjectsResponse.data.results);
       setTable(parseTable(getProjectsResponse.data.results));
       setCanNext(getProjectsResponse.data.next);
       setTotalEntries(getProjectsResponse.data.count);
       setCanPrev(getProjectsResponse.data.previous);
+      console.log(getProjectsResponse.data);
     }
   }, [getProjectsResponse, uuid]);
 
