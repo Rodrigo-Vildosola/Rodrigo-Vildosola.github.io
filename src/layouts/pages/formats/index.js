@@ -61,7 +61,7 @@ function FormatsPage() {
     useEffect(() => {
         if (createFormatResponse.data) {
             if (new Date() - createFormatResponse.time < 2000) {
-                dispatch(getFormatsByClient(uuid));
+                doRequest();
             }
         }
     }, [createFormatResponse]);
@@ -69,11 +69,12 @@ function FormatsPage() {
     useEffect(() => {
         if (deleteFormatResponse.data) {
             if (new Date() - deleteFormatResponse.time < 2000) {
-                dispatch(getFormatsByClient(uuid));
+                doRequest();
             }
         }
     }, [deleteFormatResponse]);
 
+    
     const parseTable = (formats) => {
         const columns = [
             { Header: "Logo", accessor: "logo", width: "20%" },

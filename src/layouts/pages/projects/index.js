@@ -69,7 +69,6 @@ function ProjectsPage() {
       page_size: pageSize,
     };
     dispatch(getProjects(filters));
-    console.log(filters);
   };
 
   useEffect(() => {
@@ -89,7 +88,7 @@ function ProjectsPage() {
   useEffect(() => {
     doRequest();
     if (getPermission(["administrador", "tipo1", "tipo2"]))
-      dispatch(getClients());
+      dispatch(getClients({ no_pagination: true }));
     else {
       let profile = JSON.parse(localStorage.getItem("profile"));
       dispatch(getFormatsByClient(profile.assigned_formats[0].uuid));
@@ -117,7 +116,6 @@ function ProjectsPage() {
       setCanNext(getProjectsResponse.data.next);
       setTotalEntries(getProjectsResponse.data.count);
       setCanPrev(getProjectsResponse.data.previous);
-      console.log(getProjectsResponse.data);
     }
   }, [getProjectsResponse, uuid]);
 
@@ -174,7 +172,7 @@ function ProjectsPage() {
       clientName: projectData.format.client.name,
       actions: (
         <SoftBox display='flex' justifyContent='space-between'>
-          <CreateProject edit={true} project={projectData} />
+          <CreateProject edit={true} project={projectData}  />
           <CreateItemizado project={projectData} />
           <Tooltip title='Eliminar proyecto'>
             <SoftBadge
@@ -284,6 +282,7 @@ function ProjectsPage() {
                   option={clientsFilter}
                   onChange={(e) => {
                     setClientsFilter(e.value);
+                    console.log(e.value);
                   }}
                   options={[
                     { label: "Todos", value: null },

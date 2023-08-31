@@ -38,7 +38,10 @@ export const types = {
   setGetElements: "[Elements] Set Get Elements",
   setCreateElements: "[Elements] Set Create Elements",
 
-
+  setGetReports: "[Reports] Set Get Projects",
+  setCreateReport: "[Reports] Set Create Reports",
+  setUpdateReport: "[Reports] Set Update Reports",
+  setDeleteReport: "[Reports] Set Delete Reports",
 };
 
 export const API_URL = process.env.REACT_APP_ENV_API_URL;

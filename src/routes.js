@@ -53,6 +53,7 @@ import Users from "layouts/pages/users";
 import ProjectsPage from "layouts/pages/projects";
 import RecordsPage from "layouts/pages/records";
 import ElementsPage from "layouts/pages/elements";
+import ReportsPage from "layouts/pages/reports";
 
 import { AiOutlineProject } from "react-icons/ai";
 import { LiaElementor } from "react-icons/lia";
@@ -148,6 +149,15 @@ const routes = [
     noCollapse: true,
     icon: <AiOutlineProject size='12px' />,
     component: <ProjectsPage />,
+  },
+  {
+    name: "Reportes",
+    key: "reports",
+    route: "/reports",
+    type: "collapse",
+    noCollapse: true,
+    icon: <CustomerSupport size='12px' />,
+    component: <ReportsPage />,
   },
   {
     name: "Elementos",

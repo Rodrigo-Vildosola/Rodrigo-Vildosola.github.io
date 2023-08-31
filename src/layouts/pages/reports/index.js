@@ -5,40 +5,45 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "components/DataTablePagination";
 import { useDispatch, useSelector } from "react-redux";
-import { getClients, deleteClient } from "redux/actions/clients";
+import { getReports, deleteReport } from "redux/actions/reports";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import { Card, Grid, Icon, Tooltip } from "@mui/material";
 import SoftInput from "components/SoftInput";
-import CreateClient from "./CreateClient";
+import CreateReport from "./CreateReport";
 import SoftBadge from "components/SoftBadge";
 import Swal from "sweetalert2";
+import { updateReport } from "redux/actions/reports";
 
-function ClientsPage() {
-  const navigate = useNavigate();
 
+function ReportsPage() {
   const dispatch = useDispatch();
-  const [clients, setClients] = useState([]);
+
+  const [reports, setReports] = useState([]);
+
   const [nameFilter, setNameFilter] = useState("");
+  const [projectFilter, setProjectFilter] = useState("");
 
   const [canNext, setCanNext] = useState(false);
   const [canPrev, setCanPrev] = useState(false);
   const [totalEntries, setTotalEntries] = useState(0);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(20);
   const [page, setPage] = useState(1);
   const [table, setTable] = useState({ columns: [], rows: [] });
 
-  const getClientsResponse = useSelector((state) => state.clients.getClients);
-  const createClientResponse = useSelector((state) => state.clients.createClient);
-  const deleteClientResponse = useSelector((state) => state.clients.deleteClient);
+  const getReportsResponse = useSelector((state) => state.reports.getReports);
+  const updateReportResponse = useSelector((state) => state.reports.updateReport);
+  const createReportResponse = useSelector((state) => state.reports.createReport);
+  const deleteReportResponse = useSelector((state) => state.reports.deleteReport);
 
   const doRequest = () => {
     let filters = {
       name: nameFilter,
+      project_name: projectFilter,
       page: page,
       page_size: pageSize,
     };
-    dispatch(getClients(filters));
+    dispatch(getReports(filters));
   };
 
   useEffect(() => {
@@ -46,81 +51,61 @@ function ClientsPage() {
   }, [nameFilter, pageSize, page]);
 
   useEffect(() => {
-    if (getClientsResponse.data) {
-      setClients(getClientsResponse.data.results);
-      setTable(parseTable(getClientsResponse.data.results));
-      setCanNext(getClientsResponse.data.next);
-      setTotalEntries(getClientsResponse.data.count);
-      setCanPrev(getClientsResponse.data.previous);
+    if (getReportsResponse.data) {
+      setReports(getReportsResponse.data.results);
+      setTable(parseTable(getReportsResponse.data.results));
+      setCanNext(getReportsResponse.data.next);
+      setTotalEntries(getReportsResponse.data.count);
+      setCanPrev(getReportsResponse.data.previous);
     }
-    console.log(getClientsResponse.data);
-  }, [getClientsResponse]);
+    console.log(getReportsResponse.data);
+  }, [getReportsResponse]);
 
   useEffect(() => {
-    if (createClientResponse.data) {
-      if (new Date() - createClientResponse.time < 2000) {
-        dispatch(getClients());
+    if (createReportResponse.data) {
+      if (new Date() - createReportResponse.time < 2000) {
+        dispatch(getReports());
       }
     }
-  }, [createClientResponse]);
+  }, [createReportResponse]);
 
   useEffect(() => {
-    if (deleteClientResponse.data) {
-      if (new Date() - deleteClientResponse.time < 2000) {
-        dispatch(getClients());
+    if (updateReportResponse.data) {
+      if (new Date() - updateReportResponse.time < 2000) {
+        dispatch(getReports());
       }
     }
-  }, [deleteClientResponse]);
+  }, [updateReportResponse]);
 
-  const parseTable = (clients) => {
+  useEffect(() => {
+    if (deleteReportResponse.data) {
+      if (new Date() - deleteReportResponse.time < 2000) {
+        dispatch(getReports());
+      }
+    }
+  }, [deleteReportResponse]);
+
+  const parseTable = (reports) => {
     const columns = [
-      { Header: "Logo", accessor: "logo", width: "20%" },
-      { Header: "Nombre", accessor: "name"},
-      { Header: "Formatos", accessor: "formats", width: "5%"},
+      { Header: "Nombre", accessor: "name", width: "20%"},
+      { Header: "Creacion", accessor: "creation_date", width: "20%" },
+      { Header: "Proyecto", accessor: "project", width: "5%"},
       { Header: "Actions", accessor: "actions", width: "10%" },
     ];
 
-    const rows = clients.map((client) => ({
-      logo: (
-        <SoftBox
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate(`/clients/${client.uuid}/formats`);
-          }}
-        >
-          {" "}
-          <SoftBox
-            component='img'
-            height={100}
-            src={client.logo}
-            alt={client.name}
-            borderRadius='md'
-          />
-        </SoftBox>
-      ),
-      name: client.name,
-      formats: (
-        <SoftBox
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate(`/clients/${client.uuid}/formats`);
-          }}
-        >
-          <SoftBadge
-            color='secondary'
-            badgeContent={<Icon>visibility_icon</Icon>}
-          />
-        </SoftBox>
-      ),
+    const rows = reports.map((report) => ({
+      name: report.name,
+      creation_date: report.creation_date,
+      project: report.project.name,
       actions: (
         <SoftBox display='flex' justifyContent='space-between'>
-          <CreateClient edit={true} client={client} />
-          <Tooltip title='Eliminar cliente'>
+          <CreateReport edit={true} report={report} />
+          <Tooltip title='Eliminar reporte'>
             <SoftBadge
               color='error'
               onClick={() => {
                 Swal.fire({
-                  title: "¿Estás seguro que quieres eliminar este cliente?",
+                  title: "¿Estás seguro que quieres eliminar este reporte?",
                   text: "No podrás revertir esta acción",
                   icon: "warning",
                   showCancelButton: true,
@@ -129,16 +114,16 @@ function ClientsPage() {
                   reverseButtons: true,
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    dispatch(deleteClient({ client_uuid: client.uuid }));
+                    dispatch(deleteReport({ report_uuid: report.uuid }));
                     Swal.fire(
                       "Eliminado",
-                      "El cliente ha sido eliminado.",
+                      "El reporte ha sido eliminado.",
                       "success"
                     );
                   } else if (result.dismiss === Swal.DismissReason.cancel) {
                     Swal.fire(
                       "Cancelado",
-                      "El cliente no ha sido eliminado.",
+                      "El reporte no ha sido eliminado.",
                       "error"
                     );
                   }
@@ -155,14 +140,15 @@ function ClientsPage() {
     return { columns, rows };
   };
 
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <SoftTypography variant='h3' textAlign='center' fontWeight='bold'>
-        Clientes
+        Reportes
       </SoftTypography>
       <SoftBox display='flex' justifyContent='flex-end' pb={3}>
-        <CreateClient />
+        <CreateReport />
       </SoftBox>
       <Card sx={{ pt: 3, overflow: "visible", px: 1 }}>
         <SoftTypography variant='h5' textAlign='center' fontWeight='bold'>
@@ -178,6 +164,18 @@ function ClientsPage() {
                 size='small'
                 value={nameFilter}
                 onChange={(e) => setNameFilter(e.target.value)}
+              />
+            </SoftBox>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <SoftBox p={2}>
+              <SoftTypography variant='body2' fontWeight='bold'>
+                Proyecto
+              </SoftTypography>
+              <SoftInput
+                size='small'
+                value={projectFilter}
+                onChange={(e) => setProjectFilter(e.target.value)}
               />
             </SoftBox>
           </Grid>
@@ -198,8 +196,11 @@ function ClientsPage() {
         />
       </Card>
       <Footer />
+
     </DashboardLayout>
   );
 }
 
-export default ClientsPage;
+
+export default ReportsPage;
+
