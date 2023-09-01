@@ -152,27 +152,27 @@ function ElementsPage() {
   useEffect(() => {
     doRequest();
     if (getPermission(["administrador", "tipo1", "tipo2"]))
-      dispatch(getClients());
+      dispatch(getClients({ no_pagination: "true" }));
     else {
       let profile = JSON.parse(localStorage.getItem("profile"));
-      dispatch(getFormatsByClient(profile.assigned_formats[0].uuid));
+      dispatch(getFormatsByClient({ client_uuid: profile.assigned_formats[0].uuid }));
     }
   }, []);
 
   useEffect(() => {
     if (getFormatsResponse.data) {
-      setFormats(getFormatsResponse.data);
+      setFormats(getFormatsResponse.data.results);
     }
   }, [getFormatsResponse]);
 
   useEffect(() => {
     if (getClientsResponse.data) {
-      setClients(getClientsResponse.data);
+      setClients(getClientsResponse.data.results);
     }
   }, [getClientsResponse]);
 
   useEffect(() => {
-    if (clientsFilter) getFormatsByClient(clientsFilter)(dispatch);
+    if (clientsFilter) getFormatsByClient({ client_uuid: clientsFilter })(dispatch);
   }, [clientsFilter]);
 
   useEffect(() => {
