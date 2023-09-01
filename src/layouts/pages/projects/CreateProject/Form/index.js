@@ -37,19 +37,19 @@ function ProjectForm(props) {
 
   useEffect(() => {
     if (!uuid) {
-      dispatch(getClients());
+      dispatch(getClients({ no_pagination: "true" }));
     }
   }, []);
 
   useEffect(() => {
     if (getClientsResponse.data && !uuid) {
-      setClients(getClientsResponse.data);
+      setClients(getClientsResponse.data.results);
     }
   }, [getClientsResponse]);
 
   useEffect(() => {
     if (getFormatsByClientResponse.data) {
-      setFormats(getFormatsByClientResponse.data);
+      setFormats(getFormatsByClientResponse.data.results);
     }
   }, [getFormatsByClientResponse]);
 
