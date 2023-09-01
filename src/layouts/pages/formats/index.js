@@ -39,7 +39,7 @@ function FormatsPage() {
             name: nameFilter,
             page: page,
             page_size: pageSize,
-            uuid: uuid,
+            client_uuid: uuid,
         };
         dispatch(getFormatsByClient(filters));
     };
@@ -74,7 +74,7 @@ function FormatsPage() {
         }
     }, [deleteFormatResponse]);
 
-    
+
     const parseTable = (formats) => {
         const columns = [
             { Header: "Logo", accessor: "logo", width: "20%" },

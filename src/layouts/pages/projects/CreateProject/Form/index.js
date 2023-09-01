@@ -71,7 +71,7 @@ function ProjectForm(props) {
 
   const handleClientChange = (event) => {
     setSelectedClient(event);
-    dispatch(getFormatsByClient(event.value));
+    dispatch(getFormatsByClient({ client_uuid: event.value }));
   };
 
   const handleFormatChange = (event) => {

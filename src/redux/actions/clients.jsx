@@ -141,7 +141,7 @@ export const setDeleteClient = (data) => ({
 
 export const getFormatsByClient = (data) =>
 {
-    const url = `${API_URL}/api/clients/${data.uuid}/formats/`;
+    const url = `${API_URL}/api/clients/${data.client_uuid}/formats/`;
 
     return (dispatch) =>
     {

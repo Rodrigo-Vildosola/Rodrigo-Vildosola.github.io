@@ -22,7 +22,6 @@ function ReportsPage() {
   const [reports, setReports] = useState([]);
 
   const [nameFilter, setNameFilter] = useState("");
-  const [projectFilter, setProjectFilter] = useState("");
 
   const [canNext, setCanNext] = useState(false);
   const [canPrev, setCanPrev] = useState(false);
@@ -39,7 +38,6 @@ function ReportsPage() {
   const doRequest = () => {
     let filters = {
       name: nameFilter,
-      project_name: projectFilter,
       page: page,
       page_size: pageSize,
     };
@@ -58,7 +56,6 @@ function ReportsPage() {
       setTotalEntries(getReportsResponse.data.count);
       setCanPrev(getReportsResponse.data.previous);
     }
-    console.log(getReportsResponse.data);
   }, [getReportsResponse]);
 
   useEffect(() => {
@@ -164,18 +161,6 @@ function ReportsPage() {
                 size='small'
                 value={nameFilter}
                 onChange={(e) => setNameFilter(e.target.value)}
-              />
-            </SoftBox>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <SoftBox p={2}>
-              <SoftTypography variant='body2' fontWeight='bold'>
-                Proyecto
-              </SoftTypography>
-              <SoftInput
-                size='small'
-                value={projectFilter}
-                onChange={(e) => setProjectFilter(e.target.value)}
               />
             </SoftBox>
           </Grid>

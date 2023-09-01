@@ -39,7 +39,7 @@ function ProjectsPage() {
   const [canNext, setCanNext] = useState(false);
   const [canPrev, setCanPrev] = useState(false);
   const [totalEntries, setTotalEntries] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(1);
   const [table, setTable] = useState({ columns: [], rows: [] });
   const getProjectsResponse = useSelector(
@@ -76,7 +76,9 @@ function ProjectsPage() {
   }, [stateFilter, clientsFilter, formatsFilter, nameFilter, pageSize, page]);
 
   useEffect(() => {
-    if (clientsFilter) getFormatsByClient(clientsFilter)(dispatch);
+    if (clientsFilter){ 
+      dispatch(getFormatsByClient({ client_uuid: clientsFilter }));
+    };
   }, [clientsFilter]);
 
   useEffect(() => {
@@ -91,7 +93,7 @@ function ProjectsPage() {
       dispatch(getClients({ no_pagination: true }));
     else {
       let profile = JSON.parse(localStorage.getItem("profile"));
-      dispatch(getFormatsByClient(profile.assigned_formats[0].uuid));
+      dispatch(getFormatsByClient({ client_uuid: profile.assigned_formats[0].uuid }));
     }
   }, []);
 
@@ -272,7 +274,7 @@ function ProjectsPage() {
               />
             </SoftBox>
           </Grid>
-          {getPermission(["administrador", "tipo1", "tipo2"]) && (
+          {getPermission(["administrador", "tipo1", "tipo2"]) && !uuid && (
             <Grid item xs={12} sm={3}>
               <SoftBox p={2}>
                 <SoftTypography variant='body2' fontWeight='bold'>
@@ -282,7 +284,6 @@ function ProjectsPage() {
                   option={clientsFilter}
                   onChange={(e) => {
                     setClientsFilter(e.value);
-                    console.log(e.value);
                   }}
                   options={[
                     { label: "Todos", value: null },
@@ -295,26 +296,28 @@ function ProjectsPage() {
               </SoftBox>
             </Grid>
           )}
-          <Grid item xs={12} sm={3}>
-            <SoftBox p={2}>
-              <SoftTypography variant='body2' fontWeight='bold'>
-                Formato
-              </SoftTypography>
-              <SoftSelect
-                option={formatsFilter}
-                onChange={(e) => {
-                  setFormatsFilter(e.value);
-                }}
-                options={[
-                  { label: "Todos", value: null },
-                  ...formats.map((format) => ({
-                    label: format.name,
-                    value: format.uuid,
-                  })),
-                ]}
-              />
-            </SoftBox>
-          </Grid>
+          {!uuid && (
+            <Grid item xs={12} sm={3}>
+              <SoftBox p={2}>
+                <SoftTypography variant='body2' fontWeight='bold'>
+                  Formato
+                </SoftTypography>
+                <SoftSelect
+                  option={formatsFilter}
+                  onChange={(e) => {
+                    setFormatsFilter(e.value);
+                  }}
+                  options={[
+                    { label: "Todos", value: null },
+                    ...formats.map((format) => ({
+                      label: format.name,
+                      value: format.uuid,
+                    })),
+                  ]}
+                />
+              </SoftBox>
+            </Grid>
+          )}
         </Grid>
       </Card>
 

@@ -26,14 +26,13 @@ function ReportForm(props) {
 
   useEffect(() => {
     if (!props.edit) {
-      dispatch(getProjects());
+      dispatch(getProjects({ no_pagination: "true" }));
     }
   }, []);
 
   useEffect(() => {
     if (getProjectsResponse.data && !props.edit) {
       setProjects(getProjectsResponse.data.results);
-      console.log(getProjectsResponse.data.results);
     }
   }, [getProjectsResponse]);
   
@@ -47,7 +46,6 @@ function ReportForm(props) {
       formData.append("project_uuid", selectedProject.value);
       dispatch(createReport(formData));
     }
-    console.log("Form Data:", Object.fromEntries(formData.entries()));
     props.onClose();
   };
 
