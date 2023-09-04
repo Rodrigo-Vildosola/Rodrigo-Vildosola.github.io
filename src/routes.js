@@ -116,9 +116,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Change Log",
+    name: "Repository",
     key: "changelog",
-    href: "https://github.com/creativetimofficial/ct-soft-ui-dashboard-pro-react/blob/main/CHANGELOG.md",
+    href: "https://github.com/Rodrigo-Vildosola/wavelearn_frontend",
     icon: <CreditCard size='12px' />,
     noCollapse: true,
   },

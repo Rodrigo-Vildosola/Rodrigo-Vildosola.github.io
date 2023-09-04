@@ -14,15 +14,16 @@ Coded by www.creative-tim.com
 */
 
 // Image
-import adobeXD from "assets/images/small-logos/logo-xd.svg";
-import atlassian from "assets/images/small-logos/logo-atlassian.svg";
-import slack from "assets/images/small-logos/logo-slack.svg";
-import spotify from "assets/images/small-logos/logo-spotify.svg";
-import jira from "assets/images/small-logos/logo-jira.svg";
+import WavesIcon from '@mui/icons-material/Waves';
+import SettingsVoiceOutlinedIcon from '@mui/icons-material/SettingsVoiceOutlined';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import SpeedIcon from '@mui/icons-material/Speed';
 
-const complexReportsDoughnutChartData = {
-  images: [adobeXD, atlassian, slack, spotify, jira],
-  labels: ["Adobe XD", "Atlassian", "Slack", "Spotify", "Jira"],
+
+const Data = {
+  images: [<WavesIcon/>, <EqualizerIcon/>, <MusicNoteIcon/>, <SettingsVoiceOutlinedIcon/>, <SpeedIcon/>],
+  labels: ["Tipos de onda", "Caracteristicas de las ondas", "Vibracion de una cuerda", "Ondas sonoras", "Efecto doppler"],
   datasets: {
     label: "Referrals",
     backgroundColors: ["primary", "info", "warning", "success", "dark"],
@@ -30,4 +31,4 @@ const complexReportsDoughnutChartData = {
   },
 };
 
-export default complexReportsDoughnutChartData;
+export default Data;

@@ -19,7 +19,7 @@ function Footer({ company, links }) {
   const renderLinks = () =>
     links.map((link) => (
       <SoftBox key={link.name} component='li' px={2} lineHeight={1}>
-        <Link href={link.href}>
+        <Link href={link.href} target='_blank'>
           <SoftTypography variant='button' fontWeight='regular' color='text'>
             {link.name}
           </SoftTypography>
@@ -88,6 +88,10 @@ Footer.defaultProps = {
   company: { href: (<Navigate to = "/about"/>), name: "Creative Tim" },
   links: [
     { href: "/about", name: "About Us" },
+    { 
+      href: "https://demos.creative-tim.com/soft-ui-dashboard-pro-react/?_ga=2.149030774.1729584872.1693851475-1102389097.1688040941#/dashboards/default", 
+      name: "Template" 
+    },
   ],
 };
 

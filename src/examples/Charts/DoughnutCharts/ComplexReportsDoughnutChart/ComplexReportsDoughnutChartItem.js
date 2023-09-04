@@ -43,7 +43,7 @@ function ComplexReportsDoughnutChartItem({ image, title, percentage, hasBorder }
         <SoftBox display="flex" py={1.5} px={2}>
           {image && (
             <SoftBox mr={1}>
-              <SoftAvatar src={image} size="sm" alt="title" />
+              {image}
             </SoftBox>
           )}
           <SoftBox display="flex" flexDirection="column" justifyContent="center">
@@ -77,7 +77,7 @@ ComplexReportsDoughnutChartItem.defaultProps = {
 
 // Typechecking props for the ComplexReportsDoughnutChartItem
 ComplexReportsDoughnutChartItem.propTypes = {
-  image: PropTypes.string,
+  image: PropTypes.node,
   title: PropTypes.string.isRequired,
   percentage: PropTypes.string.isRequired,
   hasBorder: PropTypes.bool,

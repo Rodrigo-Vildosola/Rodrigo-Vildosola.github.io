@@ -40,7 +40,8 @@ import SidenavCard from "examples/Sidenav/SidenavCard";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
-import logo from "assets/images/wavelearn.png";
+import logo from "assets/images/wavelearn_alt.png";
+import curved6 from "assets/images/curved-images/curved14.jpg";
 // Soft UI Dashboard PRO React context
 import { useSoftUIController, setMiniSidenav } from "context";
 
@@ -256,12 +257,31 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         <SoftBox component={NavLink} to='/' display='flex' alignItems='center'>
           {logo && (
             <SoftBox
-              component='img'
-              src={logo}
-              alt='Wavelearn logo'
-              width='100%'
-              borderRadius='20%'
-            />
+              position="relative" // Set the SoftBox to have relative positioning
+              width="100%"
+              borderRadius="20%"
+            >
+              <img 
+                src={curved6} // This is the main background image
+                width="100%"
+                alt="curved6"
+                style={{
+                  borderRadius: '15px'
+                }}
+              />
+              <img 
+                src={logo} // This is the image you want to overlay on top
+                alt="logo"
+                style={{
+                  position: 'absolute', // Set the overlay image to have absolute positioning
+                  top: '50%', // Center the overlay image vertically
+                  left: '50%', // Center the overlay image horizontally
+                  transform: 'translate(-50%, -50%)', // Ensure the overlay image is centered
+                  width: '100%', // You can adjust this value based on your preference
+                  height: 'auto'
+                }}
+              />
+            </SoftBox>
           )}
           <SoftBox
             width={!brandName && "100%"}

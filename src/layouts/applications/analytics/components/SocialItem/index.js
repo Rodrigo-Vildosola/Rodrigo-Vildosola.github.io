@@ -53,6 +53,11 @@ function SocialItem({ icon, title, percentage }) {
 SocialItem.propTypes = {
   icon: PropTypes.shape({
     color: PropTypes.oneOf([
+      "tipos_de_onda",
+      "caracteristicas_de_las_ondas",
+      "vibracion_de_una_cuerda",
+      "ondas_sonoras",
+      "efecto_doppler",
       "facebook",
       "twitter",
       "instagram",

@@ -18,58 +18,64 @@ import Card from "@mui/material/Card";
 import Tooltip from "@mui/material/Tooltip";
 import Icon from "@mui/material/Icon";
 
+
 // @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import RedditIcon from "@mui/icons-material/Reddit";
+import WavesIcon from '@mui/icons-material/Waves';
+import SettingsVoiceOutlinedIcon from '@mui/icons-material/SettingsVoiceOutlined';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import SpeedIcon from '@mui/icons-material/Speed';
 
 // Soft UI Dashboard PRO React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 
+import { capitalize } from "utils";
+
 // Analytics application components
 import SocialItem from "layouts/applications/analytics/components/SocialItem";
 
-function Social() {
+function Social(props) {
+
+  const renderIcon = (icon) => {
+    switch (icon) {
+      case "tipos_de_onda":
+        return <WavesIcon />;
+      case "caracteristicas_de_las_ondas":
+        return <EqualizerIcon />;
+      case "vibracion_de_una_cuerda":
+        return <MusicNoteIcon />;
+      case "ondas_sonoras":
+        return <SettingsVoiceOutlinedIcon />;
+      case "efecto_doppler":
+        return <SpeedIcon />;
+      default:
+        return <Icon>{icon}</Icon>;
+    }
+  }
+
   return (
     <Card sx={{ height: "100%" }}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
-        <SoftTypography variant="h6">Social</SoftTypography>
-        <Tooltip title="See how much traffic do you get from social media" placement="bottom">
+        <SoftTypography variant="h6">Progreso</SoftTypography>
+        <Tooltip title="Como has ido progresando en cada tema" placement="bottom">
           <SoftButton variant="outlined" color="secondary" size="small" circular iconOnly>
             <Icon>priority_high</Icon>
           </SoftButton>
         </Tooltip>
       </SoftBox>
+
       <SoftBox p={2}>
-        <SocialItem
-          icon={{ color: "facebook", component: <FacebookIcon /> }}
-          title="Facebook"
-          percentage={80}
-        />
-        <SocialItem
-          icon={{ color: "twitter", component: <TwitterIcon /> }}
-          title="Facebook"
-          percentage={40}
-        />
-        <SocialItem
-          icon={{ color: "reddit", component: <RedditIcon /> }}
-          title="Reddit"
-          percentage={30}
-        />
-        <SocialItem
-          icon={{ color: "youtube", component: <YouTubeIcon /> }}
-          title="Youtube"
-          percentage={25}
-        />
-        <SocialItem
-          icon={{ color: "instagram", component: <InstagramIcon /> }}
-          title="Instagram"
-          percentage={15}
-        />
+        {
+          Object.keys(props.ratings).map(key => (
+            <SocialItem
+              icon={{ color: key, component: renderIcon(key) }}
+              title={capitalize(key.replace(/_/g, " "))}
+              percentage={((props.ratings[key] - 1000) / 10) }
+            />
+          ))
+        }
       </SoftBox>
     </Card>
   );

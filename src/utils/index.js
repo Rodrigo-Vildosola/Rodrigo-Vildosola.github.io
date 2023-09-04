@@ -1,3 +1,10 @@
+import WavesIcon from '@mui/icons-material/Waves';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import GuitarIcon from '@mui/icons-material/MusicNote';
+import SettingsVoiceOutlinedIcon from '@mui/icons-material/SettingsVoiceOutlined';
+import SpeedIcon from '@mui/icons-material/Speed';
+
+
 export const mobileMaxWidth = 575;
 
 export const dateToLocale = (date) => {
@@ -63,6 +70,51 @@ export const getPermission = (userGroups, inRoute) => {
 
   return permission;
 };
+
+export const transformData = (input) => {
+  const categories = Object.keys(input);
+  const values = Object.values(input);
+
+  const images = categories.map(category => {
+    switch (category) {
+      case "tipos_de_onda":
+        return <WavesIcon />;
+      case "caracteristicas_de_las_ondas":
+        return <EqualizerIcon />;
+      case "vibracion_de_una_cuerda":
+        return <GuitarIcon />; // or <MusicNoteIcon /> if GuitarIcon isn't available
+      case "ondas_sonoras":
+        return <SettingsVoiceOutlinedIcon />;
+      case "efecto_doppler":
+        return <SpeedIcon />;
+      default:
+        return null;
+    }
+  });
+
+  const labels = [
+    "Tipos de onda",
+    "Caracteristicas de las ondas",
+    "Vibracion de una cuerda",
+    "Ondas sonoras",
+    "Efecto doppler"
+  ];
+
+  const percents = values.map(value => (value - 1000) / 10);
+
+  const backgroundColors = ["primary", "info", "warning", "success", "dark"];
+
+  return {
+    images: images,
+    labels: labels,
+    datasets: {
+      label: "Referrals",
+      backgroundColors: backgroundColors,
+      data: percents
+    }
+  };
+}
+
 
 export const getComiteCommunitySlug = () => {
   let community = JSON.parse(localStorage.getItem("profile")).communities[0]

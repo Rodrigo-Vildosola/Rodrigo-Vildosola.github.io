@@ -123,12 +123,12 @@ const colors = {
       dark: "#344e86",
     },
 
-    twitter: {
+    tipos_de_onda: {
       main: "#55acee",
       dark: "#3ea1ec",
     },
 
-    instagram: {
+    caracteristicas_de_las_ondas: {
       main: "#125688",
       dark: "#0e456d",
     },
@@ -138,7 +138,7 @@ const colors = {
       dark: "#00669c",
     },
 
-    pinterest: {
+    vibracion_de_una_cuerda: {
       main: "#cc2127",
       dark: "#b21d22",
     },
@@ -148,12 +148,12 @@ const colors = {
       dark: "#d41f1a",
     },
 
-    vimeo: {
+    efecto_doppler: {
       main: "#1ab7ea",
       dark: "#13a3d2",
     },
 
-    slack: {
+    ondas_sonoras: {
       main: "#3aaf85",
       dark: "#329874",
     },
