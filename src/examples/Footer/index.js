@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -23,18 +8,18 @@ import Icon from "@mui/material/Icon";
 // Soft UI Dashboard PRO React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
+import { Navigate } from "react-router-dom";
 
 // Soft UI Dashboard PRO React base styles
 import typography from "assets/theme/base/typography";
 
 function Footer({ company, links }) {
-  const { href, name } = company;
   const { size } = typography;
 
   const renderLinks = () =>
     links.map((link) => (
       <SoftBox key={link.name} component='li' px={2} lineHeight={1}>
-        <Link href={link.href} target='_blank'>
+        <Link href={link.href}>
           <SoftTypography variant='button' fontWeight='regular' color='text'>
             {link.name}
           </SoftTypography>
@@ -68,9 +53,9 @@ function Footer({ company, links }) {
           </Icon>
         </SoftBox>
         by
-        <Link href={"https://hbsolutions.cl"} target='_blank'>
+        <Link href={"https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"} target='_blank'>
           <SoftTypography variant='button' fontWeight='medium'>
-            &nbsp;Higher Bit Solutions.&nbsp;
+            &nbsp;Los Pibes.&nbsp;
           </SoftTypography>
         </Link>
         for a better web.
@@ -91,19 +76,18 @@ function Footer({ company, links }) {
             mt: 0,
           },
         })}
-      ></SoftBox>
+      >
+        {renderLinks()}
+      </SoftBox>
     </SoftBox>
   );
 }
 
 // Setting default values for the props of Footer
 Footer.defaultProps = {
-  company: { href: "https://www.creative-tim.com/", name: "Creative Tim" },
+  company: { href: (<Navigate to = "/about"/>), name: "Creative Tim" },
   links: [
-    { href: "https://www.creative-tim.com/", name: "Creative Tim" },
-    { href: "https://www.creative-tim.com/presentation", name: "About Us" },
-    { href: "https://www.creative-tim.com/blog", name: "Blog" },
-    { href: "https://www.creative-tim.com/license", name: "License" },
+    { href: "/about", name: "About Us" },
   ],
 };
 

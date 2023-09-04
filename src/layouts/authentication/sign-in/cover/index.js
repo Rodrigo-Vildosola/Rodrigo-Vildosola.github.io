@@ -52,11 +52,7 @@ function Cover() {
       if (signInResponse.token) {
         let profile = signInResponse.profile;
         storeLogin();
-        if (profile.groups[0].name === "tipo3") {
-          let formats = profile.assigned_formats;
-          let clientUuid = formats[0].client.uuid;
-          navigate(`/formats/user`);
-        } else navigate("/clients/clients");
+        navigate("/home");
       } else {
         setLoading(false);
       }

@@ -3,9 +3,10 @@ import Axios from "axios";
 import { setNotification } from "./notifications";
 
 
-export const getUsers = (data) =>
+
+export const getQuestions = (data) =>
 {
-  const url = `${API_URL}/api/users/`;
+  const url = `${API_URL}/api/questions/`;
 
   return (dispatch) =>
   {
@@ -15,7 +16,7 @@ export const getUsers = (data) =>
       {
         outputData["data"] = data;
         outputData["status"] = 200;
-        dispatch(setGetUsers(outputData));
+        dispatch(setGetQuestions(outputData));
       })
       .catch((err) =>
       {
@@ -24,14 +25,14 @@ export const getUsers = (data) =>
   };
 };
 
-export const setGetUsers = (data) => ({
-  type: types.setGetUsers,
+export const setGetQuestions = (data) => ({
+  type: types.setGetQuestions,
   payload: data,
 });
 
-export const updateUser = (params) =>
+export const updateQuestion = (params) =>
 {
-  const url = `${API_URL}/api/users/update/`;
+  const url = `${API_URL}/api/questions/update/`;
 
   return (dispatch) =>
   {
@@ -45,21 +46,21 @@ export const updateUser = (params) =>
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "Usuario actualizado correctamente!",
+          message: "La pregunta actualizado correctamente!",
           title: "Update Successful",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        dispatch(setUpdateUser(outputData));
+        dispatch(setUpdateQuestion(outputData));
       })
       .catch((err) =>
       {
         outputData["status"] = "danger";
-        outputData["message"] = "Error actualizando el usuario!";
+        outputData["message"] = "Error actualizando el La pregunta!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error actualizando el usuario!",
+          message: "Error actualizando el La pregunta!",
           title: "Update Error",
           time: new Date(),
         };
@@ -70,14 +71,14 @@ export const updateUser = (params) =>
   };
 };
 
-export const setUpdateUser = (data) => ({
-  type: types.setUpdateUser,
+export const setUpdateQuestion = (data) => ({
+  type: types.setUpdateQuestion,
   payload: data,
 });
 
-export const createUser = (params) =>
+export const createQuestion = (params) =>
 {
-  const url = `${API_URL}/api/users/create/`;
+  const url = `${API_URL}/api/questions/create/`;
 
   return (dispatch) =>
   {
@@ -91,21 +92,21 @@ export const createUser = (params) =>
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "Usuario creado correctamente!",
+          message: "La pregunta se ha creado correctamente!",
           title: "Creation Successful",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        dispatch(setCreateUser(outputData));
+        dispatch(setCreateQuestion(outputData));
       })
       .catch((err) =>
       {
         outputData["status"] = "danger";
-        outputData["message"] = "Error creando usuario!";
+        outputData["message"] = "Error creando La pregunta!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error creando usuario!",
+          message: "Error creando La pregunta!",
           title: "Creation Error",
           time: new Date(),
         };
@@ -115,15 +116,14 @@ export const createUser = (params) =>
   };
 };
 
-export const setCreateUser = (data) => ({
-  type: types.setCreateUser,
+export const setCreateQuestion = (data) => ({
+  type: types.setCreateQuestion,
   payload: data,
 });
 
-export const deleteUser = (params) =>
+export const deleteQuestion = (params) =>
 {
-  const url = `${API_URL}/api/users/deactivate/`;
-  console.log(params);
+  const url = `${API_URL}/api/questions/delete/`;
 
   return (dispatch) =>
   {
@@ -137,21 +137,21 @@ export const deleteUser = (params) =>
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "Usuario eliminado correctamente!",
+          message: "La pregunta se ha eliminado correctamente!",
           title: "Deletion Successful",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        dispatch(setDeleteUser(outputData));
+        dispatch(setDeleteQuestion(outputData));
       })
       .catch((err) =>
       {
         outputData["status"] = "danger";
-        outputData["message"] = "Error eliminando el usuario!";
+        outputData["message"] = "Error eliminando La pregunta!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error eliminando el usuario!",
+          message: "Error eliminando La pregunta!",
           title: "Deletion Error",
           time: new Date(),
         };
@@ -161,12 +161,9 @@ export const deleteUser = (params) =>
   };
 };
 
-export const setDeleteUser = (data) => ({
-  type: types.setDeleteUser,
+export const setDeleteQuestion = (data) => ({
+  type: types.setDeleteQuestion,
   payload: data,
 });
-
-
-
 
 

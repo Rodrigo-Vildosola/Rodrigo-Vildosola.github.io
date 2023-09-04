@@ -47,13 +47,8 @@ import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 
-import Clients from "layouts/pages/clients";
-import FormatsPage from "layouts/pages/formats";
-import Users from "layouts/pages/users";
-import ProjectsPage from "layouts/pages/projects";
-import RecordsPage from "layouts/pages/records";
-import ElementsPage from "layouts/pages/elements";
-import ReportsPage from "layouts/pages/reports";
+import Users from "layouts/views/users";
+import Home from "layouts/views/home";
 
 import { AiOutlineProject } from "react-icons/ai";
 import { LiaElementor } from "react-icons/lia";
@@ -103,81 +98,22 @@ collapse: [
 const routes = [
   {
     type: "collapse",
+    name: "Home",
+    route: "/home",
+    key: "home",
+    noCollapse: true,
+    component: <Home />,
+    icon: <SpaceShip size='12px' />,
+  },
+  {
+    type: "collapse",
     name: "Usuarios",
     route: "/users",
     key: "users",
     noCollapse: true,
     component: <Users />,
     icon: <Office size='12px' />,
-    permissions: ["administrador"],
   },
-  {
-    type: "collapse",
-    name: "Clientes",
-    route: "/clients/clients",
-    key: "clients",
-    noCollapse: true,
-    component: <Clients />,
-    icon: <Shop size='12px' />,
-    permissions: ["administrador", "tipo1", "tipo2"],
-  },
-  {
-    type: "collapse",
-    name: "Formatos",
-    noCollapse: true,
-    icon: <Shop size='12px' />,
-    key: "client-formats-tipo3",
-    route: "/formats/user",
-    component: <FormatsPage />,
-    permissions: ["tipo3"],
-  },
-  {
-    key: "client-formats",
-    route: "/clients/:uuid/formats",
-    component: <FormatsPage />,
-  },
-  {
-    key: "client-format-projects",
-    route: "/clients/formats/:uuid/projects",
-    component: <ProjectsPage />,
-  },
-  {
-    name: "Proyectos",
-    key: "projects",
-    route: "/projects",
-    type: "collapse",
-    noCollapse: true,
-    icon: <AiOutlineProject size='12px' />,
-    component: <ProjectsPage />,
-  },
-  {
-    name: "Reportes",
-    key: "reports",
-    route: "/reports",
-    type: "collapse",
-    noCollapse: true,
-    icon: <CustomerSupport size='12px' />,
-    component: <ReportsPage />,
-  },
-  {
-    name: "Elementos",
-    key: "elements",
-    route: "/elements",
-    type: "collapse",
-    noCollapse: true,
-    icon: <LiaElementor size='12px' />,
-    component: <ElementsPage />,
-  },
-  {
-    name: "Fichas",
-    key: "records",
-    route: "/records",
-    type: "collapse",
-    noCollapse: true,
-    icon: <Basket size='12px' />,
-    component: <RecordsPage />,
-  },
-
   {
     type: "collapse",
     name: "Change Log",

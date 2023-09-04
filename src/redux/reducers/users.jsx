@@ -54,26 +54,6 @@ export const usersReducer = (
           time: new Date(),
         },
       };
-    case types.setToggleClientUser:
-      return {
-        ...state,
-        toggleClientUser: {
-          status: action.payload.status,
-          data: action.payload.data,
-          title: action.payload.title,
-          time: new Date(),
-        },
-      };
-    case types.setToggleFormatUser:
-      return {
-        ...state,
-        toggleFormatUser: {
-          status: action.payload.status,
-          data: action.payload.data,
-          title: action.payload.title,
-          time: new Date(),
-        },
-      };
     default:
       return state;
   }

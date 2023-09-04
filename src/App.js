@@ -53,12 +53,11 @@ import {
 
 // Images
 import brand from "assets/images/logo-ct.png";
-import { useSelector, useDispatch } from "react-redux";
-import { exampleAction, exampleActionAxios } from "redux/actions/example";
 import Notifications from "layouts/pages/notifications";
 
+import AboutUs from "layouts/views/about";
+
 export default function App() {
-  const dispatch = useDispatch();
   const [controller, dispatchSoftUI] = useSoftUIController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } =
     controller;
@@ -205,16 +204,12 @@ export default function App() {
             path='*'
             element={
               <Navigate
-                to={
-                  JSON.parse(localStorage.getItem("profile")).groups[0].name ==
-                  "tipo3"
-                    ? "/formats/user"
-                    : "/clients/clients"
-                }
+                to={"/home"}
               />
             }
           />
           {getRoutes(routes)}
+          <Route path='/about' element={<AboutUs />} />
         </Routes>
       )}
     </ThemeProvider>

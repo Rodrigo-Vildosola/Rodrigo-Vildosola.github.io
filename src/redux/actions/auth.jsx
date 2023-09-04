@@ -2,49 +2,36 @@ import { types, API_URL } from "./types";
 import Axios from "axios";
 import { setNotification } from "./notifications";
 
-export const signIn = (params) =>
-{
+export const signIn = (params) => {
     const url = `${API_URL}/api/token/`;
 
-    return (dispatch) =>
-    {
+    return (dispatch) => {
         let outputData = {};
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(params)
-        }).then(response => response.json())
-            .then((data) =>
-            {
-                if (data.error)
-                {
+        Axios.post(url, params)
+            .then(({ data }) => {
+                if (data.error) {
                     outputData["token"] = false;
                     outputData["status"] = "danger";
                     outputData["message"] = "Usuario o clave incorrecta!";
+                    console.log(data.error);
                     let notification = { status: "error", message: "Usuario o clave incorrecta!", title: "Error de credenciales" };
                     dispatch(setNotification(notification));
                     dispatch(setSignIn(outputData));
-                    return
+                    return;
                 }
-                localStorage.setItem("access-token", data["access"]);
-                localStorage.setItem("refresh-token", data["refresh"]);
-                localStorage.setItem("profile", JSON.stringify(data["profile"]))
+                localStorage.setItem("access-token", data["token"]);
+                localStorage.setItem("profile", JSON.stringify(data["user"]));
                 //localStorage.setItem("role", data["role"]);
                 outputData["token"] = data["access"];
                 outputData["status"] = data.status;
                 outputData["message"] = data.message;
-                outputData["profile"] = data.profile;
+                outputData["profile"] = data.user;
 
                 dispatch(setSignIn(outputData));
             })
-            .catch((err) =>
-            {
-
-                if (err.request)
-                {
+            .catch((err) => {
+                if (err && err.response) {
                     outputData["token"] = false;
                     outputData["status"] = "danger";
                     outputData["message"] = "Usuario o clave incorrecta!";
@@ -56,36 +43,17 @@ export const signIn = (params) =>
     };
 };
 
-export const logout = () =>
-{
-    const url = `${API_URL}/api/logout/blacklist/`;
-
-    return (dispatch) =>
-    {
+export const logout = () => {
+    return (dispatch) => {
         let outputData = {};
-        let params = {
-            refresh_token: localStorage.getItem("refresh-token"),
-        };
-        Axios.post(url, params)
-            .then(({ data }) =>
-            {
-                localStorage.setItem("access-token", null);
-                localStorage.setItem("refresh-token", null);
-                outputData["status"] = data.status;
-                outputData["message"] = data.message;
-                dispatch(setSignOut(outputData));
-            })
-            .catch((err) =>
-            {
 
-                localStorage.setItem("access-token", null);
-                localStorage.setItem("refresh-token", null);
-                outputData["logout"] = true;
-                outputData["status"] = "danger";
-                outputData["message"] = "Usuario o clave incorrecta!";
+        // Remove tokens from localStorage
+        localStorage.removeItem("access-token");
 
-
-            });
+        outputData["logout"] = true;
+        outputData["status"] = "success";
+        outputData["message"] = "Successfully logged out!";
+        // dispatch(setSignOut(outputData));
     };
 };
 

@@ -2,156 +2,137 @@ import { types, API_URL } from "./types";
 import Axios from "axios";
 import { setNotification } from "./notifications";
 
+export const getTemplates = (data) => {
+  const url = `${API_URL}/api/templates/`;
 
-export const getUsers = (data) =>
-{
-  const url = `${API_URL}/api/users/`;
-
-  return (dispatch) =>
-  {
+  return (dispatch) => {
     let outputData = {};
     Axios.get(url, { params: data })
-      .then(({ data }) =>
-      {
+      .then(({ data }) => {
         outputData["data"] = data;
         outputData["status"] = 200;
-        dispatch(setGetUsers(outputData));
+        dispatch(setGetTemplates(outputData));
       })
-      .catch((err) =>
-      {
+      .catch((err) => {
         console.error(err);
       });
   };
 };
 
-export const setGetUsers = (data) => ({
-  type: types.setGetUsers,
+export const setGetTemplates = (data) => ({
+  type: types.setGetTemplates,
   payload: data,
 });
 
-export const updateUser = (params) =>
-{
-  const url = `${API_URL}/api/users/update/`;
+export const updateTemplate = (params) => {
+  const url = `${API_URL}/api/templates/update/`;
 
-  return (dispatch) =>
-  {
+  return (dispatch) => {
     let outputData = {};
     Axios.put(url, params)
-      .then((data) =>
-      {
+      .then((data) => {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "Usuario actualizado correctamente!",
+          message: "El template actualizado correctamente!",
           title: "Update Successful",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        dispatch(setUpdateUser(outputData));
+        dispatch(setUpdateTemplate(outputData));
       })
-      .catch((err) =>
-      {
+      .catch((err) => {
         outputData["status"] = "danger";
-        outputData["message"] = "Error actualizando el usuario!";
+        outputData["message"] = "Error actualizando el template!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error actualizando el usuario!",
+          message: "Error actualizando el template!",
           title: "Update Error",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        // Handle error
         console.error(err);
       });
   };
 };
 
-export const setUpdateUser = (data) => ({
-  type: types.setUpdateUser,
+export const setUpdateTemplate = (data) => ({
+  type: types.setUpdateTemplate,
   payload: data,
 });
 
-export const createUser = (params) =>
-{
-  const url = `${API_URL}/api/users/create/`;
+export const createTemplate = (params) => {
+  const url = `${API_URL}/api/templates/create/`;
 
-  return (dispatch) =>
-  {
+  return (dispatch) => {
     let outputData = {};
     Axios.post(url, params)
-      .then((data) =>
-      {
+      .then((data) => {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "Usuario creado correctamente!",
+          message: "El template se ha creado correctamente!",
           title: "Creation Successful",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        dispatch(setCreateUser(outputData));
+        dispatch(setCreateTemplate(outputData));
       })
-      .catch((err) =>
-      {
+      .catch((err) => {
         outputData["status"] = "danger";
-        outputData["message"] = "Error creando usuario!";
+        outputData["message"] = "Error creando el template!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error creando usuario!",
+          message: "Error creando el template!",
           title: "Creation Error",
           time: new Date(),
         };
-        console.log(err);
         dispatch(setNotification(notification));
+        console.error(err);
       });
   };
 };
 
-export const setCreateUser = (data) => ({
-  type: types.setCreateUser,
+export const setCreateTemplate = (data) => ({
+  type: types.setCreateTemplate,
   payload: data,
 });
 
-export const deleteUser = (params) =>
-{
-  const url = `${API_URL}/api/users/deactivate/`;
-  console.log(params);
+export const deleteTemplate = (params) => {
+  const url = `${API_URL}/api/templates/delete/`;
 
-  return (dispatch) =>
-  {
+  return (dispatch) => {
     let outputData = {};
     Axios.delete(url, { data: params })
-      .then((data) =>
-      {
+      .then((data) => {
         outputData["status"] = data.status;
         outputData["message"] = data.message;
         outputData["data"] = data.data;
         outputData["time"] = new Date();
         let notification = {
           status: "success",
-          message: "Usuario eliminado correctamente!",
+          message: "El template se ha eliminado correctamente!",
           title: "Deletion Successful",
           time: new Date(),
         };
         dispatch(setNotification(notification));
-        dispatch(setDeleteUser(outputData));
+        dispatch(setDeleteTemplate(outputData));
       })
-      .catch((err) =>
-      {
+      .catch((err) => {
         outputData["status"] = "danger";
-        outputData["message"] = "Error eliminando el usuario!";
+        outputData["message"] = "Error eliminando el template!";
         outputData["time"] = new Date();
         let notification = {
           status: "error",
-          message: "Error eliminando el usuario!",
+          message: "Error eliminando el template!",
           title: "Deletion Error",
           time: new Date(),
         };
@@ -161,12 +142,7 @@ export const deleteUser = (params) =>
   };
 };
 
-export const setDeleteUser = (data) => ({
-  type: types.setDeleteUser,
+export const setDeleteTemplate = (data) => ({
+  type: types.setDeleteTemplate,
   payload: data,
 });
-
-
-
-
-

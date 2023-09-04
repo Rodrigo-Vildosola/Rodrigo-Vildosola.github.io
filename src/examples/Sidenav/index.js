@@ -40,7 +40,7 @@ import SidenavCard from "examples/Sidenav/SidenavCard";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
-import logo from "assets/images/logo.png";
+import logo from "assets/images/wavelearn.png";
 // Soft UI Dashboard PRO React context
 import { useSoftUIController, setMiniSidenav } from "context";
 
@@ -258,8 +258,9 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <SoftBox
               component='img'
               src={logo}
-              alt='Soft UI Logo'
+              alt='Wavelearn logo'
               width='100%'
+              borderRadius='20%'
             />
           )}
           <SoftBox
