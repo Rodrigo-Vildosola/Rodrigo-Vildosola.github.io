@@ -70,6 +70,7 @@ function Social(props) {
         {
           Object.keys(props.ratings).map(key => (
             <SocialItem
+              key={key}
               icon={{ color: key, component: renderIcon(key) }}
               title={capitalize(key.replace(/_/g, " "))}
               percentage={((props.ratings[key] - 1000) / 10) }

@@ -97,7 +97,7 @@ Footer.defaultProps = {
 
 // Typechecking props for the Footer
 Footer.propTypes = {
-  company: PropTypes.objectOf(PropTypes.string),
+  company: PropTypes.objectOf(PropTypes.node),
   links: PropTypes.arrayOf(PropTypes.object),
 };
 

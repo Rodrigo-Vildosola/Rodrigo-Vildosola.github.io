@@ -2,20 +2,22 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getJob } from "redux/actions/jobs";
 import { transformData } from "utils";
+import { useNavigate } from "react-router-dom";
 
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import DataTable from "components/DataTablePagination";
 
 // Soft UI Dashboard PRO React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftBadge from "components/SoftBadge";
-import SoftSelect from "components/SoftSelect";
+import SoftAvatar from "components/SoftAvatar";
 import SoftButton from "components/SoftButton";
+
+import MultipleChoiceQuestion from "../components/multichoice";
 
 
 // @mui material components
@@ -29,7 +31,7 @@ import curved from "assets/images/curved-images/curved6.jpg";
 
 
 function HomePage() {
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [jobs, setJobs] = useState([]);
@@ -45,12 +47,12 @@ function HomePage() {
     if (getJobResponse.data) {
       setJobs(getJobResponse.data);
     }
-    console.log(jobs);
-    console.log(currentUser);
   }, [getJobResponse]);
   
   const handleClick = () => {
     dispatch(getJob());
+    console.log(jobs?.questions?.[0]);
+    console.log(currentUser);
   }
 
 
@@ -71,6 +73,7 @@ function HomePage() {
           width: '100%',
           borderRadius: '15px'
         }}>
+          <Divider my={3} />
           <SoftTypography 
             variant='h3' 
             textAlign='center' 
@@ -87,6 +90,22 @@ function HomePage() {
           >
             {currentUser.first_name + ' ' + currentUser.last_name}
           </SoftTypography>
+          <SoftAvatar
+            src={currentUser.avatar}
+            alt="user avatar"
+            variant="rounded"
+            size="lg"  // You can adjust this to "xl" or "xxl" if available, or use width and height below
+            sx={{
+              width: '150px',  // Adjust this to make the avatar bigger
+              height: '150px',  // Adjust this to make the avatar bigger
+              mt: 3,
+              mb: 3,  // Add bottom margin if needed
+              mx: "auto",
+              display: "block",
+              borderRadius: '50%'  // Ensure it's circular
+            }}
+          />
+          <Divider my={3} />
         </SoftBox>
 
 
@@ -116,12 +135,13 @@ function HomePage() {
 
         <SoftBox mb={3}>
           <SoftButton 
-            onClick={() => handleClick()}
+            onClick={() => navigate('/work')}
           >
             Empezar tarea
           </SoftButton>
         </SoftBox>
-
+        
+        <Divider my={3} />
 
       </SoftBox>
       <Footer />

@@ -137,7 +137,7 @@ ComplexReportsDoughnutChart.defaultProps = {
 ComplexReportsDoughnutChart.propTypes = {
   title: PropTypes.string.isRequired,
   chart: PropTypes.shape({
-    images: PropTypes.arrayOf(PropTypes.string),
+    images: PropTypes.arrayOf(PropTypes.node),
     labels: PropTypes.arrayOf(PropTypes.string).isRequired,
     datasets: PropTypes.objectOf(
       PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string])

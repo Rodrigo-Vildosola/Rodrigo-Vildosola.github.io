@@ -57,7 +57,7 @@ export const updateUserRating = (params) =>
     return (dispatch) =>
     {
         let outputData = {};
-        Axios.post(url, {params: params})
+        Axios.post(url, params)
         .then(({ data }) =>
         {
             outputData["data"] = data;
@@ -70,6 +70,7 @@ export const updateUserRating = (params) =>
             };
             dispatch(setNotification(notification));
             dispatch(setUpdateUserRating(outputData));
+            localStorage.setItem("profile", JSON.stringify(data));
         })
         .catch((err) =>
         {

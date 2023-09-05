@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
@@ -119,7 +119,7 @@ function UsersPage() {
           <Grid container>
             {
               user.groups.map((group) => (
-                <>
+                <React.Fragment key={group}>
                   <SoftBadge
                     color={
                       group === "admin" 
@@ -132,7 +132,7 @@ function UsersPage() {
                     }
                     badgeContent={group}
                   />
-                </>
+                </React.Fragment>
               ))
             }
           </Grid>

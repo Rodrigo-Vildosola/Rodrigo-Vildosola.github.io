@@ -56,6 +56,7 @@ import brand from "assets/images/logo-ct.png";
 import Notifications from "layouts/pages/notifications";
 
 import AboutUs from "layouts/views/about";
+import WorkPage from "layouts/views/work";
 
 export default function App() {
   const [controller, dispatchSoftUI] = useSoftUIController();
@@ -210,6 +211,7 @@ export default function App() {
           />
           {getRoutes(routes)}
           <Route path='/about' element={<AboutUs />} />
+          <Route path='/work' element={<WorkPage />} />
         </Routes>
       )}
     </ThemeProvider>
