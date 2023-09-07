@@ -58,8 +58,8 @@ function Social(props) {
   return (
     <Card sx={{ height: "100%" }}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
-        <SoftTypography variant="h6">Progreso</SoftTypography>
-        <Tooltip title="Como has ido progresando en cada tema" placement="bottom">
+        <SoftTypography variant="h6">Conocimientos</SoftTypography>
+        <Tooltip title="Que tanto sabes de cada tema" placement="bottom">
           <SoftButton variant="outlined" color="secondary" size="small" circular iconOnly>
             <Icon>priority_high</Icon>
           </SoftButton>

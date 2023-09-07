@@ -16,6 +16,7 @@ Coded by www.creative-tim.com
 /* eslint-disable no-dupe-keys */
 // Soft UI Dashboard PRO React base styles
 import colors from "assets/theme/base/colors";
+import linearGradient from "assets/theme/functions/linearGradient";
 
 const { gradients, dark } = colors;
 
@@ -25,7 +26,7 @@ function configs(labels, datasets) {
   if (datasets.backgroundColors) {
     datasets.backgroundColors.forEach((color) =>
       gradients[color]
-        ? backgroundColors.push(gradients[color].state)
+        ? backgroundColors.push(gradients[color].state)  
         : backgroundColors.push(dark.main)
     );
   } else {

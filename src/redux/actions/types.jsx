@@ -8,40 +8,14 @@ export const types = {
   setSignIn: "[Auth] Set SignIn",
   setSignOut: "[Auth] Set SignOut",
 
-  setGetClients: "[Clients] Set Get Clients",
-  setCreateClient: "[Clients] Set Create Client",
-  setUpdateClient: "[Clients] Set Update Client",
-  setDeleteClient: "[Clients] Set Delete Client",
-
-  setGetFormatsByClient: "[Formats] Set Get Formats By Client",
-  setCreateFormat: "[Formats] Set Create Format",
-  setUpdateFormat: "[Formats] Set Update Format",
-  setDeleteFormat: "[Formats] Set Delete Format",
-
-  setGetProjects: "[Projects] Set Get Projects",
-  setCreateProject: "[Projects] Set Create Project",
-  setUpdateProject: "[Projects] Set Update Project",
-  setDeleteProject: "[Projects] Set Delete Project",
 
   setGetUsers: "[Users] Set Get Users",
   setCreateUser: "[Users] Set Create User",
   setUpdateUser: "[Users] Set Update User",
   setDeleteUser: "[Users] Set Delete User",
 
-  setToggleClientUser: "[Users] Set Toggle Client User",
-  setToggleFormatUser: "[Users] Set Toggle Format User",
+  setGetRatingsProgress: "[Ratings] Set Get Progress",
 
-  setGetRecords: "[Records] Set Get Records",
-  setCreateRecord: "[Records] Set Create Record",
-  setUpdateRecord: "[Records] Set Update Record",
-  setDeleteRecord: "[Records] Set Delete Record",
-  setGetElements: "[Elements] Set Get Elements",
-  setCreateElements: "[Elements] Set Create Elements",
-
-  setGetReports: "[Reports] Set Get Projects",
-  setCreateReport: "[Reports] Set Create Reports",
-  setUpdateReport: "[Reports] Set Update Reports",
-  setDeleteReport: "[Reports] Set Delete Reports",
 
 
   setGetJob: "[Job] Set Get Job",

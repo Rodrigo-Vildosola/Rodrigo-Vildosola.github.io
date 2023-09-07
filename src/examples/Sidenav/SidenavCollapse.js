@@ -45,12 +45,21 @@ function SidenavCollapse({ icon, name, children, active, noCollapse, open, ...re
   return (
     <>
       <ListItem component="li">
-        <SoftBox {...rest} sx={(theme) => collapseItem(theme, { active, transparentSidenav })}>
+        <SoftBox shadow="xl" {...rest} sx={(theme) => collapseItem(theme, { active, transparentSidenav }) }>
           <ListItemIcon
-            sx={(theme) => collapseIconBox(theme, { active, transparentSidenav, sidenavColor })}
+            sx={(theme) => ({
+              ...collapseIconBox(theme, { active, transparentSidenav, sidenavColor }),
+              borderRadius: "25%",  // Add this line for rounded corners
+            })}
           >
             {typeof icon === "string" ? (
-              <Icon sx={(theme) => collapseIcon(theme, { active })}>{icon}</Icon>
+              <Icon 
+                sx={(theme) => ({
+                  ...collapseIcon(theme, { active }),
+                })}
+              >
+                {icon}
+              </Icon>
             ) : (
               icon
             )}

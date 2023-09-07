@@ -18,13 +18,6 @@ export const getJob = (data) =>
             {   
                 outputData["data"] = data;
                 outputData["status"] = 200;
-                let notification = {
-                    status: "success",
-                    message: "Tarea creada correctamente!",
-                    title: "Get Successful",
-                    time: new Date(),
-                };
-                dispatch(setNotification(notification));
                 dispatch(setGetJob(outputData));
             })
         .catch((err) =>
@@ -63,9 +56,9 @@ export const updateUserRating = (params) =>
             outputData["data"] = data;
             outputData["status"] = 200;
             let notification = {
-                status: "success",
+                status: "info",
                 message: "Ratings del usuario actualizados!",
-                title: "Get Successful",
+                title: "Wavelearn",
                 time: new Date(),
             };
             dispatch(setNotification(notification));

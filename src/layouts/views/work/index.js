@@ -3,23 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { getJob } from "redux/actions/jobs";
 import { capitalize } from "utils";
 import SoftButton from "components/SoftButton";
-import { Button } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 import { updateUserRating } from "redux/actions/jobs";
 
 import { CircularProgress } from '@mui/material';
 
 
-import MultipleChoiceQuestion from "../components/multichoice";
+import MultipleChoiceQuestion from "layouts/views/components/multiChoice";
+import FreeResponseQuestion from "layouts/views/components/freeResponse";
 import SoftTypography from "components/SoftTypography";
 
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import ResultsComponent from "../components/resultsPage";
 
+import BasicLayout from "layouts/authentication/components/BasicLayout";
+
+// Images
+import curved8 from "assets/images/curved-images/curved8.jpg";
 
 
 
 function WorkPage() {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [jobs, setJobs] = useState([]);
@@ -30,56 +35,99 @@ function WorkPage() {
 
   const [currentIndex, setCurrentIndex] = useState(0); 
 
-  const [attempts, setAttempts] = useState(0); 
+  const [enabled, setEnabled] = useState(false);
   const [isAnsweredCorrectly, setIsAnsweredCorrectly] = useState(false); 
 
   const handleAnswerSelection = (isCorrect) => {
-    if (isCorrect) {
-      setIsAnsweredCorrectly(true);
-    } else {
-      setAttempts(prevAttempts => {
-        if (prevAttempts + 1 >= 2) {
-          handleNext(); 
-          return 0;
-        }
-        return prevAttempts + 1;
-      });
-    }
+    setIsAnsweredCorrectly(isCorrect);
   };
 
+  const handleResetStorage = () => {
+    console.log("resetting storage");
+    localStorage.removeItem('fetchedQuestions');
+    localStorage.removeItem('currentIndex');
+    navigate("/home");
+  }
+
   const handleForm = async () => {
+    setCurrentIndex(currentIndex + 1);
     const formData = {
       "email": currentUser.email,
-      "ratings": jobs.questions[0][currentIndex].rating,
+      "ratings": jobs.questions[currentIndex].rating,
       "result": isAnsweredCorrectly,
     }
-    console.log(formData);
   
     await dispatch(updateUserRating(formData));
   }
   
   const handleNext = async () => {
-    if (currentIndex < jobs.questions[0].length - 1) {
-      await handleForm();
-  
-      setCurrentIndex(currentIndex + 1);
-      setIsAnsweredCorrectly(false); 
-      setAttempts(0);
-    }
+    await handleForm();
+
+    localStorage.setItem('currentIndex', currentIndex + 1);
+
+    setCurrentIndex(currentIndex + 1);
+    setIsAnsweredCorrectly(false); 
+    setEnabled(false);
+
   };
 
   useEffect(() => {
-    dispatch(getJob());
+    const storedQuestions = localStorage.getItem('fetchedQuestions');
+    const storedIndex = localStorage.getItem('currentIndex');
+    console.log(localStorage.getItem('fetchedQuestions'))
+    console.log(localStorage.getItem('currentIndex'))
+
+    if (storedQuestions && storedIndex) {
+
+      setJobs(JSON.parse(storedQuestions));
+      setCurrentIndex(parseInt(storedIndex));
+      setCurrentUser(JSON.parse(localStorage.getItem('profile')));
+      setIsLoading(false);
+    } else {
+      dispatch(getJob());
+    }
   }, [dispatch]);
   
   useEffect(() => {
     if (getJobResponse.data) {
+
+      localStorage.setItem('fetchedQuestions', JSON.stringify(getJobResponse.data));
+
       setJobs(getJobResponse.data);
       setCurrentUser(JSON.parse(localStorage.getItem('profile')));
       setIsLoading(false);
     }
   }, [getJobResponse]);
   
+
+
+  const multiChoice = (jobs) => {
+    return (
+      <MultipleChoiceQuestion
+        key={jobs.questions[currentIndex].uuid}
+        content={jobs.questions[currentIndex].content}
+        answer_choices={jobs.questions[currentIndex].answer_choices}
+        correct_choice={jobs.questions[currentIndex].correct_answer}
+        diagram={jobs.questions[currentIndex].diagram}
+        onAnswerSelected={handleAnswerSelection}
+        enable={setEnabled}
+      />
+    );
+  }
+
+  const freeResponse = (jobs) => {
+    return (
+      <FreeResponseQuestion
+        key={jobs.questions[currentIndex].uuid}
+        question={jobs.questions[currentIndex].question}
+        solution={jobs.questions[currentIndex].solution}
+        formula={jobs.questions[currentIndex].formula}
+        diagram={jobs.questions[currentIndex].diagram}
+        onAnswerSubmitted={handleAnswerSelection}
+        enable={setEnabled}
+      />
+    );
+  }
 
   if (isLoading) {
     return (
@@ -91,28 +139,43 @@ function WorkPage() {
 
 
   return (
-    <DashboardLayout>
-      {console.log(currentUser)}
-      <DashboardNavbar/>
-      <SoftTypography variant="h3" fontWeight="medium" mb={3} textAlign='center'>
-        {capitalize(jobs.theme).replace(/_/g, " ")}
-      </SoftTypography>
+    <BasicLayout image={curved8} title={capitalize(jobs.theme).replace(/_/g, " ")}>      
+        {!enabled && currentIndex < 2 ? (
+          multiChoice(jobs)
+        ) : !enabled && currentIndex === 2 && (
+          freeResponse(jobs)
+        )}
 
-      <MultipleChoiceQuestion
-        key={jobs.questions[0][currentIndex].uuid}
-        content={jobs.questions[0][currentIndex].content}
-        answer_choices={jobs.questions[0][currentIndex].answer_choices}
-        correct_choice={jobs.questions[0][currentIndex].correct_answer}
-        diagram={jobs.questions[0][currentIndex].diagram}
-        onAnswerSelected={handleAnswerSelection}
-      />
+    {currentIndex > 2 && (
+      <ResultsComponent onReset={handleResetStorage}/>
+    )}
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <SoftButton variant="contained" color="primary" onClick={handleNext} style={{ marginLeft: '10px' }} disabled={!isAnsweredCorrectly || attempts >= 2}>
-          Next
-        </SoftButton>
-      </div>
-    </DashboardLayout>
+
+
+      { enabled && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <SoftButton 
+            variant="contained" 
+            color="primary" 
+            onClick={handleNext} 
+            disabled={!enabled}
+            style={{
+              fontSize: '20px', 
+              padding: '15px 30px', 
+              borderRadius: '15px', 
+              background: 'linear-gradient(45deg, #007BFF 10%, #FF8E53 80%)', 
+              color: 'white', 
+              transition: '0.5s', 
+              '&:hover': {
+                background: 'linear-gradient(-45deg, #007BFF 10%, #FF8E53 80%)', // Change gradient direction on hover
+              }
+            }}
+          >
+            Siguiente Pregunta
+          </SoftButton>
+        </div>
+      )}
+    </BasicLayout>
   );
 }
 

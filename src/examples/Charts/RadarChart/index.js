@@ -42,12 +42,14 @@ function RadarChart({ title, description, chart }) {
     ? chart.datasets.map((dataset) => ({
         ...dataset,
         backgroundColor: colors[dataset.color]
-          ? rgba(colors[dataset.color || "dark"].main, 0.2)
-          : rgba(colors.dark.main, 0.2),
+          ? rgba(colors[dataset.color || "dark"].main, 0.4)
+          : rgba(colors.dark.main, 0.4),
       }))
     : [];
 
   const { data, options } = configs(chart.labels || [], chartDatasets);
+
+  console.log(options);
 
   const renderChart = (
     <SoftBox p={2}>

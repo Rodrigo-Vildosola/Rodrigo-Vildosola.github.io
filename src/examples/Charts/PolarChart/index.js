@@ -35,24 +35,19 @@ function PolarChart({ title, description, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
 
   const renderChart = (
-    <SoftBox p={2}>
-      {title || description ? (
-        <SoftBox px={description ? 1 : 0} pt={description ? 1 : 0}>
-          {title && (
-            <SoftBox mb={1}>
-              <SoftTypography variant="h6">{title}</SoftTypography>
-            </SoftBox>
-          )}
-          <SoftBox mb={2}>
-            <SoftTypography component="div" variant="button" fontWeight="regular" color="text">
-              {description}
-            </SoftTypography>
-          </SoftBox>
-        </SoftBox>
-      ) : null}
+    <SoftBox p={0} >
       {useMemo(
         () => (
-          <SoftBox p={4}>
+          <SoftBox 
+            p={0} 
+            variant="gradient"
+            bgColor="cool"
+            style={{
+ 
+              borderRadius: "75px",
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          >
             <PolarArea data={data} options={options} />
           </SoftBox>
         ),
@@ -61,7 +56,7 @@ function PolarChart({ title, description, chart }) {
     </SoftBox>
   );
 
-  return title || description ? <Card>{renderChart}</Card> : renderChart;
+  return title || description ? renderChart : renderChart;
 }
 
 // Setting default values for the props of PolarChart

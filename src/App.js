@@ -187,11 +187,12 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={brand}
-            brandName='Soft UI Dashboard PRO'
+            brandName='Wavelearn'
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
+          <Configurator />
         </>
       )}
       {!mapStateToProps().isAuthenticated ? (

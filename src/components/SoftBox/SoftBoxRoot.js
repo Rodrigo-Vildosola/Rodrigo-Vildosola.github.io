@@ -46,6 +46,7 @@ export default styled(Box)(({ theme, ownerState }) => {
     "error",
     "dark",
     "light",
+    "cool",
   ];
 
   const validColors = [
@@ -107,6 +108,10 @@ export default styled(Box)(({ theme, ownerState }) => {
 
   if (validBoxShadows.find((el) => el === shadow)) {
     boxShadowValue = boxShadows[shadow];
+  }
+
+  if (!borderRadius) {
+    borderRadiusValue = "20px"; // replace YOUR_DEFAULT_VALUE with the desired default border-radius
   }
 
   return {

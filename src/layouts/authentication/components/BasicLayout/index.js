@@ -36,7 +36,7 @@ import pageRoutes from "page.routes";
 function BasicLayout({ title, description, image, children }) {
   return (
     <PageLayout>
-      <DefaultNavbar
+      {/* <DefaultNavbar
         routes={pageRoutes}
         action={{
           type: "external",
@@ -45,11 +45,12 @@ function BasicLayout({ title, description, image, children }) {
         }}
         transparent
         light
-      />
+      /> */}
       <SoftBox
         width="calc(100% - 2rem)"
         minHeight="50vh"
-        borderRadius="lg"
+        borderRadius="30px"
+        shadow="xl"
         mx={2}
         my={2}
         pt={6}
@@ -67,8 +68,8 @@ function BasicLayout({ title, description, image, children }) {
         }}
       >
         <Grid container spacing={3} justifyContent="center" sx={{ textAlign: "center" }}>
-          <Grid item xs={10} lg={4}>
-            <SoftBox mt={6} mb={1}>
+          <Grid item xs={10} lg={6}>
+            <SoftBox mt={10} mb={2}>
               <SoftTypography variant="h1" color="white" fontWeight="bold">
                 {title}
               </SoftTypography>
@@ -81,9 +82,9 @@ function BasicLayout({ title, description, image, children }) {
           </Grid>
         </Grid>
       </SoftBox>
-      <SoftBox mt={{ xs: -26, lg: -24 }} px={1} width="calc(100% - 2rem)" mx="auto">
+      <SoftBox mt={{ xs: -10, lg: -30 }} px={1} width="calc(100% - 2rem)" mx="auto">
         <Grid container spacing={1} justifyContent="center">
-          <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
+          <Grid item xs={12} sm={9} md={5} lg={6} xl={10}>
             {children}
           </Grid>
         </Grid>

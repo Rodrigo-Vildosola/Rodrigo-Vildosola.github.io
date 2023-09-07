@@ -33,7 +33,7 @@ function SocialItem({ icon, title, percentage }) {
     <SoftBox width="100%" py={1} mb={1}>
       <SoftBox display="flex" justifyContent="space-between" mb={1}>
         <SoftBox display="flex" alignItems="center" lineHeight={0}>
-          <SoftBox mr={1} color={socialMediaColors[icon.color].main} fontSize={size.lg}>
+          <SoftBox mr={1} color={socialMediaColors[icon.color].dark} fontSize={size.lg}>
             {icon.component}
           </SoftBox>
           <SoftTypography variant="button" fontWeight="medium" color="text">

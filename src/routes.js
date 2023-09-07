@@ -96,6 +96,7 @@ collapse: [
 */
 
 const routes = [
+  { type: "title", title: "Pages", key: "title-pages" },
   {
     type: "collapse",
     name: "Home",
@@ -114,6 +115,8 @@ const routes = [
     component: <Users />,
     icon: <Office size='12px' />,
   },
+  { type: "divider", key: "divider-0"},
+  { type: "title", title: "Docs", key: "title-docs" },
   {
     type: "collapse",
     name: "Repository",

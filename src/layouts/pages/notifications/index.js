@@ -123,6 +123,7 @@ function Notifications() {
       setErrorSB(true);
     }
   }, [notification]);
+  
   return (
     <div>
       {renderSuccessSB()}

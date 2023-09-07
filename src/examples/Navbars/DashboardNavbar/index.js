@@ -151,28 +151,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
-        <SoftBox
-          color='inherit'
-          mb={{ xs: 1, md: 0 }}
-          sx={(theme) => navbarRow(theme, { isMini })}
-        >
-          <Icon
-            fontSize='medium'
-            sx={navbarDesktopMenu}
-            onClick={handleMiniSidenav}
-          >
+        <SoftBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
+          <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
+          <Icon fontSize="medium" sx={navbarDesktopMenu} onClick={handleMiniSidenav}>
             {miniSidenav ? "menu_open" : "menu"}
           </Icon>
-          <IconButton
-            size='small'
-            color='inherit'
-            sx={navbarMobileMenu}
-            onClick={handleMiniSidenav}
-          >
-            <Icon className={light ? "text-white" : "text-dark"}>
-              {miniSidenav ? "menu_open" : "menu"}
-            </Icon>
-          </IconButton>
         </SoftBox>
         {isMini ? null : (
           <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
@@ -201,6 +184,14 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 >
                   Cerrar sesión
                 </SoftTypography>
+              </IconButton>
+              <IconButton
+                size="small"
+                color="inherit"
+                sx={navbarIconButton}
+                onClick={handleConfiguratorOpen}
+              >
+                <Icon>settings</Icon>
               </IconButton>
             </SoftBox>
           </SoftBox>

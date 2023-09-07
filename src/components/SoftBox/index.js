@@ -37,7 +37,7 @@ SoftBox.defaultProps = {
   bgColor: "transparent",
   color: "dark",
   opacity: 1,
-  borderRadius: "none",
+  borderRadius: "20px",
   shadow: "none",
 };
 

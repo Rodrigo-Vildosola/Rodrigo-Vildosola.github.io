@@ -54,6 +54,17 @@ export const usersReducer = (
           time: new Date(),
         },
       };
+    case types.setGetRatingsProgress:
+      return {
+        ...state,
+        getRatingsProgress: {
+          status: action.payload.status,
+          data: action.payload.data,
+          title: action.payload.title,
+          time: new Date(),
+        },
+      };
+
     default:
       return state;
   }

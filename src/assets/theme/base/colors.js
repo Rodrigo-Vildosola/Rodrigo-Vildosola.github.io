@@ -115,6 +115,11 @@ const colors = {
       main: "#1f2c42",
       state: "#2c3154",
     },
+
+    cool: {
+      main: "#d6006c",
+      state: "#7928ca",
+    },
   },
 
   socialMediaColors: {
@@ -124,13 +129,13 @@ const colors = {
     },
 
     tipos_de_onda: {
-      main: "#55acee",
-      dark: "#3ea1ec",
+      main: "#e30f0f",
+      dark: "#ff3d59",
     },
 
     caracteristicas_de_las_ondas: {
-      main: "#125688",
-      dark: "#0e456d",
+      main: "#1f5da6",
+      dark: "#21d4fd",
     },
 
     linkedin: {
@@ -139,8 +144,8 @@ const colors = {
     },
 
     vibracion_de_una_cuerda: {
-      main: "#cc2127",
-      dark: "#b21d22",
+      main: "#8cb63c",
+      dark: "#84dc14",
     },
 
     youtube: {
@@ -149,13 +154,13 @@ const colors = {
     },
 
     efecto_doppler: {
-      main: "#1ab7ea",
-      dark: "#13a3d2",
+      main: "#d67c1b",
+      dark: "#fac60b",
     },
 
     ondas_sonoras: {
-      main: "#3aaf85",
-      dark: "#329874",
+      main: "#d6006c",
+      dark: "#7928ca",
     },
 
     dribbble: {

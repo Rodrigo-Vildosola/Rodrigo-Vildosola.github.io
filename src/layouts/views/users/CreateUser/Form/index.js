@@ -15,6 +15,7 @@ function Form(props) {
   const [first_name, setFirstName] = useState(props.edit ? props.user.first_name : "");
   const [last_name, setLastName] = useState(props.edit ? props.user.last_name : "");
   const [email, setEmail] = useState(props.edit ? props.user.email : "");
+  const [avatar, setAvatar] = useState(null);
   const [group, setGroup] = useState(
     props.edit 
     ? props.user.groups[0].name
@@ -40,17 +41,19 @@ function Form(props) {
     if (group === "admin") {
       formData.append("is_staff", true);
     };
+    if (avatar) {
+      formData.append("avatar", avatar);
+    }
     console.log("Form Data:", Object.fromEntries(formData.entries()));
 
     if (props.edit) {
       dispatch(updateUser(formData));
     } else {
-      formData.append("password", "123456");
+      //formData.append("password", "123456");
       dispatch(createUser(formData));
     }
   };
 
-  useEffect(() => {}, []);
 
   return (
     <Card id='user-form' sx={{ overflow: "visible" }}>
@@ -61,6 +64,19 @@ function Form(props) {
           </SoftTypography>
         </SoftBox>
         <SoftBox px={3}>
+          {avatar && (
+            <SoftBox px={3} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <img 
+                src={URL.createObjectURL(avatar)} 
+                alt="Avatar Preview" 
+                style={{ 
+                  width: '100px', 
+                  height: '100px', 
+                  borderRadius: '50%'  // This makes the image circular
+                }} 
+              />
+            </SoftBox>
+          )}
           <SoftTypography variant='h6'>Nombre</SoftTypography>
           <SoftInput
             fullWidth
@@ -102,6 +118,15 @@ function Form(props) {
             }}
           />
         </SoftBox>
+        <SoftBox px={3}>
+          <SoftTypography variant='h6'>Avatar</SoftTypography>
+          <SoftInput
+            type="file"
+            fullWidth
+            onChange={(e) => setAvatar(e.target.files[0])}
+          />
+        </SoftBox>
+
       </SoftBox>
       <SoftBox p={3} pt={0}>
         <SoftButton
