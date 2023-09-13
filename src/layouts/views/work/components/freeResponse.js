@@ -21,6 +21,8 @@ function FreeResponseQuestion({ question, solution, formula, diagram, onAnswerSu
     setShowHint(true);
   };
 
+  console.log("solution: ", solution)
+
   const handleSubmit = () => {
     setAttempts(attempts + 1); // Increment attempts on each submission
 

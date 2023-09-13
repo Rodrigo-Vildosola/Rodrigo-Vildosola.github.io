@@ -57,6 +57,7 @@ SoftBadge.propTypes = {
     "error",
     "light",
     "dark",
+    "cool",
   ]),
   variant: PropTypes.oneOf(["gradient", "contained"]),
   size: PropTypes.oneOf(["xs", "sm", "md", "lg"]),

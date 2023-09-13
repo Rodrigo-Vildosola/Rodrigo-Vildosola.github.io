@@ -55,7 +55,7 @@ function CameraView({ image, date, time, value, index }) {
             left={0}
             width="calc(100% - 1rem)"
           >
-            <SoftBox p={2}>
+            {/* <SoftBox p={2}>
               <SoftTypography variant="h6" fontWeight="regular" color="white">
                 {date} &nbsp; {time}
               </SoftTypography>
@@ -82,7 +82,7 @@ function CameraView({ image, date, time, value, index }) {
                   </SoftBox>
                 </SoftBox>
               }
-            />
+            /> */}
           </SoftBox>
         </SoftBox>
       </Fade>

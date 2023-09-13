@@ -36,11 +36,11 @@ import DefaultNavbarMenu from "examples/Navbars/DefaultNavbar/DefaultNavbarMenu"
 import curved8 from "assets/images/curved-images/curved8.jpg";
 
 function AuthenticationMenu({ routes, open, close, mobileMenu }) {
+  const [menu, setMenu] = useState(false);
   const renderAuthenticationMenuRoute = (routeName) =>
     routes.map(({ key, name, collapse }) => {
       let template;
 
-      const [menu, setMenu] = useState(false);
       const openMenu = ({ currentTarget }) => setMenu(currentTarget);
       const closeMenu = () => setMenu(false);
 

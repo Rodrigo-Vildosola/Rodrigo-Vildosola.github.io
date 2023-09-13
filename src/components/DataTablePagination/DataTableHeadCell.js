@@ -47,6 +47,7 @@ function DataTableHeadCell({
       style={{ background: position === "sticky" ? "#3dc7fd" : "transparent" }}
       left={position == "sticky" ? 0 : "auto"}
       zIndex={position === "sticky" ? 99 : "auto"}
+      borderRadius="0px"
       py={1.5}
       px={3}
     >
@@ -56,6 +57,7 @@ function DataTableHeadCell({
         textAlign={align}
         color='white'
         opacity={0.7}
+        borderRadius="0px"
         sx={({ typography: { size, fontWeightBold } }) => ({
           fontSize: size.xxs,
           fontWeight: fontWeightBold,

@@ -50,13 +50,13 @@ function GradientLineChart({ title, description, height, chart }) {
           pointRadius: 0,
           borderWidth: 3,
           borderColor: colors[dataset.color]
-            ? colors[dataset.color || "dark"].main
-            : colors.dark.main,
+            ? colors[dataset.color].focus
+            : colors.dark.focus,
           fill: true,
           maxBarThickness: 6,
           backgroundColor: gradientChartLine(
             chartRef.current.children[0],
-            colors[dataset.color] ? colors[dataset.color || "dark"].main : colors.dark.main
+            colors[dataset.color] ? colors[dataset.color].main : colors.dark.focus
           ),
         }))
       : [];

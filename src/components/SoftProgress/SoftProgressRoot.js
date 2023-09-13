@@ -16,10 +16,14 @@ Coded by www.creative-tim.com
 // @mui material components
 import { styled } from "@mui/material/styles";
 import LinearProgress from "@mui/material/LinearProgress";
+import colors from "assets/theme/base/colors";
+
 
 export default styled(LinearProgress)(({ theme, ownerState }) => {
   const { palette, functions } = theme;
   const { color, value, variant } = ownerState;
+  const { socialMediaColors } = colors;
+
 
   const { text, gradients } = palette;
   const { linearGradient } = functions;
@@ -28,9 +32,9 @@ export default styled(LinearProgress)(({ theme, ownerState }) => {
   let backgroundValue;
 
   if (variant === "gradient") {
-    backgroundValue = gradients[color]
-      ? linearGradient(gradients[color].main, gradients[color].state)
-      : linearGradient(gradients.info.main, gradients.info.state);
+    backgroundValue = socialMediaColors[color]
+      ? linearGradient(socialMediaColors[color].main, socialMediaColors[color].dark)
+      : linearGradient(socialMediaColors.info.main, socialMediaColors.info.dark);
   } else {
     backgroundValue = palette[color] ? palette[color].main : palette.info.main;
   }

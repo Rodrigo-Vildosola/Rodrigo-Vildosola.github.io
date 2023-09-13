@@ -40,7 +40,7 @@ function Social(props) {
 
   const renderIcon = (icon) => {
     switch (icon) {
-      case "tipos_de_onda":
+      case "tipos_de_ondas":
         return <WavesIcon />;
       case "caracteristicas_de_las_ondas":
         return <EqualizerIcon />;

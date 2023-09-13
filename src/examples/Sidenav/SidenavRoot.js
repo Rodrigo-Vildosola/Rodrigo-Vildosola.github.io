@@ -33,11 +33,12 @@ export default styled(Drawer)(({ theme, ownerState }) => {
       easing: transitions.easing.sharp,
       duration: transitions.duration.shorter,
     }),
+    borderRadius: "30px 30px 30px 30px",
 
     [breakpoints.up("xl")]: {
-      backgroundColor: transparentSidenav ? transparent.main : white.main,
-      boxShadow: transparentSidenav ? "none" : xxl,
-      marginBottom: transparentSidenav ? 0 : "inherit",
+      backgroundColor: white.main,
+      boxShadow: xxl,
+      marginBottom: transparentSidenav ? "inherit" : "inherit",
       left: "0",
       width: sidebarWidth,
       transform: "translateX(0)",
@@ -55,11 +56,13 @@ export default styled(Drawer)(({ theme, ownerState }) => {
       easing: transitions.easing.sharp,
       duration: transitions.duration.shorter,
     }),
+    borderRadius: "30px 30px 30px 30px",
+
 
     [breakpoints.up("xl")]: {
-      backgroundColor: transparentSidenav ? transparent.main : white.main,
-      boxShadow: transparentSidenav ? "none" : xxl,
-      marginBottom: transparentSidenav ? 0 : "inherit",
+      backgroundColor: transparentSidenav ? white.main : white.main,
+      boxShadow: transparentSidenav ? xxl : xxl,
+      marginBottom: transparentSidenav ? "inherit" : "inherit",
       left: "0",
       width: pxToRem(96),
       overflowX: "hidden",
@@ -75,6 +78,8 @@ export default styled(Drawer)(({ theme, ownerState }) => {
     "& .MuiDrawer-paper": {
       boxShadow: xxl,
       border: "none",
+      borderRadius: "30px 30px 30px 30px",
+
 
       ...(miniSidenav ? drawerCloseStyles() : drawerOpenStyles()),
     },

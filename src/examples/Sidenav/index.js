@@ -157,7 +157,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
       let profile = JSON.parse(localStorage.getItem("profile"));
       if (!profile) return null;
-      if (permissions && !permissions.includes(profile.groups[0].name))
+      if (permissions && permissions.includes(profile.groups[0]))
         return null;
 
       if (type === "collapse") {
@@ -315,6 +315,7 @@ Sidenav.propTypes = {
     "warning",
     "error",
     "dark",
+    "cool",
   ]),
   brand: PropTypes.string,
   brandName: PropTypes.string.isRequired,

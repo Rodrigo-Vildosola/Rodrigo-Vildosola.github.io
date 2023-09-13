@@ -52,7 +52,7 @@ function Configurator() {
   const { openConfigurator, transparentSidenav, miniSidenav, fixedNavbar, sidenavColor } =
     controller;
   const [disabled, setDisabled] = useState(false);
-  const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
+  const sidenavColors = ["primary", "dark", "info", "success", "warning", "error", "cool"];
 
   // Use the useEffect hook to change the button state for the sidenav type based on window size.
   useEffect(() => {
@@ -101,9 +101,9 @@ function Configurator() {
         px={3}
       >
         <SoftBox>
-          <SoftTypography variant="h5">Soft UI Configurator</SoftTypography>
+          <SoftTypography variant="h5">Wavelearn Configurator</SoftTypography>
           <SoftTypography variant="body2" color="text">
-            See our dashboard options.
+            Opciones de Dashboard.
           </SoftTypography>
         </SoftBox>
 
@@ -126,7 +126,7 @@ function Configurator() {
 
       <SoftBox pt={1.25} pb={3} px={3}>
         <SoftBox>
-          <SoftTypography variant="h6">Sidenav Colors</SoftTypography>
+          <SoftTypography variant="h6">Colores de Sidenav</SoftTypography>
 
           <SoftBox mb={0.5}>
             {sidenavColors.map((color) => (

@@ -40,10 +40,7 @@ function PolarChart({ title, description, chart }) {
         () => (
           <SoftBox 
             p={0} 
-            variant="gradient"
-            bgColor="cool"
             style={{
- 
               borderRadius: "75px",
               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             }}

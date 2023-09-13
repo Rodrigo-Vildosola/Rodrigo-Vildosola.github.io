@@ -12,6 +12,9 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+
+import linearGradient from "assets/theme/functions/linearGradient";
+
 function collapseItem(theme, ownerState) {
   const { palette, transitions, breakpoints, boxShadows, borders, functions } = theme;
   const { active, transparentSidenav } = ownerState;
@@ -62,7 +65,7 @@ function collapseIconBox(theme, ownerState) {
   return {
     background: () => {
       if (active) {
-        return sidenavColor === "default" ? info.main : palette[sidenavColor].main;
+        return sidenavColor === "default" ? gradients.cool.main : linearGradient(palette[sidenavColor].focus, palette[sidenavColor].main);
       }
 
       return light.main;
@@ -83,13 +86,13 @@ function collapseIconBox(theme, ownerState) {
         let background;
 
         if (!active) {
-          background = transparentSidenav ? white.main : light.main;
+          background = transparentSidenav ? light.main : light.main;
         } else if (sidenavColor === "default") {
           background = info.main;
         } else if (sidenavColor === "warning") {
           background = gradients.warning.main;
         } else {
-          background = palette[sidenavColor].main;
+          background = palette[sidenavColor].state;
         }
 
         return background;

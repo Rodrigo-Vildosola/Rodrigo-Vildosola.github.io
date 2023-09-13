@@ -22,11 +22,11 @@ function RatingList(props) {
       <Collapse in={isOpen}>
         <List>
           {
-            Object.keys(props.user.ratings).map(key => (
+            Object.keys(props.ratings).map(key => (
               <ListItem key={key}>
                 <ListItemText>
                   <SoftTypography variant="body2" component="span">
-                    {key.replace(/_/g, " ")}: {props.user.ratings[key]}
+                    {key.replace(/_/g, " ")}: {props.ratings[key]}
                   </SoftTypography>
                 </ListItemText>
               </ListItem>

@@ -54,6 +54,7 @@ const SoftBadgeDot = forwardRef(({ variant, color, size, badgeContent, font, ...
     "error",
     "light",
     "dark",
+    "cool",
   ];
 
   const validColorIndex = validColors.findIndex((el) => el === color);
@@ -102,6 +103,7 @@ SoftBadgeDot.propTypes = {
     "error",
     "light",
     "dark",
+    "cool"
   ]),
   size: PropTypes.oneOf(["xs", "sm", "md", "lg"]),
   badgeContent: PropTypes.string.isRequired,

@@ -44,7 +44,7 @@ function SocialItem({ icon, title, percentage }) {
           {percentage}%
         </SoftTypography>
       </SoftBox>
-      <SoftProgress value={percentage} color="dark" />
+      <SoftProgress value={percentage} color={icon.color} variant="gradient" />
     </SoftBox>
   );
 }

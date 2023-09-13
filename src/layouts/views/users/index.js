@@ -18,7 +18,7 @@ import CreateUser from "./CreateUser";
 import SoftBadge from "components/SoftBadge";
 import SoftSelect from "components/SoftSelect";
 import Swal from "sweetalert2";
-import RatingList from "./ratings";
+import RatingList from "layouts/views/components/ratings";
 
 
 function UsersPage() {
@@ -138,7 +138,7 @@ function UsersPage() {
           </Grid>
         ),
         ratings: (
-          <RatingList user={user} />
+          <RatingList ratings={user.ratings} />
         ),
         actions: (
           <SoftBox display='flex' justifyContent='space-between'>

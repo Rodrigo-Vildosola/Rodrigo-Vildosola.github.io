@@ -46,7 +46,7 @@ function cardContent(theme, ownerState) {
       content: '""',
       backgroundImage:
         sidenavColor === "default"
-          ? linearGradient(gradients.secondary.main, gradients.secondary.state)
+          ? linearGradient(gradients.primary.main, gradients.secondary.state)
           : linearGradient(gradients[sidenavColor].main, gradients[sidenavColor].state),
       display: "block",
       height: "100%",
@@ -89,7 +89,7 @@ function cardIcon(theme, ownerState) {
   return {
     backgroundImage:
       sidenavColor === "default"
-        ? linearGradient(gradients.dark, gradients.dark.state)
+        ? linearGradient(gradients.primary.main, gradients.success.state)
         : linearGradient(gradients[sidenavColor].main, gradients[sidenavColor].state),
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: transparent.main,

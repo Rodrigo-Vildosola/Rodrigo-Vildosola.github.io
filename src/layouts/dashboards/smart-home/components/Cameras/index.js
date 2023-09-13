@@ -60,8 +60,16 @@ function Cameras() {
     // Call the handleTabsOrientation function to set the state with the initial value.
     handleTabsOrientation();
 
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleTabsOrientation);
+    // Set up an interval to change the tab every couple of seconds (e.g., 2000ms = 2 seconds)
+    const tabChangeInterval = setInterval(() => {
+      setCamera((prevCamera) => (prevCamera + 1) % 3); // Change to the next tab and loop back to the first tab after the last one
+    }, 4000);
+
+    // Clear the interval when the component is unmounted
+    return () => {
+      clearInterval(tabChangeInterval);
+      window.removeEventListener("resize", handleTabsOrientation);
+    };
   }, [tabsOrientation]);
 
   const handleSetCamera = (event, newCamera) => setCamera(newCamera);
@@ -91,14 +99,14 @@ function Cameras() {
   return (
     <Card>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
-        <SoftTypography variant="h6">Cameras</SoftTypography>
+        <SoftTypography variant="h6"></SoftTypography>
         <SoftBox display="flex" justifyContent="space-between" alignItems="center" width="60%">
           <SoftBox width="90%">
             <AppBar position="static">
               <Tabs orientation={tabsOrientation} value={camera} onChange={handleSetCamera}>
-                <Tab label="Kitchen" />
-                <Tab label="Living" />
-                <Tab label="Attic" />
+                <Tab label="Nuevo 1" />
+                <Tab label="Nuevo 2" />
+                <Tab label="Nuevo 3" />
               </Tabs>
             </AppBar>
           </SoftBox>

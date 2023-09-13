@@ -79,7 +79,7 @@ function DataTable({
         </Grid>
       </Grid>
 
-      <Table>
+      <Table style={{ borderRadius: '20px', overflow: 'hidden'}}>
         <SoftBox
           bgColor={"info"}
           variant={"gradient"}

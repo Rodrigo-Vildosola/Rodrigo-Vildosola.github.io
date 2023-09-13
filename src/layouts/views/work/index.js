@@ -8,15 +8,15 @@ import { updateUserRating } from "redux/actions/jobs";
 
 import { CircularProgress } from '@mui/material';
 
-
-import MultipleChoiceQuestion from "layouts/views/components/multiChoice";
-import FreeResponseQuestion from "layouts/views/components/freeResponse";
-import SoftTypography from "components/SoftTypography";
-
-import ResultsComponent from "../components/resultsPage";
-
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
+import MultipleChoiceQuestion from "layouts/views/work/components/multiChoice";
+import FreeResponseQuestion from "layouts/views/work/components/freeResponse";
+import ResultsComponent from "layouts/views/work/components/resultsPage";
+
+
+
+import SoftTypography from "components/SoftTypography";
 // Images
 import curved8 from "assets/images/curved-images/curved8.jpg";
 
@@ -35,12 +35,18 @@ function WorkPage() {
 
   const [currentIndex, setCurrentIndex] = useState(0); 
 
+  const [results, setResults] = useState([]);
   const [enabled, setEnabled] = useState(false);
   const [isAnsweredCorrectly, setIsAnsweredCorrectly] = useState(false); 
 
   const handleAnswerSelection = (isCorrect) => {
     setIsAnsweredCorrectly(isCorrect);
+    setResults(prevResults => [...prevResults, {
+      question: jobs.questions[currentIndex].content || jobs.questions[currentIndex].question,
+      isCorrect: isCorrect
+    }]);
   };
+  
 
   const handleResetStorage = () => {
     console.log("resetting storage");
@@ -68,6 +74,7 @@ function WorkPage() {
     setCurrentIndex(currentIndex + 1);
     setIsAnsweredCorrectly(false); 
     setEnabled(false);
+    
 
   };
 
@@ -140,15 +147,13 @@ function WorkPage() {
 
   return (
     <BasicLayout image={curved8} title={capitalize(jobs.theme).replace(/_/g, " ")}>      
-        {!enabled && currentIndex < 2 ? (
-          multiChoice(jobs)
-        ) : !enabled && currentIndex === 2 && (
-          freeResponse(jobs)
-        )}
-
-    {currentIndex > 2 && (
-      <ResultsComponent onReset={handleResetStorage}/>
-    )}
+      {!enabled && currentIndex < 2 ? (
+        multiChoice(jobs)
+      ) : !enabled && currentIndex === 2 ? (
+        freeResponse(jobs)
+      ) : currentIndex > 2 && (
+        <ResultsComponent onReset={handleResetStorage} results={results}/>
+      )}
 
 
 
@@ -171,7 +176,7 @@ function WorkPage() {
               }
             }}
           >
-            Siguiente Pregunta
+            {currentIndex === 2 ? "Terminar Tarea" : "Siguiente Pregunta"}
           </SoftButton>
         </div>
       )}

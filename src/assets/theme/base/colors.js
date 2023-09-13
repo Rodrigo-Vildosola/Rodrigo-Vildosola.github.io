@@ -75,6 +75,11 @@ const colors = {
     900: "#212529",
   },
 
+  cool: {
+    main: "#d6006c",
+    focus: "#7928ca",
+  },
+
   gradients: {
     primary: {
       main: "#2d6cdf",
@@ -128,7 +133,7 @@ const colors = {
       dark: "#344e86",
     },
 
-    tipos_de_onda: {
+    tipos_de_ondas: {
       main: "#e30f0f",
       dark: "#ff3d59",
     },

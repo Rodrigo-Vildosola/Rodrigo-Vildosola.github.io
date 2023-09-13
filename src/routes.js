@@ -49,57 +49,17 @@ import CreditCard from "examples/Icons/CreditCard";
 
 import Users from "layouts/views/users";
 import Home from "layouts/views/home";
+import Templates from "layouts/views/templates";
 
 import { AiOutlineProject } from "react-icons/ai";
 import { LiaElementor } from "react-icons/lia";
 
-/*
-collapse: [
-      {
-        name: "Clientes",
-        key: "default",
-        route: "/clients/clients",
-        component: <Clients />,
-      },
-      {
-        name: "Automotive",
-        key: "automotive",
-        route: "/dashboards/automotive",
-        component: <Automotive />,
-      },
-      {
-        name: "Smart Home",
-        key: "smart-home",
-        route: "/dashboards/smart-home",
-        component: <SmartHome />,
-      },
-      {
-        name: "Virtual Reality",
-        key: "virtual-reality",
-        collapse: [
-          {
-            name: "VR Default",
-            key: "vr-default",
-            route: "/dashboards/virtual-reality/default",
-            component: <VRDefault />,
-          },
-          {
-            name: "VR Info",
-            key: "vr-info",
-            route: "/dashboards/virtual-reality/info",
-            component: <VRInfo />,
-          },
-        ],
-      },
-      { name: "CRM", key: "crm", route: "/dashboards/crm", component: <CRM /> },
-    ],
-*/
 
 const routes = [
   { type: "title", title: "Pages", key: "title-pages" },
   {
     type: "collapse",
-    name: "Home",
+    name: "Casa",
     route: "/home",
     key: "home",
     noCollapse: true,
@@ -115,6 +75,22 @@ const routes = [
     component: <Users />,
     icon: <Office size='12px' />,
   },
+  {
+    type: "collapse",
+    name: "Preguntas",
+    key: "questions",
+    icon: <SettingsIcon size='12px' />,
+    permissions: ["Admin"],
+    collapse: [
+      {
+        name: "Desarrollo",
+        key: "templates",
+        route: "/questions/templates",
+        component: <Templates />,
+      },
+    ],
+  },
+
   { type: "divider", key: "divider-0"},
   { type: "title", title: "Docs", key: "title-docs" },
   {

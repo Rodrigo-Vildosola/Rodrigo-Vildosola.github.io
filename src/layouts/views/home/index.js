@@ -20,6 +20,8 @@ import SoftButton from "components/SoftButton";
 import Globe from "examples/Globe";
 
 import PolarChart from "examples/Charts/PolarChart";
+import Cameras from "layouts/dashboards/smart-home/components/Cameras";
+
 
 
 
@@ -28,7 +30,7 @@ import { Card, Grid, Icon, Tooltip, Box, Divider } from "@mui/material";
 
 // soft ui dashboard pro react components
 import Social from "layouts/applications/analytics/components/Social";
-import DefaultLineChart from "examples/Charts/LineCharts/DefaultLineChart";
+import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 
 import curved from "assets/images/curved-images/curved6.jpg";
 import { capitalize } from "utils";
@@ -78,7 +80,6 @@ function HomePage() {
       <DashboardNavbar/>
       { getRatingsProgressResponse && (
         <SoftBox py={3}>
-
 
           <SoftBox shadow="xl" sx={{
             backgroundImage:({ functions: { rgba, linearGradient }, palette: { gradients } }) =>
@@ -229,7 +230,7 @@ function HomePage() {
 
           </SoftBox>
 
-
+          {console.log(currentUser)}
           <SoftBox py={3}>
             <SoftBox mb={3}>
               <Grid container spacing={3}>
@@ -241,21 +242,9 @@ function HomePage() {
                   </SoftBox>
                 </Grid>
                 <Grid item xs={12} lg={6}>
-                  {console.log(currentUser.ratings)}
                   <SoftBox  style={{ borderRadius: '25px', overflow: 'hidden' }}>
-                    {/* <PolarChart 
-                      title="Radar chart" 
-                      chart={{
-                        labels: Object.keys(currentUser.ratings).map((rating) => capitalize(rating.replace(/_/g, " "))),
-                        datasets: {
-                            label: currentUser.first_name + ' ' + currentUser.last_name,
-                            backgroundColors: ["info", "warning", "cool", "error", "success"],
-                            data: Object.values(currentUser.ratings).map((rating) => (rating - 1000) / 10),
-                          },
-                      }} 
-                    /> */}
+                    {/* <Cameras /> */}
                   </SoftBox>
-
                 </Grid>
               </Grid>
             </SoftBox>
@@ -264,16 +253,16 @@ function HomePage() {
                 <Grid container spacing={3}>
                   <Grid item xs={12} lg={12}>
                     <SoftBox shadow="xl" style={{ borderRadius: '35px', overflow: 'hidden' }}>
-                      <DefaultLineChart 
+                      <GradientLineChart 
                         title="Tu rating a traves del tiempo"
                         chart={ratingsProgress}
                         description={
                           <SoftBox display="flex" ml={-1}>
                             <SoftBadgeDot color="info" size="sm" badgeContent= "Caracteristicas de las ondas" />
-                            <SoftBadgeDot color="dark" size="sm" badgeContent="Efecto doppler" />
+                            <SoftBadgeDot color="warning" size="sm" badgeContent="Efecto doppler" />
                             <SoftBadgeDot color="primary" size="sm" badgeContent="Ondas sonoras" />
-                            <SoftBadgeDot color="success" size="sm" badgeContent="Tipos de onda" />
-                            <SoftBadgeDot color="warning" size="sm" badgeContent="Vibracion de una cuerda" />
+                            <SoftBadgeDot color="error" size="sm" badgeContent="Tipos de onda" />
+                            <SoftBadgeDot color="success" size="sm" badgeContent="Vibracion de una cuerda" />
                           </SoftBox>
                         }
                         style={{ borderRadius: '15px' }}

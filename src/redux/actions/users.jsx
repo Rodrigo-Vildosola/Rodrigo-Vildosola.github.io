@@ -169,12 +169,13 @@ export const setDeleteUser = (data) => ({
 
 export const getRatingsProgress = (data) => 
 {
-  const url = `${API_URL}/api/users/ratings/${data.user_email}/`;
+  const { user_email, ...params } = data;
+  const url = `${API_URL}/api/users/ratings/${user_email}/`;
 
   return (dispatch) =>
   {
     let outputData = {};
-    Axios.get(url, { params: data })
+    Axios.get(url, { params: params })
       .then(({ data }) =>
       {
         outputData["data"] = data;
