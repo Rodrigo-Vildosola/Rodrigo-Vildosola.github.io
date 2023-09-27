@@ -39,13 +39,42 @@ function WorkPage() {
   const [enabled, setEnabled] = useState(false);
   const [isAnsweredCorrectly, setIsAnsweredCorrectly] = useState(false); 
 
-  const handleAnswerSelection = (isCorrect) => {
+  const [incorrectIndices, setIncorrectIndices] = useState([]);
+  const [retake, setRetake] = useState(false);
+
+
+  const handleAnswerSelection = (isCorrect, answer, correct_answer) => {
     setIsAnsweredCorrectly(isCorrect);
-    setResults(prevResults => [...prevResults, {
-      question: jobs.questions[currentIndex].content || jobs.questions[currentIndex].question,
-      isCorrect: isCorrect
-    }]);
+  
+    if (retake) {
+      setResults(prevResults => {
+        const updatedResults = [...prevResults];
+        const resultIndex = updatedResults.findIndex((_, index) => index === currentIndex);
+        if (resultIndex !== -1) {
+          updatedResults[resultIndex] = {
+            question: jobs.questions[currentIndex].content || jobs.questions[currentIndex].question,
+            answer: answer,
+            correct_answer: correct_answer,
+            isCorrect: isCorrect
+          };
+        }
+        return updatedResults;
+      });
+    } else {
+      setResults(prevResults => [...prevResults, {
+        question: jobs.questions[currentIndex].content || jobs.questions[currentIndex].question,
+        answer: answer,
+        correct_answer: correct_answer,
+        isCorrect: isCorrect
+      }]);
+  
+      if (!isCorrect) {
+        setIncorrectIndices(prevIndices => [...prevIndices, currentIndex]);
+      }
+    }
   };
+  
+  
   
 
   const handleResetStorage = () => {
@@ -66,37 +95,56 @@ function WorkPage() {
     await dispatch(updateUserRating(formData));
   }
   
+  const handleRetake = () => {
+    setRetake(true);
+    setCurrentIndex(incorrectIndices[0]);
+  };
+
   const handleNext = async () => {
     await handleForm();
-
-    localStorage.setItem('currentIndex', currentIndex + 1);
-
-    setCurrentIndex(currentIndex + 1);
-    setIsAnsweredCorrectly(false); 
+  
+    if (retake) {
+      if (incorrectIndices.length > 0) {
+        setCurrentIndex(incorrectIndices[1] ? incorrectIndices[1] : 3);
+        setIncorrectIndices(incorrectIndices.slice(1)); // Remove the first incorrect index
+      } else {
+        setRetake(false); // End the retake flow
+        setCurrentIndex(jobs.questions.length); // Show the results page
+      }
+    } else {
+      if (!retake) {
+        localStorage.setItem('currentIndex', currentIndex + 1);
+      }
+      setCurrentIndex(currentIndex + 1);
+    }
+  
+    setIsAnsweredCorrectly(false);
     setEnabled(false);
-    
-
   };
+  
 
   useEffect(() => {
     const storedQuestions = localStorage.getItem('fetchedQuestions');
     const storedIndex = localStorage.getItem('currentIndex');
     console.log(localStorage.getItem('fetchedQuestions'))
     console.log(localStorage.getItem('currentIndex'))
+    console.log(JSON.parse(localStorage.getItem('profile')).email);
 
-    if (storedQuestions && storedIndex) {
+    if (storedQuestions) {
 
       setJobs(JSON.parse(storedQuestions));
       setCurrentIndex(parseInt(storedIndex));
       setCurrentUser(JSON.parse(localStorage.getItem('profile')));
       setIsLoading(false);
     } else {
-      dispatch(getJob());
+      dispatch(getJob({ user_email: JSON.parse(localStorage.getItem('profile')).email}));
     }
   }, [dispatch]);
   
   useEffect(() => {
     if (getJobResponse.data) {
+
+      console.log("getJobResponse: ", getJobResponse.data);
 
       localStorage.setItem('fetchedQuestions', JSON.stringify(getJobResponse.data));
 
@@ -109,6 +157,7 @@ function WorkPage() {
 
 
   const multiChoice = (jobs) => {
+    console.log(jobs.questions[currentIndex])
     return (
       <MultipleChoiceQuestion
         key={jobs.questions[currentIndex].uuid}
@@ -132,6 +181,7 @@ function WorkPage() {
         diagram={jobs.questions[currentIndex].diagram}
         onAnswerSubmitted={handleAnswerSelection}
         enable={setEnabled}
+        retake={retake}
       />
     );
   }
@@ -146,13 +196,16 @@ function WorkPage() {
 
 
   return (
-    <BasicLayout image={curved8} title={capitalize(jobs.theme).replace(/_/g, " ")}>      
+    <BasicLayout image={curved8} title={capitalize(jobs.theme).replace(/_/g, " ")}>   
+      {console.log("Incorrect indices: ", incorrectIndices)} 
+      {console.log("Current index: ", currentIndex)}
+      {console.log("Retake: ", retake)}
       {!enabled && currentIndex < 2 ? (
         multiChoice(jobs)
       ) : !enabled && currentIndex === 2 ? (
         freeResponse(jobs)
       ) : currentIndex > 2 && (
-        <ResultsComponent onReset={handleResetStorage} results={results}/>
+        <ResultsComponent onReset={handleResetStorage} results={results} onRetake={retake || incorrectIndices.length === 0 ? null : handleRetake}/>
       )}
 
 
@@ -176,7 +229,7 @@ function WorkPage() {
               }
             }}
           >
-            {currentIndex === 2 ? "Terminar Tarea" : "Siguiente Pregunta"}
+            {currentIndex === jobs.questions.length ? "Terminar Tarea" : "Siguiente Pregunta"}
           </SoftButton>
         </div>
       )}

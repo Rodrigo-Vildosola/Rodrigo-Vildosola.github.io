@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
@@ -23,6 +24,7 @@ import RatingList from "layouts/views/components/ratings";
 
 function UsersPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [emailFilter, setEmailFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
@@ -109,9 +111,11 @@ function UsersPage() {
       { Header: "Email", accessor: "email", width: "10%" },
       { Header: "Tipo", accessor: "type", width: "10%"},
       { Header: "Ratings", accessor: "ratings", width: "30%"},
+      { Header: "Detalles", accessor: "details", width: "10%"},
       { Header: "Acciones", accessor: "actions", width: "10%"}
     ];
     const rows = users.map((user) => {
+      console.log(user);
       return {
         name: user.first_name + " " + user.last_name,
         email: user.email,
@@ -139,6 +143,17 @@ function UsersPage() {
         ),
         ratings: (
           <RatingList ratings={user.ratings} />
+        ),
+        details: (
+          <Tooltip title='Ver reporte'>
+            <SoftBadge
+              color='primary'
+              onClick={() => {
+                navigate(`/users/${user.email}`)
+              }}
+              badgeContent={<Icon>visibility</Icon>} // Eye icon
+            />
+          </Tooltip>
         ),
         actions: (
           <SoftBox display='flex' justifyContent='space-between'>

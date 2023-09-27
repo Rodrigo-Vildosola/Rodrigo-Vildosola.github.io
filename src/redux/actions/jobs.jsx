@@ -13,7 +13,7 @@ export const getJob = (data) =>
     return (dispatch) =>
     {
         let outputData = {};
-        Axios.post(url, { params: data })
+        Axios.post(url,  data)
         .then(({ data }) =>
             {   
                 outputData["data"] = data;

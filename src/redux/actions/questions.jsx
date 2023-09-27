@@ -37,7 +37,7 @@ export const updateQuestion = (params) =>
   return (dispatch) =>
   {
     let outputData = {};
-    Axios.put(url, params)
+    Axios.patch(url, params)
       .then((data) =>
       {
         outputData["status"] = data.status;

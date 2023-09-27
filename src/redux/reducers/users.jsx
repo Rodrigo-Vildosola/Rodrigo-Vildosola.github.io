@@ -3,6 +3,7 @@ import { types } from "../actions/types";
 export const usersReducer = (
   state = {
     getUsers: {},
+    getUser: {},
     createUser: {},
     updateUser: {},
     deleteUser: {},
@@ -18,6 +19,16 @@ export const usersReducer = (
       return {
         ...state,
         getUsers: {
+          status: action.payload.status,
+          data: action.payload.data,
+          title: action.payload.title,
+          time: new Date(),
+        },
+      };
+    case types.setGetUser:
+      return {
+        ...state,
+        getUser: {
           status: action.payload.status,
           data: action.payload.data,
           title: action.payload.title,

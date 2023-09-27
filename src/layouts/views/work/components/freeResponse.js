@@ -11,9 +11,10 @@ import SoftTypography from 'components/SoftTypography';
 import SoftButton from 'components/SoftButton';
 import Swal from "sweetalert2";
 
-function FreeResponseQuestion({ question, solution, formula, diagram, onAnswerSubmitted, enable }) {
+function FreeResponseQuestion({ question, solution, formula, diagram, onAnswerSubmitted, enable, retake }) {
   const [userAnswer, setUserAnswer] = useState('');
   const [attempts, setAttempts] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
 
   const [showHint, setShowHint] = useState(false); // New state for showing hint
 
@@ -24,29 +25,13 @@ function FreeResponseQuestion({ question, solution, formula, diagram, onAnswerSu
   console.log("solution: ", solution)
 
   const handleSubmit = () => {
-    setAttempts(attempts + 1); // Increment attempts on each submission
-
     if (userAnswer === solution) {
-      Swal.fire({
-        title: "You answered correctly!!",
-        timer: 2000,
-        timerProgressBar: true,
-        icon: "success",
-      });
-      onAnswerSubmitted(true);
-      enable(true);
+      onAnswerSubmitted(true, userAnswer, solution);
     } else {
-      Swal.fire({
-        title: "Incorrect, please try again.",
-        timer: 2000,
-        timerProgressBar: true,
-        icon: "error",
-      });
-      if (attempts === 1) {
-        onAnswerSubmitted(false);
-        enable(true);
-      }
+      onAnswerSubmitted(false, userAnswer, solution);
     }
+    setSubmitted(true); // Mark the answer as submitted
+    enable(true);
   };
 
   return (
@@ -74,11 +59,11 @@ function FreeResponseQuestion({ question, solution, formula, diagram, onAnswerSu
           onChange={(e) => setUserAnswer(e.target.value)}
         />
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-          {attempts < 2 && ( // Render button only for the first two attempts
+          {!submitted && ( 
             <SoftButton 
               variant="contained" 
               onClick={handleSubmit} 
-              disabled={!userAnswer}
+              disabled={!userAnswer || submitted}
               style={{
                 fontSize: '15px', 
                 padding: '10px 10px', 
@@ -96,7 +81,7 @@ function FreeResponseQuestion({ question, solution, formula, diagram, onAnswerSu
           )}
 
 
-          {attempts === 1 && !showHint && (
+          {retake && !showHint && (
             <SoftButton 
               variant="contained" 
               onClick={handleShowHint} 

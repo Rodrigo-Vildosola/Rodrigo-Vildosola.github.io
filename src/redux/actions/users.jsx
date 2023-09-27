@@ -195,6 +195,31 @@ export const setGetRatingsProgress = (data) => ({
 });
 
 
+export const getUser = (data) => 
+{
+  const url = `${API_URL}/api/users/full/`;
+
+  return (dispatch) =>
+  {
+    let outputData = {};
+    Axios.get(url, { params: data })
+      .then(({ data }) =>
+      {
+        outputData["data"] = data;
+        outputData["status"] = 200;
+        dispatch(setGetUser(outputData));
+      })
+      .catch((err) =>
+      {
+        console.error(err);
+      });
+  };
+}
+
+export const setGetUser = (data) => ({
+  type: types.setGetUser,
+  payload: data,
+});
 
 
 

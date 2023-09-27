@@ -13,6 +13,7 @@ export const types = {
   setCreateUser: "[Users] Set Create User",
   setUpdateUser: "[Users] Set Update User",
   setDeleteUser: "[Users] Set Delete User",
+  setGetUser: "[Users] Set Get User",
 
   setGetRatingsProgress: "[Ratings] Set Get Progress",
 

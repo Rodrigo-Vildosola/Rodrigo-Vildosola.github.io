@@ -50,6 +50,8 @@ import CreditCard from "examples/Icons/CreditCard";
 import Users from "layouts/views/users";
 import Home from "layouts/views/home";
 import Templates from "layouts/views/templates";
+import UserDetail from "layouts/views/users/detail";
+import QuestionsPage from "layouts/views/questions";
 
 import { AiOutlineProject } from "react-icons/ai";
 import { LiaElementor } from "react-icons/lia";
@@ -74,19 +76,31 @@ const routes = [
     noCollapse: true,
     component: <Users />,
     icon: <Office size='12px' />,
+    permissions: ["alumno"],
+  },
+  {
+    key: "userDetail",
+    route: "/users/:email", // Using a dynamic route parameter for user ID
+    component: <UserDetail />,
   },
   {
     type: "collapse",
     name: "Preguntas",
     key: "questions",
     icon: <SettingsIcon size='12px' />,
-    permissions: ["Admin"],
+    permissions: ["alumno"],
     collapse: [
       {
         name: "Desarrollo",
         key: "templates",
         route: "/questions/templates",
         component: <Templates />,
+      },
+      {
+        name: "Alternativas",
+        key: "multichoice",
+        route: "/questions/multichoice",
+        component: <QuestionsPage />,
       },
     ],
   },
