@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/wavelearn_frontend/static/js/main.b6bc7cd9.js",
+    "static/media/home-decor-3.jpg": "/wavelearn_frontend/static/media/home-decor-3.74d13fcbd3c631fc7908.jpg",
+    "static/media/bg-smart-home-1.jpg": "/wavelearn_frontend/static/media/bg-smart-home-1.054a67d003633d858f75.jpg",
+    "static/media/bg-smart-home-2.jpg": "/wavelearn_frontend/static/media/bg-smart-home-2.62753abf84f8efc468da.jpg",
+    "static/media/curved9.jpg": "/wavelearn_frontend/static/media/curved9.ec7010fa864c82f71e26.jpg",
+    "static/media/curved6.jpg": "/wavelearn_frontend/static/media/curved6.a3404381623e4be7c97b.jpg",
+    "static/media/curved8.jpg": "/wavelearn_frontend/static/media/curved8.80b992f8e68f16e9d6e4.jpg",
+    "static/media/curved14.jpg": "/wavelearn_frontend/static/media/curved14.12c9ea54425c4f1bc1d7.jpg",
+    "static/media/white-curved.jpeg": "/wavelearn_frontend/static/media/white-curved.a5b7db662b0b14ab5534.jpeg",
+    "static/media/wavelearn_alt.png": "/wavelearn_frontend/static/media/wavelearn_alt.7545bac728e4a92c7367.png",
+    "static/media/team-2.jpg": "/wavelearn_frontend/static/media/team-2.e725aef8c892cb21f262.jpg",
+    "static/media/logo-spotify.svg": "/wavelearn_frontend/static/media/logo-spotify.e83cf56c9d99a1fdf59e8deb58bbe470.svg",
+    "index.html": "/wavelearn_frontend/index.html",
+    "main.b6bc7cd9.js.map": "/wavelearn_frontend/static/js/main.b6bc7cd9.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.b6bc7cd9.js"
+  ]
+}
